@@ -1,0 +1,654 @@
+.LOGIN-PAGES {
+  background: linear-gradient(
+      0deg,
+      rgba(248, 246, 246, 1) 0%,
+      rgba(248, 246, 246, 1) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 1) 100%
+    );
+  width: 100%;
+  min-width: 1920px;
+  min-height: 1200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.LOGIN-PAGES .header-top {
+  display: flex;
+  flex: 1;
+  max-height: 73px;
+  position: relative;
+  margin-top: -2px;
+  width: 1920px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background-color: #ffffff;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-color: #1179d41a;
+}
+
+.LOGIN-PAGES .LOGO {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .background {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-color: #1179d4;
+  border-radius: 8px;
+}
+
+.LOGIN-PAGES .div-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .text-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Bold", Helvetica;
+  font-weight: 700;
+  color: #0f172a;
+  font-size: 20px;
+  letter-spacing: -0.50px;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .container {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #475569;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .button {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  min-width: 84px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  padding: 0px 20.61px 0px 20.59px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #1179d4;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0px 1px 2px #0000000d;
+}
+
+.LOGIN-PAGES .container-2 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .text-wrapper-2 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .main {
+  display: flex;
+  flex: 1;
+  max-height: 1058px;
+  position: relative;
+  margin-top: 0.4px;
+  width: 1920px;
+  min-height: 1058px;
+  align-items: flex-start;
+}
+
+.LOGIN-PAGES .left-side-login-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  position: relative;
+  flex: 1;
+  align-self: stretch;
+  flex-grow: 1;
+  background-color: #ffffff;
+}
+
+.LOGIN-PAGES .container-3 {
+  display: flex;
+  flex-direction: column;
+  max-width: 440px;
+  width: 440px;
+  align-items: flex-start;
+  gap: 32px;
+  position: relative;
+}
+
+.LOGIN-PAGES .branding-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .div-2 {
+  display: flex;
+  align-self: stretch;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .text-wrapper-3 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Black", Helvetica;
+  font-weight: 900;
+  color: #0f172a;
+  font-size: 36px;
+  letter-spacing: -0.90px;
+  line-height: 40px;
+}
+
+.LOGIN-PAGES .kelola-bisnis-UMKM {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #475569;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+
+.LOGIN-PAGES .form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .container-4 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-top: -1.00px;
+  font-family: "Public Sans-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+}
+
+.LOGIN-PAGES .input {
+  display: flex;
+  flex-direction: column;
+  height: 56px;
+  align-items: flex-start;
+  padding: 17.5px 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #cbd5e1;
+}
+
+.LOGIN-PAGES .container-5 {
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  border: none;
+  background: none;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+}
+
+.LOGIN-PAGES .container-6 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .text-wrapper-4 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #334155;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .text-wrapper-5 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Medium", Helvetica;
+  font-weight: 500;
+  color: #1179d4;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .container-wrapper {
+  display: flex;
+  height: 56px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 17.5px 48px 17.5px 16px;
+  align-self: stretch;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #cbd5e1;
+}
+
+.LOGIN-PAGES .container-7 {
+  position: relative;
+  flex-grow: 1;
+  border: none;
+  background: none;
+  align-self: stretch;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #94a3b8;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: normal;
+  padding: 0;
+}
+
+.LOGIN-PAGES .button-2 {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0px 0px 5px;
+  position: absolute;
+  height: 58.93%;
+  top: 18.75%;
+  right: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.LOGIN-PAGES .icon-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .icon {
+  position: relative;
+  width: 24.02px;
+  height: 28px;
+}
+
+.LOGIN-PAGES .vector {
+  position: absolute;
+  width: 94.52%;
+  height: 77.78%;
+  top: 22.22%;
+  left: 5.48%;
+}
+
+.LOGIN-PAGES .margin {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 0px 0px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .container-8 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .input-2 {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  position: relative;
+  background-color: #ffffff;
+  border: 1px solid;
+  border-color: #cbd5e1;
+}
+
+.LOGIN-PAGES .button-3 {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  height: 56px;
+  padding: 0px 24px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  background-color: #1179d4;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.LOGIN-PAGES .button-shadow {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 56px;
+  background-color: #ffffff01;
+  border-radius: 12px;
+  box-shadow: 0px 4px 6px -4px #1179d433, 0px 10px 15px -3px #1179d433;
+}
+
+.LOGIN-PAGES .text-wrapper-6 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Bold", Helvetica;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .social-logins {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 0px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .horizontal-divider-wrapper {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.LOGIN-PAGES .horizontal-divider {
+  position: relative;
+  flex: 1;
+  flex-grow: 1;
+  height: 1px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #e2e8f0;
+}
+
+.LOGIN-PAGES .background-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .atau-masuk-dengan-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 8px;
+  position: relative;
+  align-self: stretch;
+  flex: 0 0 auto;
+  background-color: #f8f6f6;
+}
+
+.LOGIN-PAGES .atau-masuk-dengan {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #64748b;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .container-9 {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .button-4 {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: 48px;
+  gap: 8px;
+  padding: 0px 67.41px 0px 67.39px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid;
+  border-color: #e2e8f0;
+  align-items: center;
+  justify-content: center;
+}
+
+.LOGIN-PAGES .material-icon-theme {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  aspect-ratio: 1;
+}
+
+.LOGIN-PAGES .text-wrapper-7 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-top: -1.00px;
+  font-family: "Public Sans-SemiBold", Helvetica;
+  font-weight: 600;
+  color: #0f172a;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.LOGIN-PAGES .button-5 {
+  all: unset;
+  box-sizing: border-box;
+  display: inline-flex;
+  height: 48px;
+  gap: 8px;
+  padding: 0px 76.22px;
+  position: relative;
+  flex: 0 0 auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid;
+  border-color: #e2e8f0;
+  align-items: center;
+  justify-content: center;
+}
+
+.LOGIN-PAGES .container-10 {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 2px 0px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.LOGIN-PAGES .vector-wrapper {
+  position: relative;
+  width: 20px;
+  height: 24px;
+}
+
+.LOGIN-PAGES .img {
+  position: absolute;
+  width: 91.67%;
+  height: 81.25%;
+  top: 18.75%;
+  left: 8.33%;
+}
+
+.LOGIN-PAGES .footer-for-mobile {
+  display: flex;
+  flex: 1;
+  max-height: 69px;
+  position: relative;
+  margin-top: 1.6px;
+  flex-direction: column;
+  width: 1920px;
+  align-items: center;
+  padding: 24px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-color: #e2e8f0;
+}
+
+.LOGIN-PAGES .p {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  font-family: "Public Sans-Regular", Helvetica;
+  font-weight: 400;
+  color: #64748b;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 20px;
+  white-space: nowrap;
+}
