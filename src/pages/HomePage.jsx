@@ -3,7 +3,7 @@ import MainNavbar from '../components/landing/MainNavbar.jsx'
 function HomePage() {
   return (
     <main className="min-h-screen bg-white text-gray-900">
-      <MainNavbar />
+      
 
       <section id="home" className="bg-gray-50 px-6 py-20">
         <div className="mx-auto max-w-6xl">
