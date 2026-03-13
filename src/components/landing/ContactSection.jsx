@@ -5,23 +5,52 @@ function ContactSection() {
       className="flex min-h-screen scroll-mt-28 items-center bg-white px-6 py-20"
     >
       <div className="mx-auto w-full max-w-6xl">
-        <div className="max-w-2xl">
-          <p className="mb-3 text-sm font-medium text-blue-600">Kontak</p>
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">Hubungi kami</h2>
-          <p className="mb-8 text-base text-gray-600">
-            Bagian kontak ini nanti bisa diisi formulir, email, atau
-            informasi bisnis lainnya.
-          </p>
-        </div>
+        <div className="overflow-hidden rounded-[2rem] bg-blue-600 px-6 py-10 shadow-[0_32px_80px_-36px_rgba(37,99,235,0.55)] sm:px-10 sm:py-12">
+          <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
+            <div className="max-w-2xl">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-100">
+                Hubungi Kami
+              </p>
+              <h2 className="mt-4 text-3xl font-black leading-tight text-white sm:text-4xl">
+                Siap membantu UMKM tumbuh lebih rapi dan lebih percaya diri.
+              </h2>
+              <p className="mt-5 text-base leading-8 text-blue-50/90 sm:text-lg">
+                Jika kamu ingin melihat demo, berdiskusi soal kebutuhan UMKM, atau
+                menjajaki kolaborasi, tim TUMBUH siap terhubung.
+              </p>
+            </div>
 
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-6">
-          <p className="text-sm text-gray-700">Email: hello@example.com</p>
-          <p className="mt-2 text-sm text-gray-700">Telepon: +62 812-3456-7890</p>
-          <p className="mt-2 text-sm text-gray-700">Alamat: Alamat contoh</p>
+            <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
+              <div className="rounded-2xl bg-white/12 px-5 py-4 backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
+                  Email
+                </p>
+                <p className="mt-2 text-sm font-medium text-white sm:text-base">
+                  halo@tumbuh.id
+                </p>
+              </div>
+              <div className="rounded-2xl bg-white/12 px-5 py-4 backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
+                  Telepon
+                </p>
+                <p className="mt-2 text-sm font-medium text-white sm:text-base">
+                  +62 812-3456-7890
+                </p>
+              </div>
+              <div className="rounded-2xl bg-white/12 px-5 py-4 backdrop-blur">
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-100">
+                  Lokasi
+                </p>
+                <p className="mt-2 text-sm font-medium text-white sm:text-base">
+                  Indonesia
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default ContactSection;
+export default ContactSection
