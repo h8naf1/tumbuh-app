@@ -5,7 +5,7 @@
 @import "@fontsource-variable/geist";
 
 @plugin "daisyui/theme" {
-  name: "saleai";
+  name: "tumbuh";
   default: true;
   prefersdark: false;
   color-scheme: "light";

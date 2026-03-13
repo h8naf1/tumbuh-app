@@ -2,7 +2,7 @@ function DashboardPreviewSection() {
   const metrics = [
     { label: 'Prediksi omzet', value: '+18%', tone: 'from-sky-500 to-blue-600' },
     { label: 'Percakapan aktif', value: '124', tone: 'from-cyan-400 to-sky-500' },
-    { label: 'Respon AI', value: '< 3 dtk', tone: 'from-blue-500 to-indigo-600' },
+    { label: 'Produk terjual', value: '312', tone: 'from-blue-500 to-indigo-600' },
   ]
 
   return (
@@ -16,11 +16,11 @@ function DashboardPreviewSection() {
             Preview Dashboard
           </p>
           <h2 className="mt-4 text-3xl font-black leading-tight text-slate-900 sm:text-4xl">
-            Lihat ringkasan usaha Anda dalam satu tampilan.
+            Lihat kondisi usaha dalam satu tampilan yang mudah dipahami.
           </h2>
           <p className="mt-5 text-base leading-8 text-slate-600 sm:text-lg">
-            Bagian ini membantu pemilik UMKM memantau penjualan, percakapan, dan
-            rekomendasi AI tanpa perlu membuka banyak halaman.
+            Dashboard TUMBUH membantu pemilik UMKM membaca penjualan, aktivitas
+            pelanggan, dan rekomendasi penting tanpa perlu membuka banyak halaman.
           </p>
         </div>
 
@@ -66,7 +66,8 @@ function DashboardPreviewSection() {
                   Rekomendasi AI
                 </p>
                 <p className="mt-2 text-sm leading-7 text-sky-50">
-                  Fokuskan promo ke pelanggan yang sudah chat dalam 7 hari terakhir.
+                  Penjualan camilan meningkat di sore hari. Coba tambah stok produk
+                  favorit sebelum jam ramai dimulai.
                 </p>
               </div>
             </div>

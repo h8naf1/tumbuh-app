@@ -6,7 +6,7 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div data-theme="saleai">
+    <div data-theme="tumbuh">
       <BrowserRouter>
         <App />
       </BrowserRouter>

@@ -26,25 +26,37 @@ function MainNavbar() {
       .map((item) => document.querySelector(item.href))
       .filter(Boolean)
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+    const updateActiveSection = () => {
+      const focusLine = window.innerHeight * 0.38
 
-        if (visibleEntry?.target?.id) {
-          setActiveSection(visibleEntry.target.id)
-        }
-      },
-      {
-        rootMargin: '-18% 0px -52% 0px',
-        threshold: [0.35, 0.5, 0.65, 0.8],
-      },
-    )
+      const currentSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect()
 
-    sections.forEach((section) => observer.observe(section))
+        return rect.top <= focusLine && rect.bottom > focusLine
+      })
 
-    return () => observer.disconnect()
+      if (currentSection?.id) {
+        setActiveSection(currentSection.id)
+        return
+      }
+
+      const nearestSection = [...sections]
+        .reverse()
+        .find((section) => section.getBoundingClientRect().top <= focusLine)
+
+      if (nearestSection?.id) {
+        setActiveSection(nearestSection.id)
+      }
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('resize', updateActiveSection)
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('resize', updateActiveSection)
+    }
   }, [])
 
   useEffect(() => {
@@ -86,7 +98,7 @@ function MainNavbar() {
               <div>
                 <p className="text-sm font-bold tracking-[0.2em] text-slate-900">TUMBUH</p>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-                  Asisten Penjualan AI UMKM
+                  Asisten Penjualan AI Untuk UMKM
                 </p>
               </div>
             </a>

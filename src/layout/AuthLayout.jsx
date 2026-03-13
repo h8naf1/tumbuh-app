@@ -26,7 +26,7 @@ function AuthLayout({ children }) {
 
             <div>
               <p className="text-lg font-bold tracking-tight text-slate-900">TUMBUH</p>
-              <p className="text-sm text-slate-500">Platform cerdas untuk UMKM</p>
+              <p className="text-sm text-slate-500">Asisten penjualan AI untuk UMKM</p>
             </div>
           </div>
 
