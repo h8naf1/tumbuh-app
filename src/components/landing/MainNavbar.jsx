@@ -80,30 +80,30 @@ function MainNavbar() {
             y: isScrolled ? 0 : 6,
             scale: isScrolled ? 0.985 : 1,
             boxShadow: isScrolled
-              ? '0 22px 60px -32px rgba(15, 23, 42, 0.35)'
-              : '0 10px 30px -24px rgba(15, 23, 42, 0.08)',
+              ? '0 24px 64px -34px rgba(2, 6, 23, 0.72)'
+              : '0 10px 30px -24px rgba(2, 6, 23, 0.28)',
           }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
-          className="mx-auto max-w-6xl rounded-2xl border border-slate-200/80 bg-white/88 backdrop-blur"
+          className="mx-auto max-w-6xl rounded-2xl border border-slate-800/80 bg-slate-950/84 backdrop-blur"
         >
           <div className="flex items-center justify-between gap-4 px-5 py-3 sm:px-6">
             <a href="#home" className="flex items-center gap-3">
               <motion.div
                 animate={{ rotate: isScrolled ? 6 : 0, scale: isScrolled ? 0.94 : 1 }}
                 transition={{ duration: 0.3 }}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#0f172a_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_12px_24px_-14px_rgba(37,99,235,0.7)]"
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1e293b_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_12px_24px_-14px_rgba(37,99,235,0.8)]"
               >
                 T
               </motion.div>
               <div>
-                <p className="text-sm font-bold tracking-[0.2em] text-slate-900">TUMBUH</p>
+                <p className="text-sm font-bold tracking-[0.2em] text-white">TUMBUH</p>
                 <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
                   Asisten Penjualan AI Untuk UMKM
                 </p>
               </div>
             </a>
 
-            <div className="hidden items-center gap-1 md:flex">
+            <div className="hidden items-center gap-1 min-[1066px]:flex">
               {navItems.map((item) => {
                 const itemId = item.href.replace('#', '')
                 const isActive = activeSection === itemId
@@ -113,13 +113,13 @@ function MainNavbar() {
                     key={item.href}
                     href={item.href}
                     className={`relative rounded-full px-4 py-2 text-sm font-medium transition ${
-                      isActive ? 'text-slate-950' : 'text-slate-500 hover:text-slate-900'
+                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="navbar-active-pill"
-                        className="absolute inset-0 -z-10 rounded-full bg-slate-100"
+                        className="absolute inset-0 -z-10 rounded-full bg-white/8"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -129,17 +129,17 @@ function MainNavbar() {
               })}
             </div>
 
-            <div className="hidden items-center gap-3 md:flex">
+            <div className="hidden items-center gap-3 min-[1066px]:flex">
               <Link
                 to="/login"
-                className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/6 hover:text-white"
               >
                 Masuk
               </Link>
               <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
                 <Link
                   to="/register"
-                  className="rounded-lg bg-blue-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-18px_rgba(37,99,235,0.95)]"
+                  className="whitespace-nowrap rounded-lg bg-blue-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-18px_rgba(37,99,235,0.95)]"
                 >
                   Mulai Gratis
                 </Link>
@@ -149,7 +149,7 @@ function MainNavbar() {
             <button
               type="button"
               onClick={() => setIsMobileOpen((value) => !value)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 text-slate-200 min-[1066px]:hidden"
               aria-label="Toggle navigation"
             >
               <span className="relative h-4 w-5">
@@ -179,7 +179,7 @@ function MainNavbar() {
               opacity: isMobileOpen ? 1 : 0,
             }}
             transition={{ duration: 0.24, ease: 'easeOut' }}
-            className="overflow-hidden border-t border-slate-100 md:hidden"
+            className="overflow-hidden border-t border-slate-800 min-[1066px]:hidden"
           >
             <div className="space-y-1 px-5 py-4">
               {navItems.map((item) => {
@@ -193,8 +193,8 @@ function MainNavbar() {
                     onClick={() => setIsMobileOpen(false)}
                     className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${
                       isActive
-                        ? 'bg-slate-900 text-white'
-                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                        ? 'bg-blue-600 text-white'
+                        : 'text-slate-300 hover:bg-white/6 hover:text-white'
                     }`}
                   >
                     {item.label}
@@ -204,7 +204,7 @@ function MainNavbar() {
               <Link
                 to="/login"
                 onClick={() => setIsMobileOpen(false)}
-                className="mt-3 block rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
+                className="mt-3 block rounded-xl border border-slate-800 px-4 py-3 text-center text-sm font-semibold text-slate-200"
               >
                 Masuk
               </Link>

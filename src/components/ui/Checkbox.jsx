@@ -3,7 +3,7 @@ import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 function Checkbox({ className = '', ...props }) {
   return (
     <CheckboxPrimitive.Root
-      className={`flex h-4 w-4 items-center justify-center rounded border border-slate-300 bg-white text-blue-600 shadow-sm outline-none transition focus:ring-4 focus:ring-blue-100 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white ${className}`.trim()}
+      className={`flex h-4 w-4 items-center justify-center rounded border border-slate-700 bg-slate-950 text-blue-400 shadow-sm outline-none transition focus:ring-4 focus:ring-blue-500/20 data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white ${className}`.trim()}
       {...props}
     >
       <CheckboxPrimitive.Indicator>

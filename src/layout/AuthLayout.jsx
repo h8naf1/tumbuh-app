@@ -5,8 +5,8 @@ function AuthLayout({ children }) {
   const { pathname } = useLocation()
   const isRegisterPage = pathname === '/register'
   const outerPageClassName =
-    'min-h-screen bg-[radial-gradient(circle_at_top,_#e0f2fe_0%,_#eff6ff_28%,_#f8fafc_62%,_#f8fafc_100%)]'
-  const headerClassName = 'border-b border-slate-200/80 bg-white/75 backdrop-blur-xl'
+    'min-h-screen bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.24)_0%,_rgba(15,23,42,0.96)_28%,_#020617_68%,_#020617_100%)]'
+  const headerClassName = 'border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl'
   const headerContainerClassName =
     'mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8'
   const pageContentClassName =
@@ -25,16 +25,16 @@ function AuthLayout({ children }) {
             </div>
 
             <div>
-              <p className="text-lg font-bold tracking-tight text-slate-900">TUMBUH</p>
-              <p className="text-sm text-slate-500">Asisten penjualan AI untuk UMKM</p>
+              <p className="text-lg font-bold tracking-tight text-white">TUMBUH</p>
+              <p className="text-sm text-slate-400">Asisten penjualan AI untuk UMKM</p>
             </div>
           </div>
 
-          <div className="hidden items-center gap-3 text-sm text-slate-600 sm:flex">
+          <div className="hidden items-center gap-3 text-sm text-slate-400 sm:flex">
             <span>{authPromptText}</span>
             <Link
               to={authLinkHref}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 transition hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-900"
+              className="rounded-2xl border border-slate-800 bg-slate-900/70 px-4 py-2 font-semibold text-slate-100 transition hover:border-blue-500/50 hover:bg-slate-800 hover:text-white"
             >
               {authLinkLabel}
             </Link>
