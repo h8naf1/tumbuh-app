@@ -36,10 +36,12 @@ function RegisterPage() {
 
   const passwordInputType = isPasswordVisible ? 'text' : 'password'
   const confirmPasswordInputType = isConfirmPasswordVisible ? 'text' : 'password'
-  const passwordToggleLabel = isPasswordVisible ? 'Sembunyikan password' : 'Tampilkan password'
+  const passwordToggleLabel = isPasswordVisible
+    ? 'Sembunyikan kata sandi'
+    : 'Tampilkan kata sandi'
   const confirmPasswordToggleLabel = isConfirmPasswordVisible
-    ? 'Sembunyikan konfirmasi password'
-    : 'Tampilkan konfirmasi password'
+    ? 'Sembunyikan konfirmasi kata sandi'
+    : 'Tampilkan konfirmasi kata sandi'
 
   function handlePasswordVisibilityButtonClick() {
     setIsPasswordVisible(!isPasswordVisible)
@@ -74,7 +76,7 @@ function RegisterPage() {
             Daftar
           </p>
           <h2 className="text-3xl font-black tracking-tight text-slate-900">
-            Buat Akun SaleAI
+            Buat Akun TUMBUH
           </h2>
           <p className="text-sm leading-6 text-slate-500 sm:text-base">
             Mulai kelola penjualan, analitik bisnis, dan insight AI untuk UMKM Anda
@@ -130,13 +132,13 @@ function RegisterPage() {
                 htmlFor="register-password"
                 className="block text-sm font-semibold text-slate-700"
               >
-                Password
+                Kata sandi
               </label>
               <div className="relative">
                 <Input
                   id="register-password"
                   type={passwordInputType}
-                  placeholder="Buat password"
+                  placeholder="Buat kata sandi"
                   autoComplete="new-password"
                   className="pr-12"
                   aria-invalid={errors.password ? 'true' : 'false'}
@@ -168,13 +170,13 @@ function RegisterPage() {
                 htmlFor="register-confirm-password"
                 className="block text-sm font-semibold text-slate-700"
               >
-                Konfirmasi password
+                Konfirmasi kata sandi
               </label>
               <div className="relative">
                 <Input
                   id="register-confirm-password"
                   type={confirmPasswordInputType}
-                  placeholder="Ulangi password"
+                  placeholder="Ulangi kata sandi"
                   autoComplete="new-password"
                   className="pr-12"
                   aria-invalid={errors.confirmPassword ? 'true' : 'false'}
@@ -194,7 +196,7 @@ function RegisterPage() {
                 </button>
               </div>
               <p className="text-sm text-slate-500">
-                Pastikan konfirmasi password sama dengan password di atas.
+                Pastikan konfirmasi kata sandi sama dengan kata sandi di atas.
               </p>
               {errors.confirmPassword && (
                 <p className="text-sm text-red-600">{errors.confirmPassword.message}</p>
@@ -217,7 +219,7 @@ function RegisterPage() {
               />
               <span>
                 Saya menyetujui syarat dan ketentuan serta kebijakan privasi untuk
-                menggunakan SaleAI.
+                menggunakan TUMBUH.
               </span>
             </label>
             {errors.termsAccepted && (

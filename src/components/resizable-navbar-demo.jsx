@@ -15,15 +15,15 @@ import { useState } from "react";
 export default function NavbarDemo() {
   const navItems = [
     {
-      name: "Features",
+      name: "Fitur",
       link: "#features",
     },
     {
-      name: "Pricing",
+      name: "Harga",
       link: "#pricing",
     },
     {
-      name: "Contact",
+      name: "Kontak",
       link: "#contact",
     },
   ];
@@ -38,8 +38,8 @@ export default function NavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Login</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <NavbarButton variant="secondary">Masuk</NavbarButton>
+            <NavbarButton variant="primary">Jadwalkan Demo</NavbarButton>
           </div>
         </NavBody>
 
@@ -67,13 +67,13 @@ export default function NavbarDemo() {
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
                 className="w-full">
-                Login
+                Masuk
               </NavbarButton>
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
                 className="w-full">
-                Book a call
+                Jadwalkan Demo
               </NavbarButton>
             </div>
           </MobileNavMenu>
@@ -89,82 +89,82 @@ const DummyContent = () => {
   return (
     <div className="container mx-auto p-8 pt-24">
       <h1 className="mb-4 text-center text-3xl font-bold">
-        Check the navbar at the top of the container
+        Lihat navbar di bagian atas container
       </h1>
       <p className="mb-10 text-center text-sm text-zinc-500">
-        For demo purpose we have kept the position as{" "}
-        <span className="font-medium">Sticky</span>. Keep in mind that this
-        component is <span className="font-medium">fixed</span> and will not
-        move when scrolling.
+        Untuk kebutuhan demo, posisinya dibuat{" "}
+        <span className="font-medium">sticky</span>. Perlu diingat bahwa
+        komponen ini bisa dibuat <span className="font-medium">fixed</span> dan
+        tidak akan bergerak saat halaman di-scroll.
       </p>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
         {[
           {
             id: 1,
-            title: "The",
+            title: "Contoh",
             width: "md:col-span-1",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 2,
-            title: "First",
+            title: "Kartu",
             width: "md:col-span-2",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 3,
-            title: "Rule",
+            title: "Demo",
             width: "md:col-span-1",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 4,
-            title: "Of",
+            title: "Untuk",
             width: "md:col-span-3",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 5,
-            title: "F",
+            title: "Tampilan",
             width: "md:col-span-1",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 6,
-            title: "Club",
+            title: "Navbar",
             width: "md:col-span-2",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 7,
-            title: "Is",
+            title: "Yang",
             width: "md:col-span-2",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 8,
-            title: "You",
+            title: "Lebih",
             width: "md:col-span-1",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 9,
-            title: "Do NOT TALK about",
+            title: "Mudah Dipahami",
             width: "md:col-span-2",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",
           },
           {
             id: 10,
-            title: "F Club",
+            title: "Pengguna",
             width: "md:col-span-1",
             height: "h-60",
             bg: "bg-neutral-100 dark:bg-neutral-800",

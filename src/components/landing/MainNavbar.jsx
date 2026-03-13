@@ -1,12 +1,13 @@
 import { motion, useScroll, useSpring } from 'motion/react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Features', href: '#features' },
-  { label: 'Dashboard', href: '#dashboard' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Beranda', href: '#home' },
+  { label: 'Tentang', href: '#about' },
+  { label: 'Fitur', href: '#features' },
+  { label: 'Preview', href: '#dashboard' },
+  { label: 'Kontak', href: '#contact' },
 ]
 
 function MainNavbar() {
@@ -36,8 +37,8 @@ function MainNavbar() {
         }
       },
       {
-        rootMargin: '-35% 0px -45% 0px',
-        threshold: [0.2, 0.35, 0.5, 0.7],
+        rootMargin: '-18% 0px -52% 0px',
+        threshold: [0.35, 0.5, 0.65, 0.8],
       },
     )
 
@@ -78,11 +79,15 @@ function MainNavbar() {
               <motion.div
                 animate={{ rotate: isScrolled ? 6 : 0, scale: isScrolled ? 0.94 : 1 }}
                 transition={{ duration: 0.3 }}
-                className="h-8 w-8 rounded-lg bg-[linear-gradient(135deg,#0f172a_0%,#2563eb_100%)] shadow-[0_12px_24px_-14px_rgba(37,99,235,0.7)]"
-              />
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#0f172a_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_12px_24px_-14px_rgba(37,99,235,0.7)]"
+              >
+                T
+              </motion.div>
               <div>
-                <p className="text-sm font-bold tracking-[0.2em] text-slate-900">SALEAI</p>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">UMKM OS</p>
+                <p className="text-sm font-bold tracking-[0.2em] text-slate-900">TUMBUH</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                  Asisten Penjualan AI UMKM
+                </p>
               </div>
             </a>
 
@@ -113,14 +118,20 @@ function MainNavbar() {
             </div>
 
             <div className="hidden items-center gap-3 md:flex">
-              <motion.a
-                href="#contact"
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                className="rounded-lg bg-blue-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_32px_-18px_rgba(37,99,235,0.95)]"
+              <Link
+                to="/login"
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-900"
               >
-                Login
-              </motion.a>
+                Masuk
+              </Link>
+              <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  to="/register"
+                  className="rounded-lg bg-blue-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-18px_rgba(37,99,235,0.95)]"
+                >
+                  Mulai Gratis
+                </Link>
+              </motion.div>
             </div>
 
             <button
@@ -178,13 +189,20 @@ function MainNavbar() {
                   </a>
                 )
               })}
-              <a
-                href="#contact"
+              <Link
+                to="/login"
+                onClick={() => setIsMobileOpen(false)}
+                className="mt-3 block rounded-xl border border-slate-200 px-4 py-3 text-center text-sm font-semibold text-slate-700"
+              >
+                Masuk
+              </Link>
+              <Link
+                to="/register"
                 onClick={() => setIsMobileOpen(false)}
                 className="mt-3 block rounded-xl bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white"
               >
-                Login
-              </a>
+                Mulai Gratis
+              </Link>
             </div>
           </motion.div>
         </motion.nav>

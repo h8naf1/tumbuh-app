@@ -5,8 +5,8 @@ function AuthLayout({ children }) {
   const { pathname } = useLocation()
   const isRegisterPage = pathname === '/register'
   const outerPageClassName =
-    'min-h-screen bg-[radial-gradient(circle_at_top,#dbeafe_0%,#eff6ff_32%,#f8fafc_65%,#f8fafc_100%)]'
-  const headerClassName = 'border-b border-white/60 bg-white/70 backdrop-blur-xl'
+    'min-h-screen bg-[radial-gradient(circle_at_top,_#e0f2fe_0%,_#eff6ff_28%,_#f8fafc_62%,_#f8fafc_100%)]'
+  const headerClassName = 'border-b border-slate-200/80 bg-white/75 backdrop-blur-xl'
   const headerContainerClassName =
     'mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8'
   const pageContentClassName =
@@ -20,12 +20,12 @@ function AuthLayout({ children }) {
       <header className={headerClassName}>
         <div className={headerContainerClassName}>
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-950 text-sm font-bold text-white shadow-lg shadow-slate-300/60">
-              SA
+            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-200/70">
+              TU
             </div>
 
             <div>
-              <p className="text-lg font-bold tracking-tight text-slate-900">SaleAI</p>
+              <p className="text-lg font-bold tracking-tight text-slate-900">TUMBUH</p>
               <p className="text-sm text-slate-500">Platform cerdas untuk UMKM</p>
             </div>
           </div>
@@ -34,7 +34,7 @@ function AuthLayout({ children }) {
             <span>{authPromptText}</span>
             <Link
               to={authLinkHref}
-              className="rounded-2xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+              className="rounded-2xl border border-slate-200 bg-white px-4 py-2 font-semibold text-slate-700 transition hover:border-cyan-300 hover:bg-cyan-50 hover:text-slate-900"
             >
               {authLinkLabel}
             </Link>
@@ -45,8 +45,7 @@ function AuthLayout({ children }) {
       <main className={pageContentClassName}>
         <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12">
           <section className="hidden lg:block">
-            <div className="relative flex min-h-[640px] items-center justify-center overflow-hidden   ">
-              
+            <div className="relative flex min-h-[640px] items-center justify-center overflow-hidden">
               <div className="relative opacity-90">
                 <AuthGlobe />
               </div>

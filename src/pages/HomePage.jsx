@@ -1,5 +1,6 @@
 import AboutSection from '../components/landing/AboutSection.jsx'
 import ContactSection from '../components/landing/ContactSection.jsx'
+import DashboardPreviewSection from '../components/landing/DashboardPreviewSection.jsx'
 import FeaturesSection from '../components/landing/FeaturesSection.jsx'
 import HomeSection from '../components/landing/HomeSection.jsx'
 import MainNavbar from '../components/landing/MainNavbar.jsx'
@@ -11,6 +12,7 @@ function HomePage() {
       <HomeSection />
       <AboutSection />
       <FeaturesSection />
+      <DashboardPreviewSection />
       <ContactSection />
     </main>
   )
