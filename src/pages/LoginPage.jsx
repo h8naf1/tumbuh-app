@@ -37,7 +37,9 @@ function LoginPage() {
 
   // Variabel bantu untuk input password
   const passwordInputType = isPasswordVisible ? 'text' : 'password'
-  const passwordToggleLabel = isPasswordVisible ? 'Sembunyikan password' : 'Tampilkan password'
+  const passwordToggleLabel = isPasswordVisible
+    ? 'Sembunyikan kata sandi'
+    : 'Tampilkan kata sandi'
 
   // Function untuk show/hide password
   function handlePasswordVisibilityButtonClick() {
@@ -108,14 +110,14 @@ function LoginPage() {
                 htmlFor="login-password"
                 className="block text-sm font-semibold text-slate-700"
               >
-                Password
+                Kata sandi
               </label>
 
               <Link
                 to="/forgot-password"
                 className="text-sm font-medium text-blue-600 hover:text-blue-700"
               >
-                Lupa password?
+                Lupa kata sandi?
               </Link>
             </div>
 
@@ -123,7 +125,7 @@ function LoginPage() {
               <Input
                 id="login-password"
                 type={passwordInputType}
-                placeholder="Masukkan password"
+                placeholder="Masukkan kata sandi"
                 autoComplete="current-password"
                 className="pr-12"
                 aria-invalid={errors.password ? 'true' : 'false'}

@@ -4,9 +4,9 @@ const loginSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(1, 'Email dan password wajib diisi sebelum masuk.')
+    .min(1, 'Email dan kata sandi wajib diisi sebelum masuk.')
     .email('Email harus menggunakan format yang benar, misalnya nama@email.com.'),
-  password: z.string().trim().min(1, 'Email dan password wajib diisi sebelum masuk.'),
+  password: z.string().trim().min(1, 'Email dan kata sandi wajib diisi sebelum masuk.'),
   rememberMe: z.boolean(),
 })
 
