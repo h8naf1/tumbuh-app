@@ -1,8 +1,9 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import DarkVeil from "../DarkVeil";
 
 function HomeSection() {
+  const [isMobileView, setIsMobileView] = useState(false);
   // Ref untuk animasi tiap area hero
   const sectionRef = useRef(null);
   const eyebrowRef = useRef(null);
@@ -11,9 +12,66 @@ function HomeSection() {
   const ctaGroupRef = useRef(null);
   const previewRef = useRef(null);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px), (pointer: coarse)");
+    const updateIsMobileView = () => setIsMobileView(mediaQuery.matches);
+
+    updateIsMobileView();
+    mediaQuery.addEventListener("change", updateIsMobileView);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateIsMobileView);
+    };
+  }, []);
 
   // Animasi masuk awal untuk elemen hero
   useLayoutEffect(() => {
+    if (isMobileView) {
+      const ctx = gsap.context(() => {
+        gsap.set(
+          [
+            eyebrowRef.current,
+            headingRef.current,
+            descriptionRef.current,
+            ctaGroupRef.current,
+            previewRef.current,
+          ],
+          {
+            autoAlpha: 0,
+            y: 16,
+          },
+        );
+
+        gsap.set(previewRef.current, {
+          scale: 0.98,
+        });
+
+        const tl = gsap.timeline({
+          defaults: {
+            duration: 0.45,
+            ease: "power2.out",
+          },
+        });
+
+        tl.to(eyebrowRef.current, { autoAlpha: 1, y: 0, duration: 0.32 })
+          .to(headingRef.current, { autoAlpha: 1, y: 0, duration: 0.42 }, "-=0.12")
+          .to(descriptionRef.current, { autoAlpha: 1, y: 0, duration: 0.38 }, "-=0.24")
+          .to(ctaGroupRef.current, { autoAlpha: 1, y: 0, duration: 0.36 }, "-=0.18")
+          .to(
+            previewRef.current,
+            {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.42,
+            },
+            "-=0.22",
+          );
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }
+
     const ctx = gsap.context(() => {
       // State awal elemen utama
       gsap.set(
@@ -59,7 +117,7 @@ function HomeSection() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobileView]);
 
   return (
     <section
@@ -68,15 +126,19 @@ function HomeSection() {
       className="relative flex min-h-screen scroll-mt-28 items-center overflow-hidden bg-slate-950 px-6 pb-16 pt-32 sm:pt-36"
     >
       <div className="absolute inset-0 z-0">
-        <DarkVeil
-          hueShift={30}
-          noiseIntensity={0}
-          scanlineIntensity={0}
-          speed={0.5}
-          scanlineFrequency={0}
-          warpAmount={0}
-          resolutionScale={1}
-        />
+        {isMobileView ? (
+          <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.2),rgba(2,6,23,0.96)_62%)]" />
+        ) : (
+          <DarkVeil
+            hueShift={30}
+            noiseIntensity={0}
+            scanlineIntensity={0}
+            speed={0.5}
+            scanlineFrequency={0}
+            warpAmount={0}
+            resolutionScale={1}
+          />
+        )}
       </div>
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1fr_0.95fr]">

@@ -1,5 +1,5 @@
 import { motion, useScroll, useSpring } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const navItems = [
@@ -14,12 +14,29 @@ function MainNavbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isMobileView, setIsMobileView] = useState(false)
   const { scrollY, scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, {
     stiffness: 140,
     damping: 22,
     mass: 0.2,
   })
+  const progressScale = isMobileView ? scrollYProgress : progress
+  const activeSectionRef = useRef('home')
+  const isProgrammaticScrollRef = useRef(false)
+  const scrollUnlockTimeoutRef = useRef(null)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px), (pointer: coarse)')
+    const updateIsMobileView = () => setIsMobileView(mediaQuery.matches)
+
+    updateIsMobileView()
+    mediaQuery.addEventListener('change', updateIsMobileView)
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateIsMobileView)
+    }
+  }, [])
 
   useEffect(() => {
     const sections = navItems
@@ -27,6 +44,10 @@ function MainNavbar() {
       .filter(Boolean)
 
     const updateActiveSection = () => {
+      if (isProgrammaticScrollRef.current) {
+        return
+      }
+
       const focusLine = window.innerHeight * 0.38
 
       const currentSection = sections.find((section) => {
@@ -36,7 +57,10 @@ function MainNavbar() {
       })
 
       if (currentSection?.id) {
-        setActiveSection(currentSection.id)
+        if (currentSection.id !== activeSectionRef.current) {
+          activeSectionRef.current = currentSection.id
+          setActiveSection(currentSection.id)
+        }
         return
       }
 
@@ -44,34 +68,102 @@ function MainNavbar() {
         .reverse()
         .find((section) => section.getBoundingClientRect().top <= focusLine)
 
-      if (nearestSection?.id) {
+      if (nearestSection?.id && nearestSection.id !== activeSectionRef.current) {
+        activeSectionRef.current = nearestSection.id
         setActiveSection(nearestSection.id)
       }
     }
 
+    let frame = 0
+    const handleScroll = () => {
+      if (frame) {
+        return
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        updateActiveSection()
+      })
+    }
+
     updateActiveSection()
-    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: true })
     window.addEventListener('resize', updateActiveSection)
 
     return () => {
-      window.removeEventListener('scroll', updateActiveSection)
+      if (frame) {
+        window.cancelAnimationFrame(frame)
+      }
+
+      window.removeEventListener('scroll', handleScroll)
       window.removeEventListener('resize', updateActiveSection)
     }
   }, [])
 
   useEffect(() => {
     const unsubscribe = scrollY.on('change', (value) => {
-      setIsScrolled(value > 18)
+      const nextIsScrolled = value > 18
+
+      setIsScrolled((currentValue) =>
+        currentValue === nextIsScrolled ? currentValue : nextIsScrolled,
+      )
     })
 
     return () => unsubscribe()
   }, [scrollY])
 
+  useEffect(() => {
+    return () => {
+      if (scrollUnlockTimeoutRef.current) {
+        window.clearTimeout(scrollUnlockTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleNavClick = (event, href) => {
+    setIsMobileOpen(false)
+
+    if (!isMobileView || !href.startsWith('#')) {
+      return
+    }
+
+    const target = document.querySelector(href)
+
+    if (!target) {
+      return
+    }
+
+    event.preventDefault()
+
+    const targetId = href.replace('#', '')
+    activeSectionRef.current = targetId
+    setActiveSection(targetId)
+    isProgrammaticScrollRef.current = true
+
+    if (scrollUnlockTimeoutRef.current) {
+      window.clearTimeout(scrollUnlockTimeoutRef.current)
+    }
+
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'auto',
+    })
+    window.history.replaceState(null, '', href)
+
+    scrollUnlockTimeoutRef.current = window.setTimeout(() => {
+      isProgrammaticScrollRef.current = false
+    }, 120)
+  }
+
   return (
     <>
       <motion.div
         className="fixed inset-x-0 top-0 z-50 origin-left bg-blue-600"
-        style={{ scaleX: progress, height: 3 }}
+        style={{
+          scaleX: progressScale,
+          height: isMobileView ? 2 : 3,
+          opacity: isMobileView ? 0.9 : 1,
+        }}
       />
 
       <div className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:px-6">
@@ -112,6 +204,7 @@ function MainNavbar() {
                   <a
                     key={item.href}
                     href={item.href}
+                    onClick={(event) => handleNavClick(event, item.href)}
                     className={`relative rounded-full px-4 py-2 text-sm font-medium transition ${
                       isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
@@ -190,7 +283,7 @@ function MainNavbar() {
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setIsMobileOpen(false)}
+                    onClick={(event) => handleNavClick(event, item.href)}
                     className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${
                       isActive
                         ? 'bg-blue-600 text-white'
