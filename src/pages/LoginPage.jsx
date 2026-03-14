@@ -37,7 +37,9 @@ function LoginPage() {
 
   // Variabel bantu untuk input password
   const passwordInputType = isPasswordVisible ? 'text' : 'password'
-  const passwordToggleLabel = isPasswordVisible ? 'Sembunyikan password' : 'Tampilkan password'
+  const passwordToggleLabel = isPasswordVisible
+    ? 'Sembunyikan kata sandi'
+    : 'Tampilkan kata sandi'
 
   // Function untuk show/hide password
   function handlePasswordVisibilityButtonClick() {
@@ -66,16 +68,16 @@ function LoginPage() {
       <FormToast message={toastMessage} />
 
       {/* Card utama halaman login */}
-      <div className="w-full rounded-[2rem] border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 sm:p-8">
+      <div className="w-full rounded-[2rem] border border-slate-800 bg-slate-900/88 p-6 shadow-2xl shadow-black/30 backdrop-blur sm:p-8">
         {/* Tampilan header halaman login */}
         <div className="space-y-2">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
             Masuk
           </p>
-          <h2 className="text-3xl font-black tracking-tight text-slate-900">
+          <h2 className="text-3xl font-black tracking-tight text-white">
             Masuk ke Akun Anda
           </h2>
-          <p className="text-sm leading-6 text-slate-500 sm:text-base">
+          <p className="text-sm leading-6 text-slate-400 sm:text-base">
             Kelola bisnis UMKM Anda dengan lebih cerdas menggunakan AI.
           </p>
         </div>
@@ -87,7 +89,7 @@ function LoginPage() {
           className="mt-8 space-y-5"
         >
           <div className="space-y-2">
-            <label htmlFor="login-email" className="block text-sm font-semibold text-slate-700">
+            <label htmlFor="login-email" className="block text-sm font-semibold text-slate-200">
               Email
             </label>
             <Input
@@ -98,7 +100,7 @@ function LoginPage() {
               aria-invalid={errors.email ? 'true' : 'false'}
               {...register('email')}
             />
-            {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
+            {errors.email && <p className="text-sm text-red-400">{errors.email.message}</p>}
           </div>
 
           {/* Bagian input password */}
@@ -106,16 +108,16 @@ function LoginPage() {
             <div className="flex items-center justify-between gap-4">
               <label
                 htmlFor="login-password"
-                className="block text-sm font-semibold text-slate-700"
+                className="block text-sm font-semibold text-slate-200"
               >
-                Password
+                Kata sandi
               </label>
 
               <Link
                 to="/forgot-password"
-                className="text-sm font-medium text-blue-600 hover:text-blue-700"
+                className="text-sm font-medium text-blue-400 hover:text-blue-300"
               >
-                Lupa password?
+                Lupa kata sandi?
               </Link>
             </div>
 
@@ -123,7 +125,7 @@ function LoginPage() {
               <Input
                 id="login-password"
                 type={passwordInputType}
-                placeholder="Masukkan password"
+                placeholder="Masukkan kata sandi"
                 autoComplete="current-password"
                 className="pr-12"
                 aria-invalid={errors.password ? 'true' : 'false'}
@@ -132,7 +134,7 @@ function LoginPage() {
               <button
                 type="button"
                 onClick={handlePasswordVisibilityButtonClick}
-                className="absolute inset-y-0 right-3 inline-flex h-full items-center justify-center text-slate-500 transition hover:text-slate-700"
+                className="absolute inset-y-0 right-3 inline-flex h-full items-center justify-center text-slate-500 transition hover:text-slate-200"
                 aria-label={passwordToggleLabel}
               >
                 {isPasswordVisible ? (
@@ -143,13 +145,13 @@ function LoginPage() {
               </button>
             </div>
             {errors.password && (
-              <p className="text-sm text-red-600">{errors.password.message}</p>
+              <p className="text-sm text-red-400">{errors.password.message}</p>
             )}
           </div>
 
           {/* Opsi ingat saya */}
           <div className="space-y-2">
-            <label className="flex items-center gap-3 text-sm text-slate-600">
+            <label className="flex items-center gap-3 text-sm text-slate-300">
               <Controller
                 name="rememberMe"
                 control={control}
@@ -172,18 +174,18 @@ function LoginPage() {
 
         {/* Pemisah section */}
         <div className="my-6 flex items-center gap-4">
-          <div className="h-px flex-1 bg-slate-200" />
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="h-px flex-1 bg-slate-800" />
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
             Atau masuk dengan
           </span>
-          <div className="h-px flex-1 bg-slate-200" />
+          <div className="h-px flex-1 bg-slate-800" />
         </div>
 
         {/* Section login dengan Google dan Facebook */}
         <div className="grid gap-3 sm:grid-cols-2">
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800/80"
           >
             <FcGoogle className="text-lg" />
             Google
@@ -191,7 +193,7 @@ function LoginPage() {
 
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800/80"
           >
             <FaFacebookF className="text-base text-blue-600" />
             Facebook
@@ -199,9 +201,9 @@ function LoginPage() {
         </div>
 
         {/* Link navigasi ke halaman register */}
-        <p className="mt-6 text-center text-sm text-slate-500 sm:hidden">
+        <p className="mt-6 text-center text-sm text-slate-400 sm:hidden">
           Belum punya akun?{' '}
-          <Link to="/register" className="font-semibold text-blue-600 hover:text-blue-700">
+          <Link to="/register" className="font-semibold text-blue-400 hover:text-blue-300">
             Daftar
           </Link>
         </p>

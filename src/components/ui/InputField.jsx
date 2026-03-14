@@ -10,7 +10,7 @@ function InputField({
   autoCompleteValue,
 }) {
   let inputClassName =
-    'w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100'
+    'w-full rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm text-slate-50 outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/15'
 
   if (rightSection) {
     inputClassName += ' pr-12'
@@ -19,7 +19,7 @@ function InputField({
   return (
     <div className="w-full space-y-2">
       {labelText && (
-        <label htmlFor={id} className="block text-sm font-semibold text-slate-700">
+        <label htmlFor={id} className="block text-sm font-semibold text-slate-200">
           {labelText}
         </label>
       )}
@@ -42,7 +42,7 @@ function InputField({
         )}
       </div>
 
-      {helperText && <p className="text-sm text-slate-500">{helperText}</p>}
+      {helperText && <p className="text-sm text-slate-400">{helperText}</p>}
     </div>
   )
 }

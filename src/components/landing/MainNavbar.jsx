@@ -1,64 +1,169 @@
 import { motion, useScroll, useSpring } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const navItems = [
-  { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Features', href: '#features' },
-  { label: 'Dashboard', href: '#dashboard' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Beranda', href: '#home' },
+  { label: 'Tentang', href: '#about' },
+  { label: 'Fitur', href: '#features' },
+  { label: 'Preview', href: '#dashboard' },
+  { label: 'Kontak', href: '#contact' },
 ]
 
 function MainNavbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isMobileView, setIsMobileView] = useState(false)
   const { scrollY, scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, {
     stiffness: 140,
     damping: 22,
     mass: 0.2,
   })
+  const progressScale = isMobileView ? scrollYProgress : progress
+  const activeSectionRef = useRef('home')
+  const isProgrammaticScrollRef = useRef(false)
+  const scrollUnlockTimeoutRef = useRef(null)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px), (pointer: coarse)')
+    const updateIsMobileView = () => setIsMobileView(mediaQuery.matches)
+
+    updateIsMobileView()
+    mediaQuery.addEventListener('change', updateIsMobileView)
+
+    return () => {
+      mediaQuery.removeEventListener('change', updateIsMobileView)
+    }
+  }, [])
 
   useEffect(() => {
     const sections = navItems
       .map((item) => document.querySelector(item.href))
       .filter(Boolean)
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+    const updateActiveSection = () => {
+      if (isProgrammaticScrollRef.current) {
+        return
+      }
 
-        if (visibleEntry?.target?.id) {
-          setActiveSection(visibleEntry.target.id)
+      const focusLine = window.innerHeight * 0.38
+
+      const currentSection = sections.find((section) => {
+        const rect = section.getBoundingClientRect()
+
+        return rect.top <= focusLine && rect.bottom > focusLine
+      })
+
+      if (currentSection?.id) {
+        if (currentSection.id !== activeSectionRef.current) {
+          activeSectionRef.current = currentSection.id
+          setActiveSection(currentSection.id)
         }
-      },
-      {
-        rootMargin: '-35% 0px -45% 0px',
-        threshold: [0.2, 0.35, 0.5, 0.7],
-      },
-    )
+        return
+      }
 
-    sections.forEach((section) => observer.observe(section))
+      const nearestSection = [...sections]
+        .reverse()
+        .find((section) => section.getBoundingClientRect().top <= focusLine)
 
-    return () => observer.disconnect()
+      if (nearestSection?.id && nearestSection.id !== activeSectionRef.current) {
+        activeSectionRef.current = nearestSection.id
+        setActiveSection(nearestSection.id)
+      }
+    }
+
+    let frame = 0
+    const handleScroll = () => {
+      if (frame) {
+        return
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        updateActiveSection()
+      })
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', updateActiveSection)
+
+    return () => {
+      if (frame) {
+        window.cancelAnimationFrame(frame)
+      }
+
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', updateActiveSection)
+    }
   }, [])
 
   useEffect(() => {
     const unsubscribe = scrollY.on('change', (value) => {
-      setIsScrolled(value > 18)
+      const nextIsScrolled = value > 18
+
+      setIsScrolled((currentValue) =>
+        currentValue === nextIsScrolled ? currentValue : nextIsScrolled,
+      )
     })
 
     return () => unsubscribe()
   }, [scrollY])
 
+  useEffect(() => {
+    return () => {
+      if (scrollUnlockTimeoutRef.current) {
+        window.clearTimeout(scrollUnlockTimeoutRef.current)
+      }
+    }
+  }, [])
+
+  const handleNavClick = (event, href) => {
+    setIsMobileOpen(false)
+
+    if (!isMobileView || !href.startsWith('#')) {
+      return
+    }
+
+    const target = document.querySelector(href)
+
+    if (!target) {
+      return
+    }
+
+    event.preventDefault()
+
+    const targetId = href.replace('#', '')
+    activeSectionRef.current = targetId
+    setActiveSection(targetId)
+    isProgrammaticScrollRef.current = true
+
+    if (scrollUnlockTimeoutRef.current) {
+      window.clearTimeout(scrollUnlockTimeoutRef.current)
+    }
+
+    window.scrollTo({
+      top: target.offsetTop,
+      behavior: 'auto',
+    })
+    window.history.replaceState(null, '', href)
+
+    scrollUnlockTimeoutRef.current = window.setTimeout(() => {
+      isProgrammaticScrollRef.current = false
+    }, 120)
+  }
+
   return (
     <>
       <motion.div
         className="fixed inset-x-0 top-0 z-50 origin-left bg-blue-600"
-        style={{ scaleX: progress, height: 3 }}
+        style={{
+          scaleX: progressScale,
+          height: isMobileView ? 2 : 3,
+          opacity: isMobileView ? 0.9 : 1,
+        }}
       />
 
       <div className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:px-6">
@@ -67,26 +172,30 @@ function MainNavbar() {
             y: isScrolled ? 0 : 6,
             scale: isScrolled ? 0.985 : 1,
             boxShadow: isScrolled
-              ? '0 22px 60px -32px rgba(15, 23, 42, 0.35)'
-              : '0 10px 30px -24px rgba(15, 23, 42, 0.08)',
+              ? '0 24px 64px -34px rgba(2, 6, 23, 0.72)'
+              : '0 10px 30px -24px rgba(2, 6, 23, 0.28)',
           }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
-          className="mx-auto max-w-6xl rounded-2xl border border-slate-200/80 bg-white/88 backdrop-blur"
+          className="mx-auto max-w-6xl rounded-2xl border border-slate-800/80 bg-slate-950/84 backdrop-blur"
         >
           <div className="flex items-center justify-between gap-4 px-5 py-3 sm:px-6">
             <a href="#home" className="flex items-center gap-3">
               <motion.div
                 animate={{ rotate: isScrolled ? 6 : 0, scale: isScrolled ? 0.94 : 1 }}
                 transition={{ duration: 0.3 }}
-                className="h-8 w-8 rounded-lg bg-[linear-gradient(135deg,#0f172a_0%,#2563eb_100%)] shadow-[0_12px_24px_-14px_rgba(37,99,235,0.7)]"
-              />
+                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1e293b_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_12px_24px_-14px_rgba(37,99,235,0.8)]"
+              >
+                T
+              </motion.div>
               <div>
-                <p className="text-sm font-bold tracking-[0.2em] text-slate-900">SALEAI</p>
-                <p className="text-[11px] uppercase tracking-[0.28em] text-slate-400">UMKM OS</p>
+                <p className="text-sm font-bold tracking-[0.2em] text-white">TUMBUH</p>
+                <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
+                  Asisten Penjualan AI Untuk UMKM
+                </p>
               </div>
             </a>
 
-            <div className="hidden items-center gap-1 md:flex">
+            <div className="hidden items-center gap-1 min-[1066px]:flex">
               {navItems.map((item) => {
                 const itemId = item.href.replace('#', '')
                 const isActive = activeSection === itemId
@@ -95,14 +204,15 @@ function MainNavbar() {
                   <a
                     key={item.href}
                     href={item.href}
+                    onClick={(event) => handleNavClick(event, item.href)}
                     className={`relative rounded-full px-4 py-2 text-sm font-medium transition ${
-                      isActive ? 'text-slate-950' : 'text-slate-500 hover:text-slate-900'
+                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="navbar-active-pill"
-                        className="absolute inset-0 -z-10 rounded-full bg-slate-100"
+                        className="absolute inset-0 -z-10 rounded-full bg-white/8"
                         transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                       />
                     )}
@@ -112,21 +222,27 @@ function MainNavbar() {
               })}
             </div>
 
-            <div className="hidden items-center gap-3 md:flex">
-              <motion.a
-                href="#contact"
-                whileHover={{ y: -1 }}
-                whileTap={{ scale: 0.98 }}
-                className="rounded-lg bg-blue-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white shadow-[0_18px_32px_-18px_rgba(37,99,235,0.95)]"
+            <div className="hidden items-center gap-3 min-[1066px]:flex">
+              <Link
+                to="/login"
+                className="rounded-lg px-4 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/6 hover:text-white"
               >
-                Login
-              </motion.a>
+                Masuk
+              </Link>
+              <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  to="/register"
+                  className="whitespace-nowrap rounded-lg bg-blue-600 px-5 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-white shadow-[0_18px_32px_-18px_rgba(37,99,235,0.95)]"
+                >
+                  Mulai Gratis
+                </Link>
+              </motion.div>
             </div>
 
             <button
               type="button"
               onClick={() => setIsMobileOpen((value) => !value)}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-700 md:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 text-slate-200 min-[1066px]:hidden"
               aria-label="Toggle navigation"
             >
               <span className="relative h-4 w-5">
@@ -156,7 +272,7 @@ function MainNavbar() {
               opacity: isMobileOpen ? 1 : 0,
             }}
             transition={{ duration: 0.24, ease: 'easeOut' }}
-            className="overflow-hidden border-t border-slate-100 md:hidden"
+            className="overflow-hidden border-t border-slate-800 min-[1066px]:hidden"
           >
             <div className="space-y-1 px-5 py-4">
               {navItems.map((item) => {
@@ -167,24 +283,31 @@ function MainNavbar() {
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setIsMobileOpen(false)}
+                    onClick={(event) => handleNavClick(event, item.href)}
                     className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${
                       isActive
-                        ? 'bg-slate-900 text-white'
-                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                        ? 'bg-blue-600 text-white'
+                        : 'text-slate-300 hover:bg-white/6 hover:text-white'
                     }`}
                   >
                     {item.label}
                   </a>
                 )
               })}
-              <a
-                href="#contact"
+              <Link
+                to="/login"
+                onClick={() => setIsMobileOpen(false)}
+                className="mt-3 block rounded-xl border border-slate-800 px-4 py-3 text-center text-sm font-semibold text-slate-200"
+              >
+                Masuk
+              </Link>
+              <Link
+                to="/register"
                 onClick={() => setIsMobileOpen(false)}
                 className="mt-3 block rounded-xl bg-blue-600 px-4 py-3 text-center text-sm font-semibold text-white"
               >
-                Login
-              </a>
+                Mulai Gratis
+              </Link>
             </div>
           </motion.div>
         </motion.nav>

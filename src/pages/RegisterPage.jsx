@@ -36,10 +36,12 @@ function RegisterPage() {
 
   const passwordInputType = isPasswordVisible ? 'text' : 'password'
   const confirmPasswordInputType = isConfirmPasswordVisible ? 'text' : 'password'
-  const passwordToggleLabel = isPasswordVisible ? 'Sembunyikan password' : 'Tampilkan password'
+  const passwordToggleLabel = isPasswordVisible
+    ? 'Sembunyikan kata sandi'
+    : 'Tampilkan kata sandi'
   const confirmPasswordToggleLabel = isConfirmPasswordVisible
-    ? 'Sembunyikan konfirmasi password'
-    : 'Tampilkan konfirmasi password'
+    ? 'Sembunyikan konfirmasi kata sandi'
+    : 'Tampilkan konfirmasi kata sandi'
 
   function handlePasswordVisibilityButtonClick() {
     setIsPasswordVisible(!isPasswordVisible)
@@ -68,15 +70,15 @@ function RegisterPage() {
   return (
     <AuthLayout>
       <FormToast message={toastMessage} />
-      <div className="mt-4 w-full rounded-[2rem] border border-slate-200 bg-white p-5 shadow-xl shadow-slate-200/60 sm:mt-6 sm:p-6 lg:max-w-2xl lg:px-8 lg:py-7">
+      <div className="mt-4 w-full rounded-[2rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-6 sm:p-6 lg:max-w-2xl lg:px-8 lg:py-7">
         <div className="space-y-2">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
             Daftar
           </p>
-          <h2 className="text-3xl font-black tracking-tight text-slate-900">
-            Buat Akun SaleAI
+          <h2 className="text-3xl font-black tracking-tight text-white">
+            Buat Akun TUMBUH
           </h2>
-          <p className="text-sm leading-6 text-slate-500 sm:text-base">
+          <p className="text-sm leading-6 text-slate-400 sm:text-base">
             Mulai kelola penjualan, analitik bisnis, dan insight AI untuk UMKM Anda
             dalam satu dashboard.
           </p>
@@ -91,7 +93,7 @@ function RegisterPage() {
             <div className="space-y-2">
               <label
                 htmlFor="register-full-name"
-                className="block text-sm font-semibold text-slate-700"
+                className="block text-sm font-semibold text-slate-200"
               >
                 Nama lengkap
               </label>
@@ -103,14 +105,14 @@ function RegisterPage() {
                 {...register('fullName')}
               />
               {errors.fullName && (
-                <p className="text-sm text-red-600">{errors.fullName.message}</p>
+                <p className="text-sm text-red-400">{errors.fullName.message}</p>
               )}
             </div>
 
             <div className="space-y-2">
               <label
                 htmlFor="register-email"
-                className="block text-sm font-semibold text-slate-700"
+                className="block text-sm font-semibold text-slate-200"
               >
                 Email
               </label>
@@ -122,21 +124,21 @@ function RegisterPage() {
                 aria-invalid={errors.email ? 'true' : 'false'}
                 {...register('email')}
               />
-              {errors.email && <p className="text-sm text-red-600">{errors.email.message}</p>}
+              {errors.email && <p className="text-sm text-red-400">{errors.email.message}</p>}
             </div>
 
             <div className="space-y-2">
               <label
                 htmlFor="register-password"
-                className="block text-sm font-semibold text-slate-700"
+                className="block text-sm font-semibold text-slate-200"
               >
-                Password
+                Kata sandi
               </label>
               <div className="relative">
                 <Input
                   id="register-password"
                   type={passwordInputType}
-                  placeholder="Buat password"
+                  placeholder="Buat kata sandi"
                   autoComplete="new-password"
                   className="pr-12"
                   aria-invalid={errors.password ? 'true' : 'false'}
@@ -145,7 +147,7 @@ function RegisterPage() {
                 <button
                   type="button"
                   onClick={handlePasswordVisibilityButtonClick}
-                  className="absolute inset-y-0 right-3 inline-flex h-full items-center justify-center text-slate-500 transition hover:text-slate-700"
+                  className="absolute inset-y-0 right-3 inline-flex h-full items-center justify-center text-slate-500 transition hover:text-slate-200"
                   aria-label={passwordToggleLabel}
                 >
                   {isPasswordVisible ? (
@@ -155,26 +157,26 @@ function RegisterPage() {
                   )}
                 </button>
               </div>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-slate-400">
                 Gunakan kombinasi huruf dan angka agar akun lebih aman.
               </p>
               {errors.password && (
-                <p className="text-sm text-red-600">{errors.password.message}</p>
+                <p className="text-sm text-red-400">{errors.password.message}</p>
               )}
             </div>
 
             <div className="space-y-2">
               <label
                 htmlFor="register-confirm-password"
-                className="block text-sm font-semibold text-slate-700"
+                className="block text-sm font-semibold text-slate-200"
               >
-                Konfirmasi password
+                Konfirmasi kata sandi
               </label>
               <div className="relative">
                 <Input
                   id="register-confirm-password"
                   type={confirmPasswordInputType}
-                  placeholder="Ulangi password"
+                  placeholder="Ulangi kata sandi"
                   autoComplete="new-password"
                   className="pr-12"
                   aria-invalid={errors.confirmPassword ? 'true' : 'false'}
@@ -183,7 +185,7 @@ function RegisterPage() {
                 <button
                   type="button"
                   onClick={handleConfirmPasswordVisibilityButtonClick}
-                  className="absolute inset-y-0 right-3 inline-flex h-full items-center justify-center text-slate-500 transition hover:text-slate-700"
+                  className="absolute inset-y-0 right-3 inline-flex h-full items-center justify-center text-slate-500 transition hover:text-slate-200"
                   aria-label={confirmPasswordToggleLabel}
                 >
                   {isConfirmPasswordVisible ? (
@@ -193,17 +195,17 @@ function RegisterPage() {
                   )}
                 </button>
               </div>
-              <p className="text-sm text-slate-500">
-                Pastikan konfirmasi password sama dengan password di atas.
+              <p className="text-sm text-slate-400">
+                Pastikan konfirmasi kata sandi sama dengan kata sandi di atas.
               </p>
               {errors.confirmPassword && (
-                <p className="text-sm text-red-600">{errors.confirmPassword.message}</p>
+                <p className="text-sm text-red-400">{errors.confirmPassword.message}</p>
               )}
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="flex items-start gap-3 text-sm leading-6 text-slate-600">
+            <label className="flex items-start gap-3 text-sm leading-6 text-slate-300">
               <Controller
                 name="termsAccepted"
                 control={control}
@@ -217,11 +219,11 @@ function RegisterPage() {
               />
               <span>
                 Saya menyetujui syarat dan ketentuan serta kebijakan privasi untuk
-                menggunakan SaleAI.
+                menggunakan TUMBUH.
               </span>
             </label>
             {errors.termsAccepted && (
-              <p className="text-sm text-red-600">{errors.termsAccepted.message}</p>
+              <p className="text-sm text-red-400">{errors.termsAccepted.message}</p>
             )}
           </div>
 
@@ -231,17 +233,17 @@ function RegisterPage() {
         </form>
 
         <div className="my-6 flex items-center gap-4">
-          <div className="h-px flex-1 bg-slate-200" />
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div className="h-px flex-1 bg-slate-800" />
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
             Atau daftar dengan
           </span>
-          <div className="h-px flex-1 bg-slate-200" />
+          <div className="h-px flex-1 bg-slate-800" />
         </div>
 
         <div className="grid gap-3 sm:grid-cols-2">
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800/80"
           >
             <FcGoogle className="text-lg" />
             Google
@@ -249,16 +251,16 @@ function RegisterPage() {
 
           <button
             type="button"
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:bg-slate-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-800 bg-slate-950/80 px-4 py-3 text-sm font-semibold text-slate-200 transition hover:border-slate-700 hover:bg-slate-800/80"
           >
             <FaFacebookF className="text-base text-blue-600" />
             Facebook
           </button>
         </div>
 
-        <p className="mt-6 text-center text-sm text-slate-500 sm:hidden">
+        <p className="mt-6 text-center text-sm text-slate-400 sm:hidden">
           Sudah punya akun?{' '}
-          <Link to="/login" className="font-semibold text-blue-600 hover:text-blue-700">
+          <Link to="/login" className="font-semibold text-blue-400 hover:text-blue-300">
             Masuk
           </Link>
         </p>

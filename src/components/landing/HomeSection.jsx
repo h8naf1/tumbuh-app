@@ -1,106 +1,248 @@
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
+import { gsap } from "gsap";
+import DarkVeil from "../DarkVeil";
+
 function HomeSection() {
-  const metrics = [
-    { label: 'Prediksi omzet', value: '+18%', tone: 'from-sky-500 to-blue-600' },
-    { label: 'Percakapan aktif', value: '124', tone: 'from-cyan-400 to-sky-500' },
-    { label: 'Respon AI', value: '< 3 dtk', tone: 'from-blue-500 to-indigo-600' },
-  ]
+  const [isMobileView, setIsMobileView] = useState(false);
+  // Ref untuk animasi tiap area hero
+  const sectionRef = useRef(null);
+  const eyebrowRef = useRef(null);
+  const headingRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const ctaGroupRef = useRef(null);
+  const previewRef = useRef(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 768px), (pointer: coarse)");
+    const updateIsMobileView = () => setIsMobileView(mediaQuery.matches);
+
+    updateIsMobileView();
+    mediaQuery.addEventListener("change", updateIsMobileView);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateIsMobileView);
+    };
+  }, []);
+
+  // Animasi masuk awal untuk elemen hero
+  useLayoutEffect(() => {
+    if (isMobileView) {
+      const ctx = gsap.context(() => {
+        gsap.set(
+          [
+            eyebrowRef.current,
+            headingRef.current,
+            descriptionRef.current,
+            ctaGroupRef.current,
+            previewRef.current,
+          ],
+          {
+            autoAlpha: 0,
+            y: 16,
+          },
+        );
+
+        gsap.set(previewRef.current, {
+          scale: 0.98,
+        });
+
+        const tl = gsap.timeline({
+          defaults: {
+            duration: 0.45,
+            ease: "power2.out",
+          },
+        });
+
+        tl.to(eyebrowRef.current, { autoAlpha: 1, y: 0, duration: 0.32 })
+          .to(headingRef.current, { autoAlpha: 1, y: 0, duration: 0.42 }, "-=0.12")
+          .to(descriptionRef.current, { autoAlpha: 1, y: 0, duration: 0.38 }, "-=0.24")
+          .to(ctaGroupRef.current, { autoAlpha: 1, y: 0, duration: 0.36 }, "-=0.18")
+          .to(
+            previewRef.current,
+            {
+              autoAlpha: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.42,
+            },
+            "-=0.22",
+          );
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }
+
+    const ctx = gsap.context(() => {
+      // State awal elemen utama
+      gsap.set(
+        [
+          eyebrowRef.current,
+          headingRef.current,
+          descriptionRef.current,
+          ctaGroupRef.current,
+          previewRef.current,
+        ],
+        {
+          autoAlpha: 0,
+          y: 32,
+        },
+      );
+
+      // Timeline animasi hero
+      const tl = gsap.timeline({
+        defaults: {
+          duration: 0.8,
+          ease: "power3.out",
+        },
+      });
+
+      tl.to(eyebrowRef.current, { autoAlpha: 1, y: 0, duration: 0.55 })
+        .to(headingRef.current, { autoAlpha: 1, y: 0 }, "-=0.15")
+        .to(descriptionRef.current, { autoAlpha: 1, y: 0 }, "-=0.45")
+        .to(
+          ctaGroupRef.current,
+          { autoAlpha: 1, y: 0, duration: 0.65 },
+          "-=0.4",
+        )
+        .to(
+          previewRef.current,
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.9,
+          },
+          "-=0.35",
+        );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [isMobileView]);
 
   return (
     <section
+      ref={sectionRef}
       id="home"
-      className="overflow-hidden bg-[#eef3f8] px-6 pb-20 pt-32 sm:pt-36"
+      className="relative flex min-h-screen scroll-mt-28 items-center overflow-hidden bg-slate-950 px-6 pb-16 pt-32 sm:pt-36"
     >
-      <div className="mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[0.95fr_1.05fr]">
-        <div className="max-w-xl">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-blue-600">
-            UMKM AI Platform
+      <div className="absolute inset-0 z-0">
+        {isMobileView ? (
+          <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.2),rgba(2,6,23,0.96)_62%)]" />
+        ) : (
+          <DarkVeil
+            hueShift={30}
+            noiseIntensity={0}
+            scanlineIntensity={0}
+            speed={0.5}
+            scanlineFrequency={0}
+            warpAmount={0}
+            resolutionScale={1}
+          />
+        )}
+      </div>
+
+      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1fr_0.95fr]">
+        {/* Area konten utama hero */}
+        <div className="max-w-2xl">
+          <p
+            ref={eyebrowRef}
+            className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-blue-200"
+          >
+            <b>Solusi usaha untuk UMKM</b>
           </p>
-          <h1 className="max-w-lg text-4xl font-black leading-tight text-slate-900 sm:text-5xl lg:text-6xl">
-            Jalankan bisnis lebih <span className="text-blue-600">cepat</span>{' '}
-            dengan AI.
+          <h1
+            ref={headingRef}
+            className="max-w-xl text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl"
+          >
+            <span className="text-white">Kelola usaha Anda</span>
+            <br />
+            lebih <span className="text-cyan-300">mudah</span>
+            <br />
+            <span className="text-white">bersama TUMBUH</span>
           </h1>
-          <p className="mt-6 max-w-md text-base leading-8 text-slate-600 sm:text-lg">
-            Hero kembali memakai visual statis yang bersih supaya ringan, rapi, dan
-            lebih mudah dikembangkan tanpa dependensi 3D tambahan.
+          <p
+            ref={descriptionRef}
+            className="mt-6 max-w-xl text-base leading-8 text-slate-200 sm:text-lg"
+          >
+            Catat penjualan, pantau stok, dan pahami perkembangan usaha dalam satu tempat yang sederhana dan mudah digunakan.
           </p>
 
-          <div className="mt-8 flex flex-wrap gap-4">
+          {/* Grup tombol CTA */}
+          <div ref={ctaGroupRef} className="mt-8 flex flex-wrap gap-4">
             <button className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(37,99,235,0.85)] transition hover:bg-blue-700">
               Coba Demo
             </button>
-            <button className="rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50">
-              Lihat Fitur
+            <button className="rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/15">
+              Lihat Cara Kerja
             </button>
-          </div>
-
-          <div className="mt-10 grid gap-3 sm:grid-cols-3">
-            {metrics.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-white/70 bg-white/70 p-4 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.28)] backdrop-blur"
-              >
-                <div className={`mb-3 h-2 w-16 rounded-full bg-gradient-to-r ${item.tone}`} />
-                <p className="text-sm text-slate-500">{item.label}</p>
-                <p className="mt-1 text-xl font-bold text-slate-900">{item.value}</p>
-              </div>
-            ))}
           </div>
         </div>
 
+        {/* Area preview tampilan produk */}
         <div
-          id="dashboard"
-          className="relative mx-auto w-full max-w-[440px] scroll-mt-28 lg:max-w-[560px]"
+          ref={previewRef}
+          className="relative mx-auto w-full max-w-[440px] lg:max-w-[500px]"
         >
-          <div className="absolute -left-6 top-12 h-28 w-28 rounded-full bg-blue-200/70 blur-3xl" />
-          <div className="absolute -right-4 bottom-10 h-36 w-36 rounded-full bg-cyan-200/70 blur-3xl" />
+          {/* Blur dekoratif di belakang preview */}
+          <div className="absolute -left-5 top-10 h-24 w-24 rounded-full bg-blue-500/20 blur-3xl" />
+          <div className="absolute -right-5 bottom-10 h-32 w-32 rounded-full bg-cyan-400/15 blur-3xl" />
 
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-[linear-gradient(160deg,rgba(255,255,255,0.88)_0%,rgba(235,244,255,0.72)_100%)] p-3 shadow-[0_30px_80px_-30px_rgba(15,23,42,0.35)] backdrop-blur-sm transition duration-500 hover:-translate-y-1 hover:shadow-[0_40px_90px_-36px_rgba(15,23,42,0.45)]">
-            <div className="rounded-[1.7rem] border border-white/80 bg-[radial-gradient(circle_at_top,rgba(96,165,250,0.2),rgba(15,23,42,0.96)_58%)] p-4 sm:p-5">
-              <div className="mb-4 flex items-center justify-between">
+          {/* Card preview utama */}
+          <div className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-[linear-gradient(160deg,rgba(15,23,42,0.92)_0%,rgba(2,6,23,0.98)_100%)] p-3 shadow-[0_30px_80px_-34px_rgba(2,6,23,0.75)] backdrop-blur-sm">
+            <div className="rounded-[1.6rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.95)_0%,rgba(2,6,23,0.98)_100%)] p-5">
+              {/* Header preview */}
+              <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
-                    Live Overview
+                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-300">
+                    Ringkasan Hari Ini
                   </p>
-                  <h3 className="mt-2 text-xl font-semibold text-white sm:text-2xl">
-                    UMKM Assistant
-                  </h3>
+                  <h2 className="mt-2 text-2xl font-black text-white">
+                    Usaha Anda lebih tertata
+                  </h2>
                 </div>
-                <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-sky-300">
-                  Online
+                <div className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-xs font-semibold text-blue-300">
+                  Aktif
                 </div>
               </div>
 
-              <div className="grid gap-3">
-                {metrics.map((item) => (
-                  <div
-                    key={`panel-${item.label}`}
-                    className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur transition duration-300 hover:border-sky-300/40 hover:bg-white/10"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-sm text-slate-300">{item.label}</p>
-                        <p className="mt-1 text-lg font-semibold text-white">{item.value}</p>
-                      </div>
-                      <div className={`h-12 w-12 rounded-2xl bg-gradient-to-br ${item.tone} shadow-lg`} />
-                    </div>
+              {/* Isi ringkasan preview */}
+              <div className="mt-6 grid gap-3">
+                <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+                  <p className="text-sm text-slate-400">Transaksi tercatat</p>
+                  <p className="mt-1 text-2xl font-bold text-white">128</p>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+                    <p className="text-sm text-slate-400">Produk aktif</p>
+                    <p className="mt-1 text-xl font-bold text-white">
+                      42 item
+                    </p>
                   </div>
-                ))}
-              </div>
+                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+                    <p className="text-sm text-slate-400">Stok perlu dicek</p>
+                    <p className="mt-1 text-xl font-bold text-white">
+                      6 item
+                    </p>
+                  </div>
+                </div>
 
-              <div className="mt-5 rounded-2xl border border-sky-400/20 bg-sky-400/10 p-4 text-white/90">
-                <p className="text-xs uppercase tracking-[0.24em] text-sky-100/80">
-                  AI Recommendation
-                </p>
-                <p className="mt-2 text-sm leading-7 text-sky-50">
-                  Fokuskan promo ke pelanggan yang sudah chat dalam 7 hari terakhir.
-                </p>
+                {/* Insight singkat */}
+                <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
+                    Insight singkat
+                  </p>
+                  <p className="mt-2 text-sm leading-7 text-slate-200">
+                    Penjualan minuman dingin naik dalam 7 hari terakhir. Coba
+                    dorong promo di jam siang untuk hasil yang lebih baik.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default HomeSection
+export default HomeSection;
