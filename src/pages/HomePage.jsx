@@ -4,6 +4,7 @@ import DashboardPreviewSection from '../components/landing/DashboardPreviewSecti
 import FeaturesSection from '../components/landing/FeaturesSection.jsx'
 import HomeSection from '../components/landing/HomeSection.jsx'
 import MainNavbar from '../components/landing/MainNavbar.jsx'
+import { Analytics } from "@vercel/analytics/react"
 
 function HomePage() {
   return (
