@@ -197,7 +197,7 @@ function HomeSection() {
                     Ringkasan Hari Ini
                   </p>
                   <h2 className="mt-2 text-2xl font-black text-white">
-                    Usaha Anda lebih tertata
+                    Usaha Anda lebih tertatassssss
                   </h2>
                 </div>
                 <div className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-xs font-semibold text-blue-300">
