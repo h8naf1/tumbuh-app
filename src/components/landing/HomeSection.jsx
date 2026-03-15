@@ -156,7 +156,7 @@ function HomeSection() {
           >
             <span className="text-white">Kelola usaha Anda</span>
             <br />
-            lebih <span className="text-cyan-300">mudah</span>
+            lebih <span className="text-cyan-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">mudah</span>
             <br />
             <span className="text-white">bersama TUMBUH</span>
           </h1>
