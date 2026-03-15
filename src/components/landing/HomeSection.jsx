@@ -143,7 +143,7 @@ function HomeSection() {
 
       <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1fr_0.95fr]">
         {/* Area konten utama hero */}
-        <div className="max-w-2xl">
+        <div className="max-w-2xl mx-auto text-center justify-center lg:text-left lg:mx-0  lg:justify-start">
           <p
             ref={eyebrowRef}
             className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-blue-200"
@@ -164,13 +164,13 @@ function HomeSection() {
             ref={descriptionRef}
             className="mt-6 max-w-xl text-base leading-8 text-slate-200 sm:text-lg"
           >
-            Catat penjualan, pantau stok, dan pahami perkembangan usaha dalam satu tempat yang sederhana dan mudah digunakan.
+            Catat penjualan, pantau stok, dan pahami perkembangan usaha dalam satu aplikasi sederhana yang mudah digunakan.
           </p>
 
           {/* Grup tombol CTA */}
-          <div ref={ctaGroupRef} className="mt-8 flex flex-wrap gap-4">
+          <div ref={ctaGroupRef} className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start">
             <button className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(37,99,235,0.85)] transition hover:bg-blue-700">
-              Coba Demo
+              Mulai Sekarang
             </button>
             <button className="rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/15">
               Lihat Cara Kerja
@@ -197,7 +197,7 @@ function HomeSection() {
                     Ringkasan Hari Ini
                   </p>
                   <h2 className="mt-2 text-2xl font-black text-white">
-                    Usaha Anda lebih tertata dan terpantau
+                    Usaha Anda lebih teratur
                   </h2>
                 </div>
                 <div className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-xs font-semibold text-blue-300">
@@ -208,18 +208,18 @@ function HomeSection() {
               {/* Isi ringkasan preview */}
               <div className="mt-6 grid gap-3">
                 <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                  <p className="text-sm text-slate-400">Transaksi tercatat</p>
-                  <p className="mt-1 text-2xl font-bold text-white">128</p>
+                  <p className="text-sm text-slate-400">Penjualan tercatat</p>
+                  <p className="mt-1 text-2xl font-bold text-white">128 transaksi</p>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Produk aktif</p>
+                    <p className="text-sm text-slate-400">Produk tersedia</p>
                     <p className="mt-1 text-xl font-bold text-white">
                       42 item
                     </p>
                   </div>
                   <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Stok perlu dicek</p>
+                    <p className="text-sm text-slate-400">Stok perlu dipantau</p>
                     <p className="mt-1 text-xl font-bold text-white">
                       6 item
                     </p>
@@ -232,8 +232,8 @@ function HomeSection() {
                     Insight singkat
                   </p>
                   <p className="mt-2 text-sm leading-7 text-slate-200">
-                    Penjualan minuman dingin naik dalam 7 hari terakhir. Coba
-                    dorong promo di jam siang untuk hasil yang lebih baik.
+                    Penjualan minuman dingin meningkat dalam 7 hari terakhir.
+                    Tambah stok sebelum jam siang agar penjualan tidak terlewat.
                   </p>
                 </div>
               </div>
