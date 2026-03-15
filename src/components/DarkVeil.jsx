@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl';
 
 const vertex = `
@@ -80,67 +80,93 @@ export default function DarkVeil({
   speed = 0.5,
   scanlineFrequency = 0,
   warpAmount = 0,
-  resolutionScale = 1
+  resolutionScale = 1,
 }) {
   const ref = useRef(null);
+  const [hasFallback, setHasFallback] = useState(false);
+
   useEffect(() => {
     const canvas = ref.current;
-    const parent = canvas.parentElement;
+    const parent = canvas?.parentElement;
 
-    const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
-      canvas
-    });
+    if (!canvas || !parent) {
+      setHasFallback(true);
+      return;
+    }
 
-    const gl = renderer.gl;
-    const geometry = new Triangle(gl);
-
-    const program = new Program(gl, {
-      vertex,
-      fragment,
-      uniforms: {
-        uTime: { value: 0 },
-        uResolution: { value: new Vec2() },
-        uHueShift: { value: hueShift },
-        uNoise: { value: noiseIntensity },
-        uScan: { value: scanlineIntensity },
-        uScanFreq: { value: scanlineFrequency },
-        uWarp: { value: warpAmount }
-      }
-    });
-
-    const mesh = new Mesh(gl, { geometry, program });
-
-    const resize = () => {
-      const w = parent.clientWidth,
-        h = parent.clientHeight;
-      renderer.setSize(w * resolutionScale, h * resolutionScale);
-      program.uniforms.uResolution.value.set(w, h);
-    };
-
-    window.addEventListener('resize', resize);
-    resize();
-
-    const start = performance.now();
+    let renderer;
+    let program;
     let frame = 0;
 
-    const loop = () => {
-      program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
-      program.uniforms.uHueShift.value = hueShift;
-      program.uniforms.uNoise.value = noiseIntensity;
-      program.uniforms.uScan.value = scanlineIntensity;
-      program.uniforms.uScanFreq.value = scanlineFrequency;
-      program.uniforms.uWarp.value = warpAmount;
-      renderer.render({ scene: mesh });
-      frame = requestAnimationFrame(loop);
-    };
+    try {
+      renderer = new Renderer({
+        dpr: Math.min(window.devicePixelRatio, 2),
+        canvas,
+      });
 
-    loop();
+      const gl = renderer.gl;
+      const geometry = new Triangle(gl);
 
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener('resize', resize);
-    };
+      program = new Program(gl, {
+        vertex,
+        fragment,
+        uniforms: {
+          uTime: { value: 0 },
+          uResolution: { value: new Vec2() },
+          uHueShift: { value: hueShift },
+          uNoise: { value: noiseIntensity },
+          uScan: { value: scanlineIntensity },
+          uScanFreq: { value: scanlineFrequency },
+          uWarp: { value: warpAmount },
+        },
+      });
+
+      const mesh = new Mesh(gl, { geometry, program });
+
+      const resize = () => {
+        const width = parent.clientWidth;
+        const height = parent.clientHeight;
+
+        if (!width || !height) {
+          return;
+        }
+
+        renderer.setSize(width * resolutionScale, height * resolutionScale);
+        program.uniforms.uResolution.value.set(width, height);
+      };
+
+      window.addEventListener('resize', resize);
+      resize();
+      setHasFallback(false);
+
+      const start = performance.now();
+
+      const loop = () => {
+        program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
+        program.uniforms.uHueShift.value = hueShift;
+        program.uniforms.uNoise.value = noiseIntensity;
+        program.uniforms.uScan.value = scanlineIntensity;
+        program.uniforms.uScanFreq.value = scanlineFrequency;
+        program.uniforms.uWarp.value = warpAmount;
+        renderer.render({ scene: mesh });
+        frame = requestAnimationFrame(loop);
+      };
+
+      loop();
+
+      return () => {
+        cancelAnimationFrame(frame);
+        window.removeEventListener('resize', resize);
+      };
+    } catch (error) {
+      console.error('DarkVeil fallback activated:', error);
+      setHasFallback(true);
+    }
   }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
-  return <canvas ref={ref} className="w-full h-full block" />;
+
+  if (hasFallback) {
+    return <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(37,99,235,0.2),rgba(2,6,23,0.96)_62%)]" />;
+  }
+
+  return <canvas ref={ref} className="block h-full w-full" />;
 }
