@@ -97,7 +97,7 @@ function ContactSection() {
       </div>
 
       <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2 border-t border-slate-800/90">
-        <div className="flex w-full flex-col gap-3 px-6 pt-6 text-xs text-slate-400 sm:flex-row sm:items-cente">
+        <div className="flex w-full flex-col gap-3 px-6 pt-6 text-xs text-slate-400 sm:flex-row sm:items-center">
           <p className="text-left">(c) 2026 TUMBUH. Seluruh hak cipta dilindungi.</p>
           <p className="text-left sm:ml-auto sm:text-right">Dibangun untuk membantu UMKM berkembang lebih terarah.</p>
         </div>
@@ -107,5 +107,3 @@ function ContactSection() {
 }
 
 export default ContactSection
-
-

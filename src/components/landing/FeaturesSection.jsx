@@ -25,8 +25,9 @@ function FeaturesSection() {
   return (
     <section
       id="features"
-      className="flex min-h-screen scroll-mt-28 items-center bg-slate-900 px-6 py-20"
+      className="relative flex min-h-screen scroll-mt-28 items-center bg-slate-900 px-6 py-20"
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
       <div className="mx-auto w-full max-w-6xl">
         <div className="mb-12 max-w-3xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-blue-600">
