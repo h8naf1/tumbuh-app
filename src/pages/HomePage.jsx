@@ -4,6 +4,8 @@ import DashboardPreviewSection from '../components/landing/DashboardPreviewSecti
 import FeaturesSection from '../components/landing/FeaturesSection.jsx'
 import HomeSection from '../components/landing/HomeSection.jsx'
 import MainNavbar from '../components/landing/MainNavbar.jsx'
+import ProblemSection from '../components/landing/ProblemSection.jsx'
+import SolutionSection from '../components/landing/SolutionSection.jsx'
 
 function HomePage() {
   return (
@@ -11,6 +13,8 @@ function HomePage() {
       <MainNavbar />
       <HomeSection />
       <AboutSection />
+      <ProblemSection />
+      <SolutionSection />
       <FeaturesSection />
       <DashboardPreviewSection />
       <ContactSection />

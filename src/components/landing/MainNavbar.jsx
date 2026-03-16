@@ -1,12 +1,20 @@
 import { motion, useScroll, useSpring } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { ChevronDown } from 'lucide-react'
 
 const navItems = [
   { label: 'Beranda', href: '#home' },
-  { label: 'Tentang', href: '#about' },
+  {
+    label: 'Tentang',
+    href: '#about',
+    children: [
+      { label: 'Masalah UMKM', href: '#problem' },
+      { label: 'Solusi TUMBUH', href: '#solution' },
+    ],
+  },
   { label: 'Fitur', href: '#features' },
-  { label: 'Preview', href: '#dashboard' },
+  { label: 'Dashboard', href: '#dashboard' },
   { label: 'Kontak', href: '#contact' },
 ]
 
@@ -14,6 +22,7 @@ function MainNavbar() {
   const [activeSection, setActiveSection] = useState('home')
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const [isAboutMobileOpen, setIsAboutMobileOpen] = useState(false)
   const [isMobileView, setIsMobileView] = useState(false)
   const { scrollY, scrollYProgress } = useScroll()
   const progress = useSpring(scrollYProgress, {
@@ -40,6 +49,7 @@ function MainNavbar() {
 
   useEffect(() => {
     const sections = navItems
+      .flatMap((item) => [item, ...(item.children || [])])
       .map((item) => document.querySelector(item.href))
       .filter(Boolean)
 
@@ -122,6 +132,7 @@ function MainNavbar() {
 
   const handleNavClick = (event, href) => {
     setIsMobileOpen(false)
+    setIsAboutMobileOpen(false)
 
     if (!isMobileView || !href.startsWith('#')) {
       return
@@ -154,6 +165,8 @@ function MainNavbar() {
       isProgrammaticScrollRef.current = false
     }, 120)
   }
+
+  const isAboutGroupActive = ['about', 'problem', 'solution'].includes(activeSection)
 
   return (
     <>
@@ -198,26 +211,58 @@ function MainNavbar() {
             <div className="hidden items-center gap-1 min-[1066px]:flex">
               {navItems.map((item) => {
                 const itemId = item.href.replace('#', '')
-                const isActive = activeSection === itemId
+                const isActive = item.children
+                  ? isAboutGroupActive
+                  : activeSection === itemId
 
                 return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(event) => handleNavClick(event, item.href)}
-                    className={`relative rounded-full px-4 py-2 text-sm font-medium transition ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-white'
-                    }`}
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="navbar-active-pill"
-                        className="absolute inset-0 -z-10 rounded-full bg-white/8"
-                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      />
+                  <div key={item.href} className="group relative">
+                    <a
+                      href={item.href}
+                      onClick={(event) => handleNavClick(event, item.href)}
+                      className={`relative flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition ${
+                        isActive ? 'text-white' : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.span
+                          layoutId="navbar-active-pill"
+                          className="absolute inset-0 -z-10 rounded-full bg-white/8"
+                          transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                        />
+                      )}
+                      <span>{item.label}</span>
+                      {item.children && (
+                        <ChevronDown className="h-4 w-4 text-slate-500 transition duration-200 group-hover:text-slate-300 group-hover:rotate-180" />
+                      )}
+                    </a>
+
+                    {item.children && (
+                      <div className="pointer-events-none absolute left-0 top-full z-20 pt-3 opacity-0 transition duration-200 group-hover:pointer-events-auto group-hover:opacity-100">
+                        <div className="min-w-[220px] rounded-2xl border border-slate-800 bg-slate-950 p-2 shadow-[0_24px_64px_-34px_rgba(2,6,23,0.72)]">
+                          {item.children.map((child) => {
+                            const childId = child.href.replace('#', '')
+                            const isChildActive = activeSection === childId
+
+                            return (
+                              <a
+                                key={child.href}
+                                href={child.href}
+                                onClick={(event) => handleNavClick(event, child.href)}
+                                className={`block rounded-xl px-4 py-3 text-sm transition ${
+                                  isChildActive
+                                    ? 'bg-blue-600/15 text-white'
+                                    : 'text-slate-300 hover:bg-white/6 hover:text-white'
+                                }`}
+                              >
+                                {child.label}
+                              </a>
+                            )
+                          })}
+                        </div>
+                      </div>
                     )}
-                    {item.label}
-                  </a>
+                  </div>
                 )
               })}
             </div>
@@ -277,21 +322,91 @@ function MainNavbar() {
             <div className="space-y-1 px-5 py-4">
               {navItems.map((item) => {
                 const itemId = item.href.replace('#', '')
-                const isActive = activeSection === itemId
+                const isActive = item.children
+                  ? isAboutGroupActive
+                  : activeSection === itemId
 
                 return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={(event) => handleNavClick(event, item.href)}
-                    className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${
-                      isActive
-                        ? 'bg-blue-600 text-white'
-                        : 'text-slate-300 hover:bg-white/6 hover:text-white'
-                    }`}
-                  >
-                    {item.label}
-                  </a>
+                  <div key={item.href} className="space-y-2">
+                    {item.children ? (
+                      <>
+                        <div className="flex items-center gap-2">
+                          <a
+                            href={item.href}
+                            onClick={(event) => handleNavClick(event, item.href)}
+                            className={`min-w-0 flex-1 rounded-xl px-4 py-3 text-sm font-medium transition ${
+                              isActive
+                                ? 'bg-blue-600 text-white'
+                                : 'text-slate-300 hover:bg-white/6 hover:text-white'
+                            }`}
+                          >
+                            {item.label}
+                          </a>
+                          <button
+                            type="button"
+                            onClick={() => setIsAboutMobileOpen((value) => !value)}
+                            className={`inline-flex h-[46px] w-[32px] items-center justify-center rounded-xl transition ${
+                              isAboutMobileOpen
+                                ? 'text-white'
+                                : 'text-slate-400 hover:text-white'
+                            }`}
+                            aria-label="Toggle submenu Tentang"
+                            aria-expanded={isAboutMobileOpen}
+                          >
+                            <ChevronDown
+                              className={`h-4 w-4 transition duration-200 ${
+                                isAboutMobileOpen ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </button>
+                        </div>
+
+                        <motion.div
+                          initial={false}
+                          animate={{
+                            height: isAboutMobileOpen ? 'auto' : 0,
+                            opacity: isAboutMobileOpen ? 1 : 0,
+                          }}
+                          transition={{ duration: 0.2, ease: 'easeOut' }}
+                          className="overflow-hidden"
+                        >
+                          <div className="space-y-2 pl-3 pt-1">
+                            {item.children.map((child) => {
+                              const childId = child.href.replace('#', '')
+                              const isChildActive = activeSection === childId
+
+                              return (
+                                <a
+                                  key={child.href}
+                                  href={child.href}
+                                  onClick={(event) => handleNavClick(event, child.href)}
+                                  className={`block rounded-xl px-4 py-3 text-sm transition ${
+                                    isChildActive
+                                      ? 'border border-blue-500/30 bg-blue-600/10 text-white'
+                                      : 'text-slate-400 hover:bg-white/6 hover:text-white'
+                                  }`}
+                                >
+                                  {child.label}
+                                </a>
+                              )
+                            })}
+                          </div>
+                        </motion.div>
+                      </>
+                    ) : (
+                      <a
+                        href={item.href}
+                        onClick={(event) => handleNavClick(event, item.href)}
+                        className={`block rounded-xl px-4 py-3 text-sm font-medium transition ${
+                          isActive
+                            ? 'bg-blue-600 text-white'
+                            : 'text-slate-300 hover:bg-white/6 hover:text-white'
+                        }`}
+                      >
+                        {item.label}
+                      </a>
+                    )}
+                  </div>
                 )
               })}
               <Link
