@@ -1,11 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+﻿import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import DashboardElement from '../assets/elements/DashboardElement.png'
+import BagElement from '../assets/elements/BagElement.png'
+import BusinessManElement from '../assets/elements/BusinessManElement.png'
 
 const DEFAULT_SPOTLIGHT_RADIUS = 260
 const DEFAULT_GLOW_COLOR = '59, 130, 246'
 const MOBILE_BREAKPOINT = 768
 const DEFAULT_CARDS = [
-  { color: '#020617', title: 'Analytics', description: 'Track user behavior', label: '01' },
+  {
+    color: '#020617',
+    title: 'Analytics',
+    description: 'Track user behavior',
+    label: '01',
+    image: DashboardElement,
+  },
   { color: '#020617', title: 'Dashboard', description: 'Centralized data view', label: '02' },
   { color: '#020617', title: 'Collaboration', description: 'Work together seamlessly', label: '03' },
 ]
@@ -16,6 +25,9 @@ const normalizeCards = (items) =>
     title: item.title,
     description: item.description,
     label: item.label || item.badge || String(index + 1).padStart(2, '0'),
+    image: item.image ?? (index === 0 ? DashboardElement : index === 1 ? BagElement : index === 2 ? BusinessManElement : undefined),
+    imageAlt: item.imageAlt,
+    imageClassName: item.imageClassName ?? (index === 0 ? 'right-[-2%] top-[-10%] w-[560px]' : index === 1 ? 'right-[-10%] top-[-6%] w-[420px]' : index === 2 ? 'right-[-12%] top-[-10%] w-[440px]' : 'right-[-10%] top-[-8%] w-[420px]'),
   }))
 
 const getGridClassName = (count) =>
@@ -229,12 +241,30 @@ function MagicBento({
                   '0 22px 50px -34px rgba(2, 6, 23, 0.78), 0 0 0 1px rgba(30, 41, 59, 0.65), 0 0 32px rgba(59, 130, 246, 0.08)',
               }}
             >
+              {card.image && (
+                <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+                  <img
+                    src={card.image}
+                    alt={card.imageAlt || ''}
+                    aria-hidden={card.imageAlt ? undefined : 'true'}
+                    className={[
+                      'absolute right-[-10%] top-[-14%] w-[620px] max-w-none',
+                      'opacity-75 blur-[3px] brightness-[0.8] saturate-125 contrast-110',
+                      'transition duration-500 ease-out',
+                      'group-hover:opacity-85 group-hover:blur-[2px] group-hover:scale-[1.01]',
+                      card.imageClassName || '',
+                    ].join(' ')}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/5 via-slate-950/20 to-slate-950/55" />
+                </div>
+              )}
+
               <div
                 className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full blur-3xl"
                 style={{ background: `rgba(${glowColor}, 0.16)` }}
               />
 
-              <div className="relative flex h-full flex-col justify-between gap-8">
+              <div className="relative z-[1] flex h-full flex-col justify-between gap-8">
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10 text-sm font-semibold tracking-[0.12em] text-blue-400 shadow-[0_0_28px_rgba(59,130,246,0.16)]">
                   {card.label}
                 </span>
@@ -255,3 +285,4 @@ function MagicBento({
 }
 
 export default MagicBento
+
