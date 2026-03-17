@@ -2,6 +2,7 @@ import AboutSection from '../components/landing/AboutSection.jsx'
 import ContactSection from '../components/landing/ContactSection.jsx'
 import DashboardPreviewSection from '../components/landing/DashboardPreviewSection.jsx'
 import FeaturesSection from '../components/landing/FeaturesSection.jsx'
+import FooterSection from '../components/landing/FooterSection.jsx'
 import HomeSection from '../components/landing/HomeSection.jsx'
 import MainNavbar from '../components/landing/MainNavbar.jsx'
 import ProblemSection from '../components/landing/ProblemSection.jsx'
@@ -18,6 +19,7 @@ function HomePage() {
       <FeaturesSection />
       <DashboardPreviewSection />
       <ContactSection />
+      <FooterSection />
     </main>
   )
 }
