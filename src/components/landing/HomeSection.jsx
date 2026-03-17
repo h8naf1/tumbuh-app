@@ -173,7 +173,7 @@ function HomeSection() {
               Mulai Sekarang
             </button>
             <button className="rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/15">
-              Lihat Cara Kerja
+              Pelajari
             </button>
           </div>
         </div>
