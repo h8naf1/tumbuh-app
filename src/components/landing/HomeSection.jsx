@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
+import { Link } from "react-router-dom";
 import DarkVeil from "../DarkVeil";
 
 function HomeSection() {
@@ -172,6 +173,12 @@ function HomeSection() {
             <button className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(37,99,235,0.85)] transition hover:bg-blue-700">
               Mulai Sekarang
             </button>
+            <Link
+              to="/dashboard"
+              className="rounded-xl border border-blue-500/30 bg-blue-500/10 px-6 py-3 text-sm font-semibold text-blue-100 transition hover:border-blue-400/40 hover:bg-blue-500/15"
+            >
+              Lihat Dashboard
+            </Link>
             <button className="rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/15">
               Pelajari
             </button>
