@@ -155,8 +155,13 @@ function MainNavbar() {
       window.clearTimeout(scrollUnlockTimeoutRef.current)
     }
 
+    const navbar = document.querySelector('[data-main-navbar]')
+    const navbarHeight = navbar?.getBoundingClientRect().height ?? 0
+    const targetTop =
+      window.scrollY + target.getBoundingClientRect().top - navbarHeight - 20
+
     window.scrollTo({
-      top: target.offsetTop,
+      top: Math.max(targetTop, 0),
       behavior: 'auto',
     })
     window.history.replaceState(null, '', href)
@@ -189,6 +194,7 @@ function MainNavbar() {
               : '0 10px 30px -24px rgba(2, 6, 23, 0.28)',
           }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
+          data-main-navbar
           className="mx-auto max-w-6xl rounded-2xl border border-slate-800/80 bg-slate-950/84 backdrop-blur"
         >
           <div className="flex items-center justify-between gap-4 px-5 py-3 sm:px-6">
@@ -432,3 +438,4 @@ function MainNavbar() {
 }
 
 export default MainNavbar
+

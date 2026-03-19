@@ -1,15 +1,15 @@
 export const dashboardSidebarItems = [
-  { id: 'dashboard', label: 'Dashboard', isActive: true },
-  { id: 'products', label: 'Produk', isActive: false },
-  { id: 'transactions', label: 'Transaksi', isActive: false },
-  { id: 'chat-assistant', label: 'Asisten Chat', isActive: false },
-  { id: 'settings', label: 'Pengaturan', isActive: false, isSeparated: true },
+  { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
+  { id: 'products', label: 'Produk', href: '/produk' },
+  { id: 'transactions', label: 'Transaksi' },
+  { id: 'chat-assistant', label: 'Asisten Chat' },
+  { id: 'settings', label: 'Pengaturan', isSeparated: true },
 ]
 
 export const dashboardUserProfile = {
-  name: 'Andi Pratama',
-  role: 'Owner Kopi Pagi',
-  avatar: 'https://placehold.co/40x40',
+  name: 'Admin Tumbuh',
+  role: 'admin@tumbuh.id',
+  avatar: '',
 }
 
 export const dashboardSummaryCards = [
