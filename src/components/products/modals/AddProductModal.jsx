@@ -1,0 +1,235 @@
+﻿import {
+  ChevronDown,
+  CloudUpload,
+  Save,
+  X,
+} from 'lucide-react'
+
+function AddProductHeaderIcon() {
+  return (
+    <div className="flex h-12 w-12 items-center justify-center rounded-[1.35rem] bg-blue-500 shadow-[0_18px_35px_-22px_rgba(59,130,246,0.95)]">
+      <div className="flex h-7 w-7 items-center justify-center rounded-[0.55rem] bg-white">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="none"
+          className="h-4 w-4 text-blue-500"
+          aria-hidden="true"
+        >
+          <path
+            d="M8 3.5v9M3.5 8h9"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
+    </div>
+  )
+}
+
+function AddProductModal({
+  isOpen,
+  onClose,
+  onSubmit,
+  formData,
+  onFormInputChange,
+  onPriceChange,
+  onImageChange,
+  selectedImageName,
+  categoryOptions,
+  formatPriceInput,
+}) {
+  if (!isOpen) {
+    return null
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm md:p-8">
+      <div className="w-full max-w-2xl overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-2xl shadow-black/40">
+        <header className="flex items-center justify-between border-b border-slate-800 px-6 py-4">
+          <div className="flex items-center gap-3">
+            <AddProductHeaderIcon />
+            <h2 className="text-xl font-bold tracking-tight text-white">
+              Tambah Produk Baru
+            </h2>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full p-2 text-slate-500 transition hover:bg-slate-800 hover:text-slate-200"
+            aria-label="Tutup formulir"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </header>
+
+        <form onSubmit={onSubmit} className="space-y-6 p-6">
+          <div className="space-y-2">
+            <label className="text-sm font-semibold text-slate-300">
+              Foto Produk
+            </label>
+            <div className="group relative">
+              <div className="cursor-pointer rounded-2xl border-2 border-dashed border-slate-700 bg-slate-950/60 p-8 transition-all group-hover:border-blue-500">
+                <div className="flex flex-col items-center justify-center text-center">
+                  <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
+                    <CloudUpload className="h-7 w-7" />
+                  </div>
+                  <p className="text-sm font-medium text-slate-100">
+                    Klik untuk upload atau drag and drop
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">
+                    PNG, JPG atau WebP maksimal 5MB
+                  </p>
+                  {selectedImageName ? (
+                    <p className="mt-3 text-xs font-medium text-blue-400">
+                      {selectedImageName}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <input
+                type="file"
+                accept=".png,.jpg,.jpeg,.webp"
+                className="absolute inset-0 cursor-pointer opacity-0"
+                onChange={onImageChange}
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="space-y-2 md:col-span-2">
+              <label
+                htmlFor="product-name"
+                className="text-sm font-semibold text-slate-300"
+              >
+                Nama Produk
+              </label>
+              <input
+                id="product-name"
+                name="name"
+                type="text"
+                required
+                placeholder="Contoh: Signature Arabica Beans"
+                value={formData.name}
+                onChange={onFormInputChange}
+                className="h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="category"
+                className="text-sm font-semibold text-slate-300"
+              >
+                Kategori
+              </label>
+              <div className="relative">
+                <select
+                  id="category"
+                  name="category"
+                  required
+                  value={formData.category}
+                  onChange={onFormInputChange}
+                  className="h-12 w-full appearance-none rounded-xl border border-slate-700 bg-slate-950 px-4 pr-12 text-slate-100 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                >
+                  <option value="" disabled>
+                    Pilih Kategori
+                  </option>
+                  {categoryOptions.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="stock" className="text-sm font-semibold text-slate-300">
+                Stok Awal
+              </label>
+              <div className="relative">
+                <input
+                  id="stock"
+                  name="stock"
+                  type="number"
+                  min="0"
+                  required
+                  placeholder="0"
+                  value={formData.stock}
+                  onChange={onFormInputChange}
+                  className="h-12 w-full rounded-xl border border-slate-700 bg-slate-950 px-4 pr-16 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                />
+                <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-sm text-slate-500">
+                  Unit
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <label htmlFor="price" className="text-sm font-semibold text-slate-300">
+                Harga
+              </label>
+              <div className="relative">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-sm font-semibold text-slate-400">
+                  Rp
+                </div>
+                <input
+                  id="price"
+                  name="price"
+                  type="text"
+                  inputMode="numeric"
+                  required
+                  placeholder="0"
+                  value={formData.price ? formatPriceInput(formData.price) : ''}
+                  onChange={onPriceChange}
+                  className="h-12 w-full rounded-xl border border-slate-700 bg-slate-950 pl-12 pr-4 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <label
+                htmlFor="description"
+                className="text-sm font-semibold text-slate-300"
+              >
+                Deskripsi Produk
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                rows="4"
+                placeholder="Ceritakan sedikit tentang produk Anda..."
+                value={formData.description}
+                onChange={onFormInputChange}
+                className="w-full resize-none rounded-xl border border-slate-700 bg-slate-950 p-4 text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+              />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 border-t border-slate-800 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="inline-flex h-12 items-center justify-center rounded-xl px-6 font-semibold text-slate-400 transition hover:bg-slate-800 hover:text-slate-100"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-blue-500 px-6 font-semibold text-white shadow-[0_20px_40px_-24px_rgba(59,130,246,0.95)] transition hover:bg-blue-400"
+            >
+              <Save className="h-4 w-4" />
+              Simpan Produk
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default AddProductModal
