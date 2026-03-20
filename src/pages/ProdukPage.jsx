@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import {
   AlertTriangle,
   Archive,
@@ -178,7 +178,7 @@ function ProdukPage() {
   return (
     <>
       <DashboardLayout sidebar={sidebar} topbar={topbar}>
-        <div className="space-y-6 sm:space-y-8">
+        <div className="app-page-stack">
           <ProductStats metrics={metrics} />
 
           <ProductFilterBar

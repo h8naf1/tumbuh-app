@@ -124,7 +124,7 @@ function HomeSection() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex min-h-screen scroll-mt-28 items-center overflow-hidden bg-slate-950 px-6 pb-16 pt-32 sm:pt-36"
+      className="relative flex min-h-[92svh] short-screen-safe scroll-mt-28 items-center overflow-hidden bg-slate-950 px-5 pb-14 pt-28 sm:px-6 sm:pb-16 sm:pt-32"
     >
       <div className="absolute inset-0 z-0">
         {isMobileView ? (
@@ -142,9 +142,9 @@ function HomeSection() {
         )}
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-6xl items-center gap-14 lg:grid-cols-[1fr_0.95fr]">
+      <div className="relative z-10 mx-auto grid w-full max-w-[1120px] items-center gap-10 lg:grid-cols-[minmax(0,0.98fr)_minmax(0,0.82fr)] xl:gap-12">
         {/* Area konten utama hero */}
-        <div className="max-w-2xl mx-auto text-center justify-center lg:text-left lg:mx-0  lg:justify-start">
+        <div className="mx-auto max-w-xl text-center lg:mx-0 lg:text-left">
           <p
             ref={eyebrowRef}
             className="mb-4 text-sm font-semibold uppercase tracking-[0.24em] text-blue-200"
@@ -153,7 +153,7 @@ function HomeSection() {
           </p>
           <h1
             ref={headingRef}
-            className="max-w-xl text-4xl font-black leading-tight text-white sm:text-5xl lg:text-6xl"
+            className="max-w-lg text-[2.55rem] font-black leading-[1.04] text-white sm:text-[3.35rem] xl:text-[4rem]"
           >
             <span className="text-white">Kelola usaha Anda</span>
             <br />
@@ -163,23 +163,23 @@ function HomeSection() {
           </h1>
           <p
             ref={descriptionRef}
-            className="mt-6 max-w-xl text-base leading-8 text-slate-200 sm:text-lg"
+            className="mt-5 max-w-lg text-[15px] leading-7 text-slate-200 sm:text-[1.02rem]"
           >
             Catat penjualan, pantau stok, dan pahami perkembangan usaha dalam satu aplikasi sederhana yang mudah digunakan.
           </p>
 
           {/* Grup tombol CTA */}
-          <div ref={ctaGroupRef} className="mt-8 flex flex-wrap gap-4 justify-center lg:justify-start">
-            <button className="rounded-xl bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(37,99,235,0.85)] transition hover:bg-blue-700">
+          <div ref={ctaGroupRef} className="mt-7 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <button className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(37,99,235,0.85)] transition hover:bg-blue-700">
               Mulai Sekarang
             </button>
             <Link
               to="/dashboard"
-              className="rounded-xl border border-blue-500/30 bg-blue-500/10 px-6 py-3 text-sm font-semibold text-blue-100 transition hover:border-blue-400/40 hover:bg-blue-500/15"
+              className="rounded-xl border border-blue-500/30 bg-blue-500/10 px-5 py-3 text-sm font-semibold text-blue-100 transition hover:border-blue-400/40 hover:bg-blue-500/15"
             >
               Lihat Dashboard
             </Link>
-            <button className="rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/15">
+            <button className="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/15">
               Pelajari
             </button>
           </div>
@@ -188,7 +188,7 @@ function HomeSection() {
         {/* Area preview tampilan produk */}
         <div
           ref={previewRef}
-          className="relative mx-auto w-full max-w-[440px] lg:max-w-[500px]"
+          className="relative mx-auto w-full max-w-[390px] lg:max-w-[450px]"
         >
           {/* Blur dekoratif di belakang preview */}
           <div className="absolute -left-5 top-10 h-24 w-24 rounded-full bg-blue-500/20 blur-3xl" />
@@ -253,3 +253,14 @@ function HomeSection() {
 }
 
 export default HomeSection;
+
+
+
+
+
+
+
+
+
+
+

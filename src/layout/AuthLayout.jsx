@@ -8,13 +8,15 @@ function AuthLayout({ children }) {
     'min-h-screen bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.24)_0%,_rgba(15,23,42,0.96)_28%,_#020617_68%,_#020617_100%)]'
   const headerClassName = 'border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl'
   const headerContainerClassName =
-    'mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8'
+    'mx-auto flex w-full max-w-[1180px] items-center justify-between px-4 py-4 sm:px-5 lg:px-6'
   const pageContentClassName =
-    'mx-auto flex w-full max-w-7xl px-4 py-8 sm:px-6 lg:min-h-[calc(100vh-81px)] lg:px-8 lg:py-10'
-  const formContainerClassName = isRegisterPage ? 'w-full max-w-2xl' : 'w-full max-w-md'
+    'mx-auto flex w-full max-w-[1180px] px-4 py-6 sm:px-5 sm:py-8 lg:min-h-[calc(100vh-81px)] lg:px-6 lg:py-8'
+  const formContainerClassName =
+    isRegisterPage ? 'w-full max-w-[42rem]' : 'w-full max-w-[29rem]'
   const authPromptText = isRegisterPage ? 'Sudah punya akun?' : 'Belum punya akun?'
   const authLinkHref = isRegisterPage ? '/login' : '/register'
   const authLinkLabel = isRegisterPage ? 'Masuk' : 'Daftar'
+
   return (
     <div className={outerPageClassName}>
       <header className={headerClassName}>
@@ -43,9 +45,9 @@ function AuthLayout({ children }) {
       </header>
 
       <main className={pageContentClassName}>
-        <div className="grid w-full items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12">
+        <div className="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:gap-10">
           <section className="hidden lg:block">
-            <div className="relative flex min-h-[640px] items-center justify-center overflow-hidden">
+            <div className="relative flex min-h-[560px] items-center justify-center overflow-hidden xl:min-h-[600px]">
               <div className="relative opacity-90">
                 <AuthGlobe />
               </div>

@@ -200,10 +200,40 @@ input[type="password"]::-ms-clear {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+
   html {
     @apply font-sans;
+  }
+}
+
+@layer utilities {
+  .app-page-stack {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 1rem + 0.9vw, 2rem);
+  }
+
+  .fluid-title {
+    font-size: clamp(1.55rem, 1.2rem + 1vw, 2.3rem);
+    line-height: 1.12;
+  }
+
+  .fluid-subtitle {
+    font-size: clamp(0.94rem, 0.9rem + 0.16vw, 1rem);
+    line-height: 1.7;
+  }
+
+  .short-screen-safe {
+    min-height: clamp(38rem, 84svh, 58rem);
+  }
+}
+
+@media (max-height: 820px) and (min-width: 1024px) {
+  .short-screen-safe {
+    min-height: auto;
   }
 }

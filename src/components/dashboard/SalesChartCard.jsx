@@ -24,14 +24,14 @@ function SalesChartCard({ title, description, tabs, data }) {
   const highlightedPoint = points[Math.floor(points.length / 2)]
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
+    <section className="rounded-xl border border-slate-800 bg-slate-900 p-4 sm:p-5 xl:p-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h2 className="text-lg font-bold text-white">{title}</h2>
+          <h2 className="text-lg font-bold text-white sm:text-xl">{title}</h2>
           <p className="mt-1 text-sm text-slate-400">{description}</p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 self-start">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -48,8 +48,8 @@ function SalesChartCard({ title, description, tabs, data }) {
         </div>
       </div>
 
-      <div className="mt-8">
-        <div className="relative h-56 overflow-hidden rounded-lg sm:h-64">
+      <div className="mt-6 sm:mt-7">
+        <div className="relative h-52 overflow-hidden rounded-lg sm:h-56 xl:h-60">
           <div className="absolute inset-0 flex flex-col justify-between py-2">
             {[1, 2, 3, 4].map((line) => (
               <div key={line} className="border-t border-slate-800" />

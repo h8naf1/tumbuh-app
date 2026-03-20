@@ -1,10 +1,10 @@
-﻿import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import DashboardElement from '../assets/elements/DashboardElement.png'
 import BagElement from '../assets/elements/BagElement.png'
 import BusinessManElement from '../assets/elements/BusinessManElement.png'
 
-const DEFAULT_SPOTLIGHT_RADIUS = 260
+const DEFAULT_SPOTLIGHT_RADIUS = 220
 const DEFAULT_GLOW_COLOR = '59, 130, 246'
 const MOBILE_BREAKPOINT = 768
 const DEFAULT_CARDS = [
@@ -15,8 +15,18 @@ const DEFAULT_CARDS = [
     label: '01',
     image: DashboardElement,
   },
-  { color: '#020617', title: 'Dashboard', description: 'Centralized data view', label: '02' },
-  { color: '#020617', title: 'Collaboration', description: 'Work together seamlessly', label: '03' },
+  {
+    color: '#020617',
+    title: 'Dashboard',
+    description: 'Centralized data view',
+    label: '02',
+  },
+  {
+    color: '#020617',
+    title: 'Collaboration',
+    description: 'Work together seamlessly',
+    label: '03',
+  },
 ]
 
 const normalizeCards = (items) =>
@@ -25,19 +35,38 @@ const normalizeCards = (items) =>
     title: item.title,
     description: item.description,
     label: item.label || item.badge || String(index + 1).padStart(2, '0'),
-    image: item.image ?? (index === 0 ? DashboardElement : index === 1 ? BagElement : index === 2 ? BusinessManElement : undefined),
+    image:
+      item.image ??
+      (index === 0
+        ? DashboardElement
+        : index === 1
+          ? BagElement
+          : index === 2
+            ? BusinessManElement
+            : undefined),
     imageAlt: item.imageAlt,
-    imageClassName: item.imageClassName ?? (index === 0 ? 'right-[-2%] top-[-10%] w-[560px]' : index === 1 ? 'right-[-10%] top-[-6%] w-[420px]' : index === 2 ? 'right-[-12%] top-[-10%] w-[440px]' : 'right-[-10%] top-[-8%] w-[420px]'),
+    imageClassName:
+      item.imageClassName ??
+      (index === 0
+        ? 'right-[-2%] top-[-10%] w-[500px]'
+        : index === 1
+          ? 'right-[-10%] top-[-6%] w-[360px]'
+          : index === 2
+            ? 'right-[-12%] top-[-10%] w-[390px]'
+            : 'right-[-10%] top-[-8%] w-[360px]'),
   }))
 
 const getGridClassName = (count) =>
   count === 3
-    ? 'grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:grid-rows-[minmax(180px,_1fr)_minmax(180px,_1fr)]'
+    ? 'grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:grid-rows-[minmax(165px,_1fr)_minmax(165px,_1fr)]'
     : 'grid gap-4 md:grid-cols-2 xl:grid-cols-4'
 
 const getCardSpanClassName = (index, count) => {
-  if (count === 3 && index === 0) return 'xl:col-span-2 xl:row-span-2 min-h-[320px]'
-  return 'min-h-[180px]'
+  if (count === 3 && index === 0) {
+    return 'xl:col-span-2 xl:row-span-2 min-h-[280px]'
+  }
+
+  return 'min-h-[165px]'
 }
 
 const getSpotlightRanges = (radius) => ({
@@ -63,6 +92,7 @@ const useMobile = () => {
     const check = () => setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT)
     check()
     window.addEventListener('resize', check)
+
     return () => window.removeEventListener('resize', check)
   }, [])
 
@@ -84,14 +114,16 @@ function MagicBento({
   const cards = normalizeCards(items)
 
   useEffect(() => {
-    if (shouldDisableAnimations || !enableSpotlight || !sectionRef.current) return
+    if (shouldDisableAnimations || !enableSpotlight || !sectionRef.current) {
+      return undefined
+    }
 
     const section = sectionRef.current
     const spotlight = document.createElement('div')
     spotlight.style.cssText = `
       position: fixed;
-      width: 760px;
-      height: 760px;
+      width: 680px;
+      height: 680px;
       border-radius: 999px;
       pointer-events: none;
       background: radial-gradient(circle,
@@ -224,7 +256,7 @@ function MagicBento({
             <article
               key={`${card.label}-${index}`}
               className={[
-                'magic-bento-card group relative overflow-hidden rounded-[1.75rem] border border-slate-800 p-6 text-left',
+                'magic-bento-card group relative overflow-hidden rounded-[1.55rem] border border-slate-800 p-5 text-left',
                 'bg-gradient-to-br from-slate-950 via-slate-950 to-slate-900',
                 getCardSpanClassName(index, cards.length),
                 shouldDisableAnimations
@@ -241,14 +273,14 @@ function MagicBento({
                   '0 22px 50px -34px rgba(2, 6, 23, 0.78), 0 0 0 1px rgba(30, 41, 59, 0.65), 0 0 32px rgba(59, 130, 246, 0.08)',
               }}
             >
-              {card.image && (
+              {card.image ? (
                 <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
                   <img
                     src={card.image}
                     alt={card.imageAlt || ''}
                     aria-hidden={card.imageAlt ? undefined : 'true'}
                     className={[
-                      'absolute right-[-10%] top-[-14%] w-[620px] max-w-none',
+                      'absolute right-[-10%] top-[-14%] w-[540px] max-w-none',
                       'opacity-75 blur-[3px] brightness-[0.8] saturate-125 contrast-110',
                       'transition duration-500 ease-out',
                       'group-hover:opacity-85 group-hover:blur-[2px] group-hover:scale-[1.01]',
@@ -257,21 +289,27 @@ function MagicBento({
                   />
                   <div className="absolute inset-0 bg-gradient-to-br from-slate-950/5 via-slate-950/20 to-slate-950/55" />
                 </div>
-              )}
+              ) : null}
 
               <div
-                className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full blur-3xl"
+                className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-3xl"
                 style={{ background: `rgba(${glowColor}, 0.16)` }}
               />
 
-              <div className="relative z-[1] flex h-full flex-col justify-between gap-8">
-                <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10 text-sm font-semibold tracking-[0.12em] text-blue-400 shadow-[0_0_28px_rgba(59,130,246,0.16)]">
+              <div className="relative z-[1] flex h-full flex-col justify-between gap-6">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10 text-xs font-semibold tracking-[0.12em] text-blue-400 shadow-[0_0_28px_rgba(59,130,246,0.16)]">
                   {card.label}
                 </span>
 
                 <div className="relative flex flex-col">
-                  <h3 className="mb-3 text-xl font-bold leading-snug text-white">{card.title}</h3>
-                  <p className={`text-sm leading-7 text-slate-300 ${textAutoHide ? 'magic-bento-clamp' : ''}`}>
+                  <h3 className="mb-2 text-lg font-bold leading-snug text-white sm:text-xl">
+                    {card.title}
+                  </h3>
+                  <p
+                    className={`text-sm leading-6 text-slate-300 ${
+                      textAutoHide ? 'magic-bento-clamp' : ''
+                    }`}
+                  >
                     {card.description}
                   </p>
                 </div>
@@ -285,4 +323,3 @@ function MagicBento({
 }
 
 export default MagicBento
-

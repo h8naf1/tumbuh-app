@@ -21,9 +21,9 @@ const contactItems = [
 
 function FooterSection() {
   return (
-    <footer className="bg-slate-900 px-6 pb-12 pt-20 sm:pt-24 lg:pt-24">
-      <div className="mx-auto max-w-6xl">
-        <div className="grid gap-10 pb-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(180px,0.8fr)_minmax(180px,0.8fr)_minmax(220px,0.95fr)] lg:gap-8">
+    <footer className="bg-slate-900 px-5 pb-12 pt-16 sm:px-6 sm:pt-20 lg:pt-20">
+      <div className="mx-auto max-w-[1120px]">
+        <div className="grid gap-8 pb-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(180px,0.8fr)_minmax(180px,0.8fr)_minmax(220px,0.95fr)] lg:gap-7">
           <div className="max-w-sm">
             <a href="#home" className="inline-flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1e293b_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_14px_30px_-16px_rgba(37,99,235,0.8)]">
@@ -107,4 +107,7 @@ function FooterSection() {
 }
 
 export default FooterSection
+
+
+
 
