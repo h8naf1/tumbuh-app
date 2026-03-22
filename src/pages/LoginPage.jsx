@@ -68,7 +68,7 @@ function LoginPage() {
       <FormToast message={toastMessage} />
 
       {/* Card utama halaman login */}
-      <div className="w-full rounded-[2rem] border border-slate-800 bg-slate-900/88 p-6 shadow-2xl shadow-black/30 backdrop-blur sm:p-8">
+      <div className="w-full rounded-[1.75rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:p-6 lg:p-7">
         {/* Tampilan header halaman login */}
         <div className="space-y-2">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
@@ -213,3 +213,4 @@ function LoginPage() {
 }
 
 export default LoginPage
+

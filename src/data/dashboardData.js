@@ -3,7 +3,7 @@ export const dashboardSidebarItems = [
   { id: 'products', label: 'Produk', href: '/produk' },
   { id: 'transactions', label: 'Transaksi' },
   { id: 'chat-assistant', label: 'Asisten Chat' },
-  { id: 'settings', label: 'Pengaturan', isSeparated: true },
+  { id: 'settings', label: 'Pengaturan', href: '/pengaturan', isSeparated: true },
 ]
 
 export const dashboardUserProfile = {

@@ -184,7 +184,7 @@ function MainNavbar() {
         }}
       />
 
-      <div className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:px-6">
+      <div className="fixed inset-x-0 top-0 z-40 px-4 pt-4 sm:px-5 lg:px-6">
         <motion.nav
           animate={{
             y: isScrolled ? 0 : 6,
@@ -195,9 +195,9 @@ function MainNavbar() {
           }}
           transition={{ duration: 0.28, ease: 'easeOut' }}
           data-main-navbar
-          className="mx-auto max-w-6xl rounded-2xl border border-slate-800/80 bg-slate-950/84 backdrop-blur"
+          className="mx-auto max-w-[1120px] rounded-2xl border border-slate-800/80 bg-slate-950/84 backdrop-blur"
         >
-          <div className="flex items-center justify-between gap-4 px-5 py-3 sm:px-6">
+          <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
             <a href="#home" className="flex items-center gap-3">
               <motion.div
                 animate={{ rotate: isScrolled ? 6 : 0, scale: isScrolled ? 0.94 : 1 }}
@@ -438,4 +438,7 @@ function MainNavbar() {
 }
 
 export default MainNavbar
+
+
+
 

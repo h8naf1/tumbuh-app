@@ -25,18 +25,18 @@ function FeaturesSection() {
   return (
     <section
       id="features"
-      className="relative flex min-h-screen scroll-mt-28 items-center bg-slate-900 px-6 py-20"
+      className="relative flex min-h-[76svh] short-screen-safe scroll-mt-28 items-center bg-slate-900 px-5 py-16 sm:px-6 sm:py-20"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
-      <div className="mx-auto w-full max-w-6xl">
-        <div className="mb-12 max-w-3xl">
+      <div className="mx-auto w-full max-w-[1120px]">
+        <div className="mb-10 max-w-3xl">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-blue-600">
             Fitur Utama
           </p>
-          <h2 className="max-w-2xl text-3xl font-black leading-tight text-white sm:text-4xl">
+          <h2 className="max-w-2xl text-3xl font-black leading-tight text-white sm:text-[2.65rem]">
             Fitur yang membantu pemilik UMKM bekerja lebih praktis.
           </h2>
-          <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
+          <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-300 sm:text-base">
             Fokus utama TUMBUH adalah membantu proses harian usaha terasa lebih ringan,
             terstruktur, dan mudah dipantau.
           </p>
@@ -49,3 +49,9 @@ function FeaturesSection() {
 }
 
 export default FeaturesSection
+
+
+
+
+
+

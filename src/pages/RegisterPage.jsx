@@ -70,7 +70,7 @@ function RegisterPage() {
   return (
     <AuthLayout>
       <FormToast message={toastMessage} />
-      <div className="mt-4 w-full rounded-[2rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-6 sm:p-6 lg:max-w-2xl lg:px-8 lg:py-7">
+      <div className="mt-4 w-full rounded-[1.75rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-5 sm:p-6 lg:max-w-[42rem] lg:px-7 lg:py-6">
         <div className="space-y-2">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
             Daftar
@@ -270,3 +270,4 @@ function RegisterPage() {
 }
 
 export default RegisterPage
+

@@ -3,8 +3,8 @@ import { MoreVertical } from 'lucide-react'
 function RecentTransactionsCard({ title, transactions, statusStyles }) {
   return (
     <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
-      <div className="flex items-center justify-between gap-4 border-b border-slate-800 p-5 sm:p-6">
-        <h2 className="text-lg font-bold text-slate-100">{title}</h2>
+      <div className="flex items-center justify-between gap-4 border-b border-slate-800 p-4 sm:p-5 xl:p-6">
+        <h2 className="text-lg font-bold text-slate-100 sm:text-xl">{title}</h2>
 
         <button
           type="button"
@@ -15,25 +15,25 @@ function RecentTransactionsCard({ title, transactions, statusStyles }) {
       </div>
 
       <div className="hidden overflow-x-auto md:block">
-        <table className="min-w-full text-left">
+        <table className="min-w-[760px] w-full text-left">
           <thead className="bg-slate-800/50">
             <tr>
-              <th className="px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
                 ID Transaksi
               </th>
-              <th className="px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
                 Nama Produk
               </th>
-              <th className="px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
                 Harga
               </th>
-              <th className="px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
                 Metode
               </th>
-              <th className="px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
                 Status
               </th>
-              <th className="px-6 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
                 Aksi
               </th>
             </tr>
@@ -49,27 +49,27 @@ function RecentTransactionsCard({ title, transactions, statusStyles }) {
                   key={transaction.id}
                   className="border-t border-slate-800 text-sm text-slate-100"
                 >
-                  <td className="whitespace-nowrap px-6 py-5 font-medium">
+                  <td className="whitespace-nowrap px-5 py-4 font-medium">
                     #{transaction.id}
                   </td>
-                  <td className="px-6 py-5">
+                  <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div className="h-8 w-8 rounded bg-slate-700" />
                       <span>{transaction.productName}</span>
                     </div>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-5">{transaction.price}</td>
-                  <td className="whitespace-nowrap px-6 py-5">
+                  <td className="whitespace-nowrap px-5 py-4">{transaction.price}</td>
+                  <td className="whitespace-nowrap px-5 py-4">
                     {transaction.paymentMethod}
                   </td>
-                  <td className="whitespace-nowrap px-6 py-5">
+                  <td className="whitespace-nowrap px-5 py-4">
                     <span
                       className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide outline outline-1 outline-offset-[-1px] ${statusStyle.badgeClassName}`}
                     >
                       {transaction.status}
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-6 py-5">
+                  <td className="whitespace-nowrap px-5 py-4">
                     <button
                       type="button"
                       className="text-slate-400 transition hover:text-slate-200"
@@ -93,7 +93,7 @@ function RecentTransactionsCard({ title, transactions, statusStyles }) {
           return (
             <article
               key={transaction.id}
-              className="rounded-lg border border-slate-800 bg-slate-950/40 p-4"
+              className="rounded-lg border border-slate-800 bg-slate-950/40 p-3.5"
             >
               <div className="flex items-start justify-between gap-3">
                 <div>

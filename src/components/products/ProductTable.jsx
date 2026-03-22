@@ -1,4 +1,4 @@
-﻿import {
+import {
   ChevronLeft,
   ChevronRight,
   Pencil,
@@ -54,17 +54,17 @@ function getStatusMeta(stock) {
 
 function ProductTable({ products, totalProducts, formatRupiah }) {
   return (
-    <section className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 shadow-[0_24px_45px_-28px_rgba(15,23,42,0.95)]">
+    <section className="overflow-hidden rounded-[1.6rem] border border-slate-800 bg-slate-900 shadow-[0_24px_45px_-28px_rgba(15,23,42,0.95)]">
       <div className="overflow-x-auto">
-        <table className="min-w-full text-left">
+        <table className="min-w-[820px] w-full text-left">
           <thead>
             <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-              <th className="px-6 py-5">Produk</th>
-              <th className="px-6 py-5">Kategori</th>
-              <th className="px-6 py-5">Stok</th>
-              <th className="px-6 py-5">Harga</th>
-              <th className="px-6 py-5">Status</th>
-              <th className="px-6 py-5 text-right">Aksi</th>
+              <th className="px-5 py-4">Produk</th>
+              <th className="px-5 py-4">Kategori</th>
+              <th className="px-5 py-4">Stok</th>
+              <th className="px-5 py-4">Harga</th>
+              <th className="px-5 py-4">Status</th>
+              <th className="px-5 py-4 text-right">Aksi</th>
             </tr>
           </thead>
 
@@ -80,10 +80,10 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
                   key={product.id}
                   className="border-b border-slate-800/90 text-sm text-slate-200 transition hover:bg-slate-800/30"
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div
-                        className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${visual.tone} text-[11px] font-bold uppercase tracking-[0.2em] text-slate-700 shadow-inner shadow-white/20`}
+                        className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${visual.tone} text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700 shadow-inner shadow-white/20`}
                       >
                         <span aria-hidden="true">{visual.thumbnail}</span>
                       </div>
@@ -92,8 +92,8 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 text-slate-400">{product.category}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-5 py-4 text-slate-400">{product.category}</td>
+                  <td className="px-5 py-4">
                     <span className={`font-semibold ${stockLabel.className}`}>
                       {stockLabel.value}
                       {stockLabel.suffix ? (
@@ -101,10 +101,10 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
                       ) : null}
                     </span>
                   </td>
-                  <td className="px-6 py-4 font-medium text-slate-100">
+                  <td className="px-5 py-4 font-medium text-slate-100">
                     {formatRupiah(product.price)}
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-5 py-4">
                     <span
                       className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold ring-1 ${statusMeta.className}`}
                     >
@@ -112,8 +112,8 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
                       {statusMeta.label}
                     </span>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-end gap-3 text-slate-400">
+                  <td className="px-5 py-4">
+                    <div className="flex items-center justify-end gap-2 text-slate-400">
                       <button
                         type="button"
                         className="rounded-lg p-2 transition hover:bg-slate-800 hover:text-white"
@@ -137,7 +137,7 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
         </table>
       </div>
 
-      <div className="flex flex-col gap-4 border-t border-slate-800 bg-slate-800/60 px-6 py-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 border-t border-slate-800 bg-slate-800/60 px-5 py-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
         <p>Menampilkan {products.length} dari {totalProducts} produk</p>
 
         <div className="flex items-center gap-2">

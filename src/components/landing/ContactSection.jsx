@@ -62,16 +62,16 @@ function ContactSection() {
   const fieldErrorClassName = 'border-red-500/60 focus:border-red-400 focus:ring-red-500/10'
 
   return (
-    <section id="contact" className="relative scroll-mt-28 bg-slate-950 px-6 pt-24 pb-24 sm:scroll-mt-32 sm:pt-28 sm:pb-28 lg:flex lg:min-h-screen lg:items-center lg:pt-28 lg:pb-24 xl:pt-32 xl:pb-28">
+    <section id="contact" className="relative short-screen-safe scroll-mt-28 bg-slate-950 px-5 pt-20 pb-20 sm:scroll-mt-32 sm:px-6 sm:pt-24 sm:pb-24 lg:flex lg:min-h-[78svh] lg:items-center lg:pt-24 lg:pb-20 xl:pt-24 xl:pb-24">
       <FormToast message={toastMessage} />
 
-      <div className="mx-auto w-full max-w-6xl">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.96fr)_minmax(320px,0.84fr)] lg:items-start lg:gap-6">
-          <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(145deg,rgba(2,6,23,0.98)_0%,rgba(15,23,42,0.98)_58%,rgba(30,64,175,0.22)_100%)] p-7 shadow-[0_30px_80px_-40px_rgba(2,6,23,0.95)] sm:p-8 lg:p-9">
+      <div className="mx-auto w-full max-w-[1120px]">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,0.95fr)_minmax(320px,0.82fr)] lg:items-start lg:gap-5">
+          <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(145deg,rgba(2,6,23,0.98)_0%,rgba(15,23,42,0.98)_58%,rgba(30,64,175,0.22)_100%)] p-6 shadow-[0_30px_80px_-40px_rgba(2,6,23,0.95)] sm:p-7 lg:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-blue-200">
               Konsultasi TUMBUH
             </p>
-            <h2 className="mt-4 max-w-xl text-3xl font-black leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
+            <h2 className="mt-4 max-w-xl text-3xl font-black leading-tight text-white sm:text-[2.7rem] lg:text-[3rem]">
               Konsultasi hangat untuk usaha yang lebih terarah.
             </h2>
 
@@ -104,7 +104,7 @@ function ContactSection() {
             </div>
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.96)_0%,rgba(2,6,23,0.98)_100%)] p-7 shadow-[0_30px_80px_-40px_rgba(2,6,23,1)] sm:p-8 lg:p-9">
+          <div className="rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.96)_0%,rgba(2,6,23,0.98)_100%)] p-6 shadow-[0_30px_80px_-40px_rgba(2,6,23,1)] sm:p-7 lg:p-8">
             <div className="max-w-lg">
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200">
                 Hubungi Kami
@@ -229,4 +229,11 @@ function ContactSection() {
 }
 
 export default ContactSection
+
+
+
+
+
+
+
 
