@@ -6,6 +6,9 @@ import RegisterPage from './pages/RegisterPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import ProdukPage from './pages/ProdukPage.jsx'
 import PengaturanPage from './pages/PengaturanPage.jsx'
+import TransaksiPage from './pages/TransaksiPage.jsx'
+import AsistenChatPage from './pages/AsistenChatPage.jsx'
+
 
 function App() {
   return (
@@ -14,6 +17,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/produk" element={<ProdukPage />} />
+        <Route path="/transaksi" element={<TransaksiPage />} />
+        <Route path="/asisten-chat" element={<AsistenChatPage />} />
+
         <Route path="/pengaturan" element={<PengaturanPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

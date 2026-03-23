@@ -1,8 +1,8 @@
 export const dashboardSidebarItems = [
   { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
   { id: 'products', label: 'Produk', href: '/produk' },
-  { id: 'transactions', label: 'Transaksi' },
-  { id: 'chat-assistant', label: 'Asisten Chat' },
+  { id: 'transactions', label: 'Transaksi', href: '/transaksi' },
+  { id: 'chat-assistant', label: 'Asisten Chat', href: '/asisten-chat' },
   { id: 'settings', label: 'Pengaturan', href: '/pengaturan', isSeparated: true },
 ]
 
@@ -103,5 +103,13 @@ export const transactionStatusStyles = {
   Proses: {
     badgeClassName:
       'bg-amber-500/10 text-amber-500 outline-amber-500/20',
+  },
+  Menunggu: {
+    badgeClassName:
+      'bg-sky-500/10 text-sky-400 outline-sky-500/20',
+  },
+  Dibatalkan: {
+    badgeClassName:
+      'bg-rose-500/10 text-rose-400 outline-rose-500/20',
   },
 }
