@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
+import TransactionDetailModal from '../components/dashboard/TransactionDetailModal.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
 import TransactionFilterBar from '../components/transactions/TransactionFilterBar.jsx'
 import TransactionStats from '../components/transactions/TransactionStats.jsx'
@@ -97,6 +98,7 @@ function TransaksiPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [selectedMethod, setSelectedMethod] = useState('all')
+  const [selectedTransaction, setSelectedTransaction] = useState(null)
 
   const sidebar = (
     <DashboardSidebar
@@ -190,8 +192,16 @@ function TransaksiPage() {
           transactions={filteredTransactions}
           statusStyles={transactionStatusStyles}
           formatRupiah={formatRupiah}
+          onSelectTransaction={setSelectedTransaction}
         />
       </div>
+
+      <TransactionDetailModal
+        transaction={selectedTransaction}
+        statusStyles={transactionStatusStyles}
+        formatRupiah={formatRupiah}
+        onClose={() => setSelectedTransaction(null)}
+      />
     </DashboardLayout>
   )
 }

@@ -52,7 +52,16 @@ function getStatusMeta(stock) {
   }
 }
 
-function ProductTable({ products, totalProducts, formatRupiah }) {
+function ProductTable({
+  products,
+  totalProducts,
+  formatRupiah,
+  currentPage,
+  totalPages,
+  onPageChange,
+  onEditProduct,
+  onDeleteProduct,
+}) {
   return (
     <section className="overflow-hidden rounded-[1.6rem] border border-slate-800 bg-slate-900 shadow-[0_24px_45px_-28px_rgba(15,23,42,0.95)]">
       <div className="overflow-x-auto">
@@ -116,6 +125,7 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
                     <div className="flex items-center justify-end gap-2 text-slate-400">
                       <button
                         type="button"
+                        onClick={() => onEditProduct?.(product)}
                         className="rounded-lg p-2 transition hover:bg-slate-800 hover:text-white"
                         aria-label={`Edit ${product.name}`}
                       >
@@ -123,6 +133,7 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
                       </button>
                       <button
                         type="button"
+                        onClick={() => onDeleteProduct?.(product)}
                         className="rounded-lg p-2 transition hover:bg-slate-800 hover:text-red-400"
                         aria-label={`Hapus ${product.name}`}
                       >
@@ -143,6 +154,8 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
         <div className="flex items-center gap-2">
           <button
             type="button"
+            onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
+            disabled={currentPage <= 1}
             className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-800 text-slate-600"
             aria-label="Halaman sebelumnya"
           >
@@ -152,22 +165,15 @@ function ProductTable({ products, totalProducts, formatRupiah }) {
             type="button"
             className="flex h-8 min-w-8 items-center justify-center rounded-xl bg-blue-500 px-3 font-semibold text-white"
           >
-            1
+            {currentPage}
           </button>
+          <span className="px-1 text-xs font-medium text-slate-500">
+            dari {totalPages}
+          </span>
           <button
             type="button"
-            className="flex h-8 min-w-8 items-center justify-center rounded-xl px-3 font-semibold text-slate-500 transition hover:bg-slate-800 hover:text-slate-200"
-          >
-            2
-          </button>
-          <button
-            type="button"
-            className="flex h-8 min-w-8 items-center justify-center rounded-xl px-3 font-semibold text-slate-500 transition hover:bg-slate-800 hover:text-slate-200"
-          >
-            3
-          </button>
-          <button
-            type="button"
+            onClick={() => onPageChange?.(Math.min(totalPages, currentPage + 1))}
+            disabled={currentPage >= totalPages}
             className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-800 text-slate-500 transition hover:bg-slate-800 hover:text-slate-200"
             aria-label="Halaman berikutnya"
           >

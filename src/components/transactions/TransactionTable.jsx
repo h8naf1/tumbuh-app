@@ -1,6 +1,11 @@
 import { MoreVertical } from 'lucide-react'
 
-function TransactionTable({ transactions, statusStyles, formatRupiah }) {
+function TransactionTable({
+  transactions,
+  statusStyles,
+  formatRupiah,
+  onSelectTransaction,
+}) {
   return (
     <section className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 shadow-[0_20px_45px_-32px_rgba(2,6,23,0.82)]">
       <div className="flex items-center justify-between gap-4 border-b border-slate-800 p-5 sm:p-6">
@@ -95,6 +100,7 @@ function TransactionTable({ transactions, statusStyles, formatRupiah }) {
                   <td className="whitespace-nowrap px-6 py-5">
                     <button
                       type="button"
+                      onClick={() => onSelectTransaction?.(transaction)}
                       className="text-slate-400 transition hover:text-slate-200"
                       aria-label={`Aksi untuk ${transaction.id}`}
                     >
@@ -128,6 +134,7 @@ function TransactionTable({ transactions, statusStyles, formatRupiah }) {
 
                 <button
                   type="button"
+                  onClick={() => onSelectTransaction?.(transaction)}
                   className="text-slate-400 transition hover:text-slate-200"
                   aria-label={`Aksi untuk ${transaction.id}`}
                 >

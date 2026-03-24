@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import BusinessInsightCard from '../components/dashboard/BusinessInsightCard.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
+import TransactionDetailModal from '../components/dashboard/TransactionDetailModal.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
 import RecentTransactionsCard from '../components/dashboard/RecentTransactionsCard.jsx'
 import SalesChartCard from '../components/dashboard/SalesChartCard.jsx'
@@ -17,6 +19,7 @@ import {
 } from '../data/dashboardData.js'
 
 function DashboardPage() {
+  const [selectedTransaction, setSelectedTransaction] = useState(null)
   const sidebar = (
     <DashboardSidebar
       items={dashboardSidebarItems}
@@ -61,8 +64,16 @@ function DashboardPage() {
           title="Transaksi Terbaru"
           transactions={latestTransactions}
           statusStyles={transactionStatusStyles}
+          onSelectTransaction={setSelectedTransaction}
         />
       </div>
+
+      <TransactionDetailModal
+        transaction={selectedTransaction}
+        statusStyles={transactionStatusStyles}
+        formatRupiah={(amount) => `Rp ${new Intl.NumberFormat('id-ID').format(amount)}`}
+        onClose={() => setSelectedTransaction(null)}
+      />
     </DashboardLayout>
   )
 }

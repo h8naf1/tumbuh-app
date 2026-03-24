@@ -1,6 +1,6 @@
 import PengaturanCard from './PengaturanCard.jsx'
 
-function PengaturanGrid({ sections }) {
+function PengaturanGrid({ sections, selectedSectionId, onSelectSection }) {
   return (
     <section className="grid gap-5 md:grid-cols-2 2xl:grid-cols-3">
       {sections.map((section) => (
@@ -10,6 +10,8 @@ function PengaturanGrid({ sections }) {
           description={section.description}
           icon={section.icon}
           accentClassName={section.accentClassName}
+          isActive={selectedSectionId === section.id}
+          onClick={() => onSelectSection?.(section.id)}
         />
       ))}
     </section>

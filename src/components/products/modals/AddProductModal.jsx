@@ -32,6 +32,8 @@ function AddProductModal({
   isOpen,
   onClose,
   onSubmit,
+  title = 'Tambah Produk Baru',
+  submitLabel = 'Simpan Produk',
   formData,
   onFormInputChange,
   onPriceChange,
@@ -51,7 +53,7 @@ function AddProductModal({
           <div className="flex items-center gap-3">
             <AddProductHeaderIcon />
             <h2 className="text-xl font-bold tracking-tight text-white">
-              Tambah Produk Baru
+              {title}
             </h2>
           </div>
 
@@ -228,7 +230,7 @@ function AddProductModal({
                 className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-blue-500 px-6 font-semibold text-white shadow-[0_20px_40px_-24px_rgba(59,130,246,0.95)] transition hover:bg-blue-400"
               >
                 <Save className="h-4 w-4" />
-                Simpan Produk
+                {submitLabel}
               </button>
             </div>
           </div>

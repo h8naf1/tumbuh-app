@@ -1,10 +1,22 @@
 import { ArrowUpRight } from 'lucide-react'
 
-function PengaturanCard({ title, description, icon: Icon, accentClassName }) {
+function PengaturanCard({
+  title,
+  description,
+  icon: Icon,
+  accentClassName,
+  isActive,
+  onClick,
+}) {
   return (
     <button
       type="button"
-      className="group relative flex min-h-[15rem] w-full flex-col overflow-hidden rounded-[1.6rem] border border-slate-800 bg-slate-900 p-5 text-left transition duration-200 hover:-translate-y-1 hover:border-slate-700 hover:bg-slate-900/90 sm:p-6"
+      onClick={onClick}
+      className={`group relative flex min-h-[15rem] w-full flex-col overflow-hidden rounded-[1.6rem] border bg-slate-900 p-5 text-left transition duration-200 hover:-translate-y-1 sm:p-6 ${
+        isActive
+          ? 'border-blue-500/40 shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)]'
+          : 'border-slate-800 hover:border-slate-700 hover:bg-slate-900/90'
+      }`}
     >
       <div className="absolute right-0 top-0 h-28 w-28 rounded-full bg-blue-500/5 blur-3xl transition duration-200 group-hover:bg-blue-500/10" />
 

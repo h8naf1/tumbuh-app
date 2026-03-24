@@ -1,9 +1,4 @@
-import { useState } from 'react'
-import {
-  AlertTriangle,
-  Archive,
-  LayoutGrid,
-} from 'lucide-react'
+import { useEffect, useState } from 'react'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
@@ -71,6 +66,8 @@ function ProdukPage() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [formData, setFormData] = useState(initialFormState)
   const [selectedImageName, setSelectedImageName] = useState('')
+  const [editingProductId, setEditingProductId] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
 
   const sidebar = (
     <DashboardSidebar
@@ -91,6 +88,12 @@ function ProdukPage() {
     selectedCategory === 'all'
       ? products
       : products.filter((product) => product.category === selectedCategory)
+  const itemsPerPage = 4
+  const totalPages = Math.max(1, Math.ceil(filteredProducts.length / itemsPerPage))
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
+  )
 
   const totalProducts = 124 + products.length - initialProducts.length
   const lowStockCount = Math.max(
@@ -128,12 +131,26 @@ function ProdukPage() {
     },
   ]
 
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedCategory])
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages)
+    }
+  }, [currentPage, totalPages])
+
   function handleOpenModal() {
+    setEditingProductId(null)
+    setFormData(initialFormState)
+    setSelectedImageName('')
     setIsModalOpen(true)
   }
 
   function handleCloseModal() {
     setIsModalOpen(false)
+    setEditingProductId(null)
     setFormData(initialFormState)
     setSelectedImageName('')
   }
@@ -164,15 +181,54 @@ function ProdukPage() {
     event.preventDefault()
 
     const nextProduct = {
-      id: `product-${Date.now()}`,
+      id: editingProductId || `product-${Date.now()}`,
       name: formData.name.trim(),
       category: formData.category,
       stock: Number(formData.stock) || 0,
       price: Number(formData.price) || 0,
     }
 
-    setProducts((currentProducts) => [nextProduct, ...currentProducts])
+    setProducts((currentProducts) => {
+      if (editingProductId) {
+        return currentProducts.map((product) =>
+          product.id === editingProductId ? nextProduct : product,
+        )
+      }
+
+      return [nextProduct, ...currentProducts]
+    })
     handleCloseModal()
+  }
+
+  function handleEditProduct(product) {
+    setEditingProductId(product.id)
+    setFormData({
+      name: product.name,
+      category: product.category,
+      stock: String(product.stock),
+      price: String(product.price),
+      description: product.description || '',
+    })
+    setSelectedImageName('')
+    setIsModalOpen(true)
+  }
+
+  function handleDeleteProduct(product) {
+    const shouldDelete = window.confirm(
+      `Hapus produk "${product.name}" dari daftar produk?`,
+    )
+
+    if (!shouldDelete) {
+      return
+    }
+
+    setProducts((currentProducts) =>
+      currentProducts.filter((item) => item.id !== product.id),
+    )
+  }
+
+  function handlePageChange(nextPage) {
+    setCurrentPage(nextPage)
   }
 
   return (
@@ -189,9 +245,14 @@ function ProdukPage() {
           />
 
           <ProductTable
-            products={filteredProducts}
+            products={paginatedProducts}
             totalProducts={totalProducts}
             formatRupiah={formatRupiah}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            onEditProduct={handleEditProduct}
+            onDeleteProduct={handleDeleteProduct}
           />
         </div>
       </DashboardLayout>
@@ -200,6 +261,8 @@ function ProdukPage() {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmitProduct}
+        title={editingProductId ? 'Edit Produk' : 'Tambah Produk Baru'}
+        submitLabel={editingProductId ? 'Simpan Perubahan' : 'Simpan Produk'}
         formData={formData}
         onFormInputChange={handleFormInputChange}
         onPriceChange={handlePriceChange}

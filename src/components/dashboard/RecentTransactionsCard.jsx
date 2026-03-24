@@ -1,17 +1,23 @@
+import { Link } from 'react-router-dom'
 import { MoreVertical } from 'lucide-react'
 
-function RecentTransactionsCard({ title, transactions, statusStyles }) {
+function RecentTransactionsCard({
+  title,
+  transactions,
+  statusStyles,
+  onSelectTransaction,
+}) {
   return (
     <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
       <div className="flex items-center justify-between gap-4 border-b border-slate-800 p-4 sm:p-5 xl:p-6">
         <h2 className="text-lg font-bold text-slate-100 sm:text-xl">{title}</h2>
 
-        <button
-          type="button"
+        <Link
+          to="/transaksi"
           className="text-sm font-semibold text-blue-500 transition hover:text-blue-400"
         >
           Lihat Semua
-        </button>
+        </Link>
       </div>
 
       <div className="hidden overflow-x-auto md:block">
@@ -72,6 +78,7 @@ function RecentTransactionsCard({ title, transactions, statusStyles }) {
                   <td className="whitespace-nowrap px-5 py-4">
                     <button
                       type="button"
+                      onClick={() => onSelectTransaction?.(transaction)}
                       className="text-slate-400 transition hover:text-slate-200"
                       aria-label={`Aksi untuk ${transaction.id}`}
                     >
@@ -107,6 +114,7 @@ function RecentTransactionsCard({ title, transactions, statusStyles }) {
 
                 <button
                   type="button"
+                  onClick={() => onSelectTransaction?.(transaction)}
                   className="text-slate-400 transition hover:text-slate-200"
                   aria-label={`Aksi untuk ${transaction.id}`}
                 >

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { LifeBuoy } from 'lucide-react'
 
 function PengaturanSupportCard() {
@@ -17,12 +18,12 @@ function PengaturanSupportCard() {
         </div>
       </div>
 
-      <button
-        type="button"
+      <Link
+        to="/asisten-chat"
         className="inline-flex items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-600"
       >
         Pusat Bantuan
-      </button>
+      </Link>
     </section>
   )
 }
