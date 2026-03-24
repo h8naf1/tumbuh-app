@@ -154,14 +154,14 @@ function EmptyChatState() {
 
 function ChatThread() {
   return (
-    <ThreadPrimitive.Root className="flex h-[calc(100vh-11rem)] min-h-[42rem] flex-col overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)]">
+    <ThreadPrimitive.Root className="flex min-h-[38rem] flex-col overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)] lg:h-[calc(100vh-15.5rem)] lg:min-h-[42rem]">
       <div className="border-b border-slate-800 px-5 py-4 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm font-semibold text-white">Ruang Percakapan</p>
             <p className="mt-1 text-xs leading-5 text-slate-400">
-              Chat dasar sudah aktif. Tahap berikutnya kita bisa sambungkan ke OCR
-              nota dan parsing stok.
+              Mulai chat seperti biasa atau upload nota untuk menyiapkan draft
+              pencatatan stok.
             </p>
           </div>
 
@@ -208,21 +208,28 @@ function ChatThread() {
             />
 
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="flex flex-wrap items-center gap-2">
-                <ComposerPrimitive.AddAttachment asChild>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    className="rounded-xl border-slate-700 bg-slate-950/80 text-slate-200 hover:bg-slate-800"
-                  >
-                    <Paperclip className="h-4 w-4" />
-                    Upload File
-                  </Button>
-                </ComposerPrimitive.AddAttachment>
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <ComposerPrimitive.AddAttachment asChild>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="rounded-xl border-slate-700 bg-slate-950/80 text-slate-200 hover:bg-slate-800"
+                    >
+                      <Paperclip className="h-4 w-4" />
+                      Upload File
+                    </Button>
+                  </ComposerPrimitive.AddAttachment>
+
+                  <span className="rounded-full border border-slate-800 bg-slate-950 px-2.5 py-1 text-[11px] text-slate-400">
+                    Gambar / PDF / Dokumen
+                  </span>
+                </div>
 
                 <p className="text-xs text-slate-500">
-                  Format awal: gambar, PDF, atau dokumen ringan
+                  Setelah file diupload, Anda tetap bisa mengecek dan mengonfirmasi
+                  hasilnya secara manual.
                 </p>
               </div>
 
