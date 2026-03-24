@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import { id as localeId } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui/Button.jsx'
 import { Calendar } from '@/components/ui/calendar'
 import { Field, FieldLabel } from '@/components/ui/field'
 import {
