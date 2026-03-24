@@ -1,17 +1,28 @@
+import { forwardRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 
-function PengaturanCard({
-  title,
-  description,
-  icon: Icon,
-  accentClassName,
-  isActive,
-  onClick,
-}) {
+const PengaturanCard = forwardRef(function PengaturanCard(
+  {
+    sectionId,
+    title,
+    description,
+    icon: Icon,
+    accentClassName,
+    isActive,
+    onClick,
+    onMouseEnter,
+    onFocus,
+  },
+  ref,
+) {
   return (
     <button
+      ref={ref}
+      data-section-id={sectionId}
       type="button"
       onClick={onClick}
+      onMouseEnter={onMouseEnter}
+      onFocus={onFocus}
       className={`group relative flex min-h-[15rem] w-full flex-col overflow-hidden rounded-[1.6rem] border bg-slate-900 p-5 text-left transition duration-200 hover:-translate-y-1 sm:p-6 ${
         isActive
           ? 'border-blue-500/40 shadow-[0_20px_40px_-30px_rgba(59,130,246,0.7)]'
@@ -40,11 +51,6 @@ function PengaturanCard({
       </div>
     </button>
   )
-}
+})
 
 export default PengaturanCard
-
-
-
-
-

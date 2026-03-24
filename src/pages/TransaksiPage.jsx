@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react'
+import { Bot } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import TransactionDetailModal from '../components/dashboard/TransactionDetailModal.jsx'
@@ -95,11 +97,13 @@ function formatRupiah(amount) {
 }
 
 function TransaksiPage() {
+  // State utama untuk filter transaksi dan modal detail.
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedStatus, setSelectedStatus] = useState('all')
   const [selectedMethod, setSelectedMethod] = useState('all')
   const [selectedTransaction, setSelectedTransaction] = useState(null)
 
+  // Slot layout dashboard.
   const sidebar = (
     <DashboardSidebar
       items={dashboardSidebarItems}
@@ -111,11 +115,11 @@ function TransaksiPage() {
     <DashboardTopbar
       title="Transaksi"
       subtitle="Lihat, cari, dan pantau penjualan harian usaha Anda dengan lebih rapi."
-      searchPlaceholder="Cari transaksi..."
       showProfileButton={false}
     />
   )
 
+  // Data transaksi yang sudah difilter dari search, status, dan metode pembayaran.
   const filteredTransactions = useMemo(() => {
     return initialTransactions.filter((transaction) => {
       const matchesStatus =
@@ -142,6 +146,7 @@ function TransaksiPage() {
       transaction.status === 'Proses' || transaction.status === 'Menunggu',
   ).length
 
+  // Ringkasan angka utama halaman transaksi.
   const metrics = [
     {
       id: 'total-transactions',
@@ -175,8 +180,34 @@ function TransaksiPage() {
   return (
     <DashboardLayout sidebar={sidebar} topbar={topbar}>
       <div className="app-page-stack">
+        {/* Ringkasan transaksi. */}
         <TransactionStats metrics={metrics} />
 
+        {/* Shortcut bantuan kontekstual ke Asisten Chat. */}
+        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-start gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/12 text-blue-400">
+                <Bot className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-base font-semibold text-white">Ingin catat transaksi lebih cepat?</h2>
+                <p className="mt-1 text-sm leading-6 text-slate-400">
+                  Buka Asisten Chat untuk mencatat penjualan lewat percakapan, scan barcode, atau upload nota tanpa input manual yang panjang.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              to="/asisten-chat"
+              className="inline-flex items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
+            >
+              Gunakan Asisten Chat
+            </Link>
+          </div>
+        </section>
+
+        {/* Toolbar filter transaksi. */}
         <TransactionFilterBar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
@@ -188,6 +219,7 @@ function TransaksiPage() {
           paymentOptions={paymentOptions}
         />
 
+        {/* Tabel transaksi dan aksi detail. */}
         <TransactionTable
           transactions={filteredTransactions}
           statusStyles={transactionStatusStyles}
@@ -196,6 +228,7 @@ function TransaksiPage() {
         />
       </div>
 
+      {/* Modal detail transaksi. */}
       <TransactionDetailModal
         transaction={selectedTransaction}
         statusStyles={transactionStatusStyles}

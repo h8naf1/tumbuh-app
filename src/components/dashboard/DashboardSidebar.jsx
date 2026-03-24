@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
+// Mapping icon untuk setiap menu sidebar.
 const sidebarIcons = {
   dashboard: Grid2x2,
   products: Package,
@@ -16,6 +17,7 @@ const sidebarIcons = {
   settings: Settings,
 }
 
+// Helper untuk membuat inisial avatar fallback.
 function getInitials(name) {
   return name
     .split(' ')
@@ -38,6 +40,7 @@ function DashboardSidebar({ items, userProfile }) {
         </div>
       </div>
 
+      {/* Daftar menu navigasi dashboard. */}
       <div className="flex-1 px-4 pb-4 pt-2">
         <div className="flex gap-2 overflow-x-auto pb-1 lg:block lg:space-y-2 lg:overflow-visible lg:pb-0">
           {items.map((item) => {
@@ -71,6 +74,7 @@ function DashboardSidebar({ items, userProfile }) {
         </div>
       </div>
 
+      {/* Profil pengguna di bagian bawah sidebar. */}
       <div className="border-t border-slate-800 px-4 py-5">
         <div className="flex items-center gap-3 rounded-xl px-2 py-1">
           {userProfile.avatar ? (

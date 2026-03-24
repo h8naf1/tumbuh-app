@@ -20,6 +20,7 @@ import {
 } from 'lucide-react'
 import { Button } from '../ui/Button.jsx'
 
+// Dummy data produk untuk simulasi alur scan barcode.
 const scannerProducts = [
   {
     barcode: '8991001001',
@@ -41,6 +42,7 @@ const scannerProducts = [
   },
 ]
 
+// Quick action utama yang tampil di atas ruang chat.
 const quickActions = [
   {
     id: 'chat',
@@ -121,6 +123,7 @@ function createLocalAttachmentAdapter() {
   }
 }
 
+// Helper untuk membaca instruksi penjualan sederhana dari pesan user.
 function parseSalesInstruction(text) {
   const normalizedText = text.toLowerCase()
 
@@ -172,6 +175,7 @@ function parseSalesInstruction(text) {
   }
 }
 
+// Helper untuk membuat draft transaksi dari hasil scan barcode.
 function buildDraftFromScanner(product) {
   return {
     source: 'scan',
@@ -272,6 +276,7 @@ function EmptyChatState() {
   )
 }
 
+// Section shortcut utama agar user pemula lebih cepat menemukan fitur inti.
 function QuickActionSection({ onOpenScanner }) {
   return (
     <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -307,6 +312,7 @@ function QuickActionSection({ onOpenScanner }) {
   )
 }
 
+// Ringkasan konteks aktif dari chat, scan, atau upload nota.
 function ContextBar({ context }) {
   if (!context) {
     return null
@@ -335,6 +341,7 @@ function ContextBar({ context }) {
   )
 }
 
+// Card draft yang harus dicek user sebelum data dianggap final.
 function DraftConfirmationCard({ draft, onSave, onDiscard }) {
   if (!draft) {
     return null
@@ -400,6 +407,7 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
   )
 }
 
+// Modal simulasi scanner untuk tahap UI awal.
 function ScannerModal({ isOpen, onClose, onSelectProduct }) {
   if (!isOpen) {
     return null
@@ -478,9 +486,10 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
   )
 }
 
+// Komponen ruang percakapan utama beserta composer chat.
 function ChatThread({ onOpenScanner, onOpenDraft, hasDraft }) {
   return (
-    <ThreadPrimitive.Root className="flex min-h-[38rem] flex-col overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)] lg:h-[calc(100vh-20rem)] lg:min-h-[42rem]">
+    <ThreadPrimitive.Root className="flex min-h-152 flex-col overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)] lg:h-[calc(100vh-20rem)] lg:min-h-168">
       <div className="border-b border-slate-800 px-5 py-4 sm:px-6">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -598,6 +607,7 @@ function ChatAssistantPanel() {
   const draftSectionRef = useRef(null)
   const attachmentAdapter = useMemo(() => createLocalAttachmentAdapter(), [])
 
+  // Runtime lokal assistant untuk demo interaksi chat tanpa backend AI penuh.
   const runtime = useLocalRuntime({
     async run({ messages }) {
       const lastMessage = messages[messages.length - 1]
@@ -671,6 +681,7 @@ function ChatAssistantPanel() {
     },
   })
 
+  // Handler interaksi utama halaman chat.
   function handleOpenScanner() {
     setIsScannerOpen(true)
   }
@@ -719,6 +730,7 @@ function ChatAssistantPanel() {
       <div className="app-page-stack">
         <QuickActionSection onOpenScanner={handleOpenScanner} />
 
+        {/* Context aktif dari alur chat, scan, atau upload. */}
         <ContextBar context={activeContext} />
 
         {savedDraftCount > 0 ? (
@@ -727,6 +739,7 @@ function ChatAssistantPanel() {
           </section>
         ) : null}
 
+        {/* Area draft konfirmasi sebelum data disimpan. */}
         <div ref={draftSectionRef}>
           <DraftConfirmationCard
             draft={pendingDraft}
@@ -735,6 +748,7 @@ function ChatAssistantPanel() {
           />
         </div>
 
+        {/* Ruang percakapan utama. */}
         <ChatThread
           onOpenScanner={handleOpenScanner}
           onOpenDraft={handleOpenDraft}
@@ -742,6 +756,7 @@ function ChatAssistantPanel() {
         />
       </div>
 
+      {/* Modal scanner cepat. */}
       <ScannerModal
         isOpen={isScannerOpen}
         onClose={handleCloseScanner}

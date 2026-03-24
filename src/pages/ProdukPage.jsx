@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { Bot } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
@@ -61,6 +63,7 @@ function formatPriceInput(value) {
 }
 
 function ProdukPage() {
+  // State utama untuk data produk, filter, modal, dan pagination.
   const [products, setProducts] = useState(initialProducts)
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -69,6 +72,7 @@ function ProdukPage() {
   const [editingProductId, setEditingProductId] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
 
+  // Slot layout dashboard.
   const sidebar = (
     <DashboardSidebar
       items={dashboardSidebarItems}
@@ -79,11 +83,11 @@ function ProdukPage() {
   const topbar = (
     <DashboardTopbar
       title="Daftar Produk"
-      searchPlaceholder="Cari menu..."
       showProfileButton={false}
     />
   )
 
+  // Data turunan untuk tabel dan kartu statistik.
   const filteredProducts =
     selectedCategory === 'all'
       ? products
@@ -131,16 +135,19 @@ function ProdukPage() {
     },
   ]
 
+  // Reset pagination saat kategori diganti.
   useEffect(() => {
     setCurrentPage(1)
   }, [selectedCategory])
 
+  // Menjaga halaman aktif tetap valid setelah data berubah.
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages)
     }
   }, [currentPage, totalPages])
 
+  // Handler modal tambah atau edit produk.
   function handleOpenModal() {
     setEditingProductId(null)
     setFormData(initialFormState)
@@ -177,6 +184,7 @@ function ProdukPage() {
     setSelectedImageName(event.target.files?.[0]?.name ?? '')
   }
 
+  // Handler submit produk baru atau edit produk.
   function handleSubmitProduct(event) {
     event.preventDefault()
 
@@ -213,6 +221,7 @@ function ProdukPage() {
     setIsModalOpen(true)
   }
 
+  // Handler hapus produk dengan konfirmasi sederhana.
   function handleDeleteProduct(product) {
     const shouldDelete = window.confirm(
       `Hapus produk "${product.name}" dari daftar produk?`,
@@ -235,8 +244,34 @@ function ProdukPage() {
     <>
       <DashboardLayout sidebar={sidebar} topbar={topbar}>
         <div className="app-page-stack">
+          {/* Ringkasan statistik produk. */}
           <ProductStats metrics={metrics} />
 
+          {/* Shortcut bantuan kontekstual ke Asisten Chat. */}
+          <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-start gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/12 text-blue-400">
+                  <Bot className="h-5 w-5" />
+                </div>
+                <div>
+                  <h2 className="text-base font-semibold text-white">Butuh bantuan mengelola produk?</h2>
+                  <p className="mt-1 text-sm leading-6 text-slate-400">
+                    Gunakan Asisten Chat untuk menyiapkan draft produk baru, membaca nota, atau bantu cek stok yang perlu diperbarui.
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                to="/asisten-chat"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm font-semibold text-slate-100 transition hover:bg-slate-800"
+              >
+                Buka Asisten Chat
+              </Link>
+            </div>
+          </section>
+
+          {/* Toolbar filter dan aksi tambah produk. */}
           <ProductFilterBar
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
@@ -244,6 +279,7 @@ function ProdukPage() {
             onOpenModal={handleOpenModal}
           />
 
+          {/* Tabel daftar produk. */}
           <ProductTable
             products={paginatedProducts}
             totalProducts={totalProducts}
@@ -257,6 +293,7 @@ function ProdukPage() {
         </div>
       </DashboardLayout>
 
+      {/* Modal tambah dan edit produk. */}
       <AddProductModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

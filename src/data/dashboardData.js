@@ -1,3 +1,4 @@
+// Data navigasi utama sidebar dashboard.
 export const dashboardSidebarItems = [
   { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
   { id: 'products', label: 'Produk', href: '/produk' },
@@ -6,12 +7,14 @@ export const dashboardSidebarItems = [
   { id: 'settings', label: 'Pengaturan', href: '/pengaturan', isSeparated: true },
 ]
 
+// Data profil user yang tampil di sidebar.
 export const dashboardUserProfile = {
   name: 'Admin Tumbuh',
   role: 'admin@tumbuh.id',
   avatar: '',
 }
 
+// Data ringkasan KPI pada halaman dashboard.
 export const dashboardSummaryCards = [
   {
     id: 'total-sales',
@@ -39,11 +42,13 @@ export const dashboardSummaryCards = [
   },
 ]
 
+// Data tab chart lama yang masih bisa dipakai jika diperlukan lagi.
 export const salesChartTabs = [
   { id: 'weekly', label: 'Minggu', isActive: true },
   { id: 'monthly', label: 'Bulan', isActive: false },
 ]
 
+// Data dasar pola penjualan untuk visual chart.
 export const salesChartData = [
   { day: 'Sen', amount: 18 },
   { day: 'Sel', amount: 28 },
@@ -54,6 +59,7 @@ export const salesChartData = [
   { day: 'Min', amount: 66 },
 ]
 
+// Data insight bisnis pada side card dashboard.
 export const dashboardInsights = [
   {
     id: 'sales-up',
@@ -71,6 +77,32 @@ export const dashboardInsights = [
   },
 ]
 
+// Dummy data notifikasi pada topbar dashboard.
+export const dashboardNotifications = [
+  {
+    id: 'notif-1',
+    title: 'Stok Brownies Cokelat menipis',
+    description: 'Sisa stok tinggal 5 item. Sebaiknya segera restock hari ini.',
+    time: '5 menit lalu',
+    isUnread: true,
+  },
+  {
+    id: 'notif-2',
+    title: 'Penjualan hari ini naik',
+    description: 'Pendapatan hari ini lebih tinggi dibandingkan hari sebelumnya.',
+    time: '18 menit lalu',
+    isUnread: true,
+  },
+  {
+    id: 'notif-3',
+    title: 'Laporan keuangan siap diunduh',
+    description: 'Laporan keuangan terbaru untuk periode aktif sudah tersedia.',
+    time: '1 jam lalu',
+    isUnread: false,
+  },
+]
+
+// Data transaksi terbaru untuk dashboard dan laporan.
 export const latestTransactions = [
   {
     id: 'TRX-8821',
@@ -95,6 +127,7 @@ export const latestTransactions = [
   },
 ]
 
+// Mapping style badge status transaksi.
 export const transactionStatusStyles = {
   Selesai: {
     badgeClassName:
