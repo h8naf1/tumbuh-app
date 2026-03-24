@@ -40,7 +40,7 @@ function AuthGlobe() {
   }, [])
 
   return (
-    <div className="pointer-events-none relative aspect-square w-[520px] xl:w-[620px]">
+    <div className="pointer-events-none relative aspect-square w-130 xl:w-155">
 
       <canvas
         ref={canvasRef}

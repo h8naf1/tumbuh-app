@@ -193,7 +193,7 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
           </div>
         </div>
 
-        <div className="shrink-0 border-t border-slate-800 bg-slate-900/72 px-6 py-5 backdrop-blur-xl supports-[backdrop-filter]:bg-slate-900/55 sm:px-7">
+        <div className="shrink-0 border-t border-slate-800 bg-slate-900/72 px-6 py-5 backdrop-blur-xl supports-backdrop-filter:bg-slate-900/55 sm:px-7">
           <button
             type="button"
             onClick={onClose}

@@ -6,29 +6,26 @@ import {
   dashboardSidebarItems,
   dashboardUserProfile,
 } from '../data/dashboardData.js'
-
 function AsistenChatPage() {
+  // Slot layout dashboard.
   const sidebar = (
     <DashboardSidebar
       items={dashboardSidebarItems}
       userProfile={dashboardUserProfile}
     />
   )
-
   const topbar = (
     <DashboardTopbar
       title="Asisten Chat"
       subtitle="Tanya AI, scan barcode, atau upload nota dalam satu ruang kerja yang fleksibel."
-      searchPlaceholder="Cari percakapan..."
       showProfileButton={false}
     />
   )
-
   return (
     <DashboardLayout sidebar={sidebar} topbar={topbar}>
+      {/* Panel utama interaksi Asisten Chat. */}
       <ChatAssistantPanel />
     </DashboardLayout>
   )
 }
-
 export default AsistenChatPage

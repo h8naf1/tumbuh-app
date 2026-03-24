@@ -1,9 +1,10 @@
 import { Link, useLocation } from 'react-router-dom'
 import AuthGlobe from '../components/AuthGlobe.jsx'
-
 function AuthLayout({ children }) {
+  // Menentukan mode halaman auth berdasarkan route aktif.
   const { pathname } = useLocation()
   const isRegisterPage = pathname === '/register'
+  // Kumpulan class layout agar struktur auth lebih mudah dibaca.
   const outerPageClassName =
     'min-h-screen bg-[radial-gradient(circle_at_top,_rgba(37,99,235,0.24)_0%,_rgba(15,23,42,0.96)_28%,_#020617_68%,_#020617_100%)]'
   const headerClassName = 'border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-xl'
@@ -16,22 +17,20 @@ function AuthLayout({ children }) {
   const authPromptText = isRegisterPage ? 'Sudah punya akun?' : 'Belum punya akun?'
   const authLinkHref = isRegisterPage ? '/login' : '/register'
   const authLinkLabel = isRegisterPage ? 'Masuk' : 'Daftar'
-
   return (
     <div className={outerPageClassName}>
+      {/* Header halaman auth. */}
       <header className={headerClassName}>
         <div className={headerContainerClassName}>
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-200/70">
               TU
             </div>
-
             <div>
               <p className="text-lg font-bold tracking-tight text-white">TUMBUH</p>
               <p className="text-sm text-slate-400">Asisten penjualan AI untuk UMKM</p>
             </div>
           </div>
-
           <div className="hidden items-center gap-3 text-sm text-slate-400 sm:flex">
             <span>{authPromptText}</span>
             <Link
@@ -43,7 +42,7 @@ function AuthLayout({ children }) {
           </div>
         </div>
       </header>
-
+      {/* Layout dua kolom untuk ilustrasi dan form auth. */}
       <main className={pageContentClassName}>
         <div className="grid w-full items-center gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] lg:gap-10">
           <section className="hidden lg:block">
@@ -53,7 +52,6 @@ function AuthLayout({ children }) {
               </div>
             </div>
           </section>
-
           <section className="flex min-w-0 items-center justify-center">
             <div className={formContainerClassName}>{children}</div>
           </section>
@@ -62,5 +60,4 @@ function AuthLayout({ children }) {
     </div>
   )
 }
-
 export default AuthLayout

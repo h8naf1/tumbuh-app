@@ -7,11 +7,12 @@ import HomeSection from '../components/landing/HomeSection.jsx'
 import MainNavbar from '../components/landing/MainNavbar.jsx'
 import ProblemSection from '../components/landing/ProblemSection.jsx'
 import SolutionSection from '../components/landing/SolutionSection.jsx'
-
 function HomePage() {
   return (
     <main className="min-h-screen bg-slate-950 text-slate-50">
+      {/* Navigasi utama landing page. */}
       <MainNavbar />
+      {/* Urutan section landing page TUMBUH. */}
       <HomeSection />
       <AboutSection />
       <ProblemSection />
@@ -23,5 +24,4 @@ function HomePage() {
     </main>
   )
 }
-
 export default HomePage

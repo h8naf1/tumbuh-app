@@ -34,6 +34,7 @@ function RegisterPage() {
     },
   })
 
+  // Variabel bantu untuk input password.
   const passwordInputType = isPasswordVisible ? 'text' : 'password'
   const confirmPasswordInputType = isConfirmPasswordVisible ? 'text' : 'password'
   const passwordToggleLabel = isPasswordVisible
@@ -43,14 +44,17 @@ function RegisterPage() {
     ? 'Sembunyikan konfirmasi kata sandi'
     : 'Tampilkan konfirmasi kata sandi'
 
+  // Function untuk show/hide password utama.
   function handlePasswordVisibilityButtonClick() {
     setIsPasswordVisible(!isPasswordVisible)
   }
 
+  // Function untuk show/hide konfirmasi password.
   function handleConfirmPasswordVisibilityButtonClick() {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
   }
 
+  // Function untuk submit form register.
   function handleRegisterFormSubmit(data) {
     clearToast()
 
@@ -63,6 +67,7 @@ function RegisterPage() {
     })
   }
 
+  // Function untuk menampilkan error form.
   function handleRegisterFormError(formErrors) {
     showFirstFormError(formErrors)
   }
@@ -70,7 +75,7 @@ function RegisterPage() {
   return (
     <AuthLayout>
       <FormToast message={toastMessage} />
-      <div className="mt-4 w-full rounded-[1.75rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-5 sm:p-6 lg:max-w-[42rem] lg:px-7 lg:py-6">
+      <div className="mt-4 w-full rounded-[1.75rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-5 sm:p-6 lg:max-w-2xl lg:px-7 lg:py-6">
         <div className="space-y-2">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-600">
             Daftar
@@ -84,6 +89,7 @@ function RegisterPage() {
           </p>
         </div>
 
+        {/* Form register utama. */}
         <form
           noValidate
           onSubmit={handleSubmit(handleRegisterFormSubmit, handleRegisterFormError)}
@@ -232,6 +238,7 @@ function RegisterPage() {
           </Button>
         </form>
 
+        {/* Pemisah section alternatif login. */}
         <div className="my-6 flex items-center gap-4">
           <div className="h-px flex-1 bg-slate-800" />
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
@@ -240,6 +247,7 @@ function RegisterPage() {
           <div className="h-px flex-1 bg-slate-800" />
         </div>
 
+        {/* Section daftar dengan akun pihak ketiga. */}
         <div className="grid gap-3 sm:grid-cols-2">
           <button
             type="button"
