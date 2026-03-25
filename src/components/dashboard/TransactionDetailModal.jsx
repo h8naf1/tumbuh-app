@@ -1,4 +1,5 @@
 import { ReceiptText, UserRound, WalletCards, X } from 'lucide-react'
+import ProductImage from '../products/ProductImage.jsx'
 
 function TransactionDetailModal({ transaction, formatRupiah, onClose, statusStyles }) {
   if (!transaction) {
@@ -37,9 +38,14 @@ function TransactionDetailModal({ transaction, formatRupiah, onClose, statusStyl
         <div className="space-y-5 px-5 py-5 sm:px-6">
           <div className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400">
-                <ReceiptText className="h-5 w-5" />
-              </div>
+              <ProductImage
+                src={transaction.image}
+                alt={transaction.productName}
+                label={transaction.productName.slice(0, 2)}
+                tone="from-slate-300 via-slate-100 to-slate-400"
+                className="w-11"
+                roundedClassName="rounded-xl"
+              />
               <div>
                 <p className="text-sm font-semibold text-white">
                   {transaction.productName}

@@ -19,26 +19,27 @@ import {
   X,
 } from 'lucide-react'
 import { Button } from '../ui/Button.jsx'
+import { formatRupiah } from '../../lib/formatters.js'
 
 // Dummy data produk untuk simulasi alur scan barcode.
 const scannerProducts = [
   {
     barcode: '8991001001',
     name: 'Kopi Susu Gula Aren',
-    price: 18000,
+    price: 24000,
     stock: 12,
   },
   {
     barcode: '8991001002',
-    name: 'Brownies Cokelat',
-    price: 15000,
+    name: 'Kopi Butterscotch',
+    price: 26000,
     stock: 8,
   },
   {
     barcode: '8991001003',
-    name: 'Americano Ice',
-    price: 20000,
-    stock: 15,
+    name: 'Roti Croissant Butter',
+    price: 18000,
+    stock: 6,
   },
 ]
 
@@ -66,10 +67,6 @@ const quickActions = [
     accentClassName: 'bg-amber-500/10 text-amber-400',
   },
 ]
-
-function formatRupiah(amount) {
-  return `Rp ${new Intl.NumberFormat('id-ID').format(amount)}`
-}
 
 function getLastUserText(message) {
   if (!message?.content) {
@@ -136,9 +133,9 @@ function parseSalesInstruction(text) {
   }
 
   const catalog = [
-    { keyword: 'kopi susu', name: 'Kopi Susu Gula Aren', price: 18000 },
-    { keyword: 'brownies', name: 'Brownies Cokelat', price: 15000 },
-    { keyword: 'americano', name: 'Americano Ice', price: 20000 },
+    { keyword: 'kopi susu', name: 'Kopi Susu Gula Aren', price: 24000 },
+    { keyword: 'butterscotch', name: 'Kopi Butterscotch', price: 26000 },
+    { keyword: 'croissant', name: 'Roti Croissant Butter', price: 18000 },
   ]
 
   const items = catalog
@@ -197,7 +194,7 @@ function ComposerAttachment() {
   return (
     <AttachmentPrimitive.Root className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2">
       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-slate-300">
-        <AttachmentPrimitive.Thumbnail />
+        <AttachmentPrimitive.unstable_Thumb className="text-xs font-semibold uppercase tracking-[0.18em]" />
       </div>
 
       <div className="min-w-0 flex-1">
@@ -246,6 +243,12 @@ function AssistantMessage() {
 }
 
 function EmptyChatState() {
+  const prompts = [
+    'Saya baru jual 2 kopi susu dan 1 croissant.',
+    'Produk mana yang stoknya perlu saya cek hari ini?',
+    'Saya ingin upload nota belanja bahan baku.',
+  ]
+
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center justify-center px-4 py-12 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
@@ -259,18 +262,15 @@ function EmptyChatState() {
       </p>
 
       <div className="mt-8 grid w-full gap-3 sm:grid-cols-3">
-        <ThreadPrimitive.Suggestion
-          prompt="Saya baru jual 2 kopi susu dan 1 brownies."
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
-        />
-        <ThreadPrimitive.Suggestion
-          prompt="Produk mana yang stoknya perlu saya cek hari ini?"
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
-        />
-        <ThreadPrimitive.Suggestion
-          prompt="Saya ingin upload nota belanja bahan baku."
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
-        />
+        {prompts.map((prompt) => (
+          <ThreadPrimitive.Suggestion
+            key={prompt}
+            prompt={prompt}
+            className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+          >
+            {prompt}
+          </ThreadPrimitive.Suggestion>
+        ))}
       </div>
     </div>
   )
@@ -551,7 +551,7 @@ function ChatThread({ onOpenScanner, onOpenDraft, hasDraft }) {
           <div className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/80 p-3 sm:p-4">
             <ComposerPrimitive.Input
               rows={3}
-              placeholder="Tulis instruksi seperti seorang bos ke asisten, misalnya: saya baru jual 2 kopi susu dan 1 brownies..."
+              placeholder="Tulis instruksi seperti seorang bos ke asisten, misalnya: saya baru jual 2 kopi susu dan 1 croissant..."
               className="min-h-24 w-full resize-none bg-transparent text-sm leading-7 text-slate-100 outline-none placeholder:text-slate-500"
             />
 

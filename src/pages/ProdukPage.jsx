@@ -4,16 +4,17 @@ import { Link } from 'react-router-dom'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
+import { formatRupiah } from '../lib/formatters.js'
+import { isLowStockProduct } from '../lib/productHelpers.js'
 import ProductFilterBar from '../components/products/ProductFilterBar.jsx'
 import ProductStats from '../components/products/ProductStats.jsx'
 import ProductTable from '../components/products/ProductTable.jsx'
 import AddProductModal from '../components/products/modals/AddProductModal.jsx'
+import { cloneProductCatalog, productCategoryOptions } from '../data/productCatalog.js'
 import {
   dashboardSidebarItems,
   dashboardUserProfile,
 } from '../data/dashboardData.js'
-
-const categoryOptions = ['Coffee', 'Pastry', 'Food', 'Drink']
 
 const initialFormState = {
   name: '',
@@ -23,46 +24,13 @@ const initialFormState = {
   description: '',
 }
 
-const initialProducts = [
-  {
-    id: 'product-1',
-    name: 'Kopi Susu Gula Aren',
-    category: 'Coffee',
-    stock: 45,
-    price: 18000,
-  },
-  {
-    id: 'product-2',
-    name: 'Brownies Cokelat',
-    category: 'Pastry',
-    stock: 5,
-    price: 22000,
-  },
-  {
-    id: 'product-3',
-    name: 'Croissant Almond',
-    category: 'Pastry',
-    stock: 0,
-    price: 25000,
-  },
-  {
-    id: 'product-4',
-    name: 'Americano Ice',
-    category: 'Coffee',
-    stock: 32,
-    price: 20000,
-  },
-]
-
-function formatRupiah(amount) {
-  return `Rp ${new Intl.NumberFormat('id-ID').format(amount)}`
-}
-
 function formatPriceInput(value) {
   return new Intl.NumberFormat('id-ID').format(Number(value))
 }
 
 function ProdukPage() {
+  const initialProducts = cloneProductCatalog()
+
   // State utama untuk data produk, filter, modal, dan pagination.
   const [products, setProducts] = useState(initialProducts)
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -80,12 +48,7 @@ function ProdukPage() {
     />
   )
 
-  const topbar = (
-    <DashboardTopbar
-      title="Daftar Produk"
-      showProfileButton={false}
-    />
-  )
+  const topbar = <DashboardTopbar title="Daftar Produk" />
 
   // Data turunan untuk tabel dan kartu statistik.
   const filteredProducts =
@@ -102,7 +65,7 @@ function ProdukPage() {
   const totalProducts = 124 + products.length - initialProducts.length
   const lowStockCount = Math.max(
     12,
-    products.filter((product) => product.stock > 0 && product.stock <= 5).length,
+    products.filter((product) => isLowStockProduct(product.stock)).length,
   )
   const categoryCount = Math.max(
     5,
@@ -188,12 +151,17 @@ function ProdukPage() {
   function handleSubmitProduct(event) {
     event.preventDefault()
 
+    const existingProduct = products.find((product) => product.id === editingProductId)
+
     const nextProduct = {
       id: editingProductId || `product-${Date.now()}`,
+      sku: existingProduct?.sku || `PRD-${Date.now()}`,
       name: formData.name.trim(),
       category: formData.category,
       stock: Number(formData.stock) || 0,
       price: Number(formData.price) || 0,
+      image: existingProduct?.image || '',
+      description: formData.description.trim(),
     }
 
     setProducts((currentProducts) => {
@@ -275,7 +243,7 @@ function ProdukPage() {
           <ProductFilterBar
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
-            categoryOptions={categoryOptions}
+            categoryOptions={productCategoryOptions}
             onOpenModal={handleOpenModal}
           />
 
@@ -305,7 +273,7 @@ function ProdukPage() {
         onPriceChange={handlePriceChange}
         onImageChange={handleImageChange}
         selectedImageName={selectedImageName}
-        categoryOptions={categoryOptions}
+        categoryOptions={productCategoryOptions}
         formatPriceInput={formatPriceInput}
       />
     </>
@@ -313,3 +281,5 @@ function ProdukPage() {
 }
 
 export default ProdukPage
+
+

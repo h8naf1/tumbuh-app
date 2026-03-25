@@ -1,13 +1,10 @@
 import jsPDF from 'jspdf'
 import autoTable from 'jspdf-autotable'
 import { format } from 'date-fns'
-
-// Helper format angka ke Rupiah.
-function formatRupiah(value) {
-  return `Rp ${new Intl.NumberFormat('id-ID').format(value)}`
-}
+import { formatRupiah } from './formatters.js'
 
 // Helper mengubah teks Rupiah menjadi angka untuk perhitungan.
+
 function parseRupiah(value) {
   const numeric = String(value).replace(/[^\d]/g, '')
   return Number(numeric || 0)
@@ -133,3 +130,4 @@ export function downloadFinanceReportPdf({ summaryCards, transactions, dateRange
 
   doc.save(`laporan-keuangan-${format(new Date(), 'yyyy-MM-dd')}.pdf`)
 }
+

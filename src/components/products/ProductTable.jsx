@@ -4,6 +4,11 @@ import {
   Pencil,
   Trash2,
 } from 'lucide-react'
+import ProductImage from './ProductImage.jsx'
+import {
+  getProductStockLabel,
+  getProductStockStatus,
+} from '../../lib/productHelpers.js'
 
 const categoryVisuals = {
   Coffee: {
@@ -22,34 +27,6 @@ const categoryVisuals = {
     thumbnail: 'DR',
     tone: 'from-sky-100 via-cyan-50 to-blue-200',
   },
-}
-
-function getStockLabel(stock) {
-  if (stock === 0) {
-    return { value: '0', suffix: 'x', className: 'text-red-400' }
-  }
-
-  if (stock <= 5) {
-    return { value: String(stock), suffix: '!', className: 'text-amber-400' }
-  }
-
-  return { value: String(stock), suffix: '', className: 'text-slate-100' }
-}
-
-function getStatusMeta(stock) {
-  if (stock === 0) {
-    return {
-      label: 'HABIS',
-      className: 'bg-red-500/10 text-red-400 ring-red-500/20',
-      dotClassName: 'bg-red-400',
-    }
-  }
-
-  return {
-    label: 'TERSEDIA',
-    className: 'bg-emerald-500/10 text-emerald-400 ring-emerald-500/20',
-    dotClassName: 'bg-emerald-400',
-  }
 }
 
 function ProductTable({
@@ -79,8 +56,8 @@ function ProductTable({
 
           <tbody>
             {products.map((product) => {
-              const stockLabel = getStockLabel(product.stock)
-              const statusMeta = getStatusMeta(product.stock)
+              const stockLabel = getProductStockLabel(product.stock)
+              const statusMeta = getProductStockStatus(product.stock)
               const visual =
                 categoryVisuals[product.category] ?? categoryVisuals.Coffee
 
@@ -91,11 +68,14 @@ function ProductTable({
                 >
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div
-                        className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${visual.tone} text-[10px] font-bold uppercase tracking-[0.2em] text-slate-700 shadow-inner shadow-white/20`}
-                      >
-                        <span aria-hidden="true">{visual.thumbnail}</span>
-                      </div>
+                      <ProductImage
+                        src={product.image}
+                        alt={product.name}
+                        label={visual.thumbnail}
+                        tone={visual.tone}
+                        className="w-10"
+                        roundedClassName="rounded-xl"
+                      />
                       <div>
                         <p className="font-semibold text-white">{product.name}</p>
                       </div>

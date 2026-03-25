@@ -18,7 +18,6 @@ function AsistenChatPage() {
     <DashboardTopbar
       title="Asisten Chat"
       subtitle="Tanya AI, scan barcode, atau upload nota dalam satu ruang kerja yang fleksibel."
-      showProfileButton={false}
     />
   )
   return (
