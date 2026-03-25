@@ -56,7 +56,6 @@ function PengaturanDetailPage() {
     <DashboardTopbar
       title={section ? section.title : 'Detail Pengaturan'}
       subtitle={section ? section.description : 'Menu pengaturan tidak ditemukan.'}
-      showProfileButton={false}
     />
   )
 

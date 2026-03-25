@@ -2,6 +2,7 @@ import { motion, useScroll, useSpring } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
+import BrandLogo from '../BrandLogo.jsx'
 
 const navItems = [
   { label: 'Beranda', href: '#home' },
@@ -198,20 +199,13 @@ function MainNavbar() {
           className="mx-auto max-w-[1120px] rounded-2xl border border-slate-800/80 bg-slate-950/84 backdrop-blur"
         >
           <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5">
-            <a href="#home" className="flex items-center gap-3">
+            <a href="#home" className="flex min-w-0 items-center">
               <motion.div
                 animate={{ rotate: isScrolled ? 6 : 0, scale: isScrolled ? 0.94 : 1 }}
                 transition={{ duration: 0.3 }}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1e293b_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_12px_24px_-14px_rgba(37,99,235,0.8)]"
               >
-                T
+                <BrandLogo className="h-14 w-auto sm:h-16" />
               </motion.div>
-              <div>
-                <p className="text-sm font-bold tracking-[0.2em] text-white">TUMBUH</p>
-                <p className="text-[11px] uppercase tracking-[0.2em] text-slate-400">
-                  Asisten Penjualan AI Untuk UMKM
-                </p>
-              </div>
             </a>
 
             <div className="hidden items-center gap-1 min-[1066px]:flex">
@@ -239,7 +233,7 @@ function MainNavbar() {
                       )}
                       <span>{item.label}</span>
                       {item.children && (
-                        <ChevronDown className="h-4 w-4 text-slate-500 transition duration-200 group-hover:text-slate-300 group-hover:rotate-180" />
+                        <ChevronDown className="h-4 w-4 text-slate-500 transition duration-200 group-hover:rotate-180 group-hover:text-slate-300" />
                       )}
                     </a>
 
@@ -438,7 +432,4 @@ function MainNavbar() {
 }
 
 export default MainNavbar
-
-
-
 

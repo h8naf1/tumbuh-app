@@ -229,6 +229,12 @@ function TypingIndicator() {
 }
 
 function EmptyChatState() {
+  const prompts = [
+    'Saya baru jual 2 kopi susu dan 1 croissant.',
+    'Produk mana yang stoknya perlu saya cek hari ini?',
+    'Saya ingin upload nota belanja bahan baku.',
+  ]
+
   return (
     <div className="mx-auto flex max-w-3xl flex-col items-center justify-center px-4 py-12 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">

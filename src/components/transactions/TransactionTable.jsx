@@ -1,4 +1,5 @@
 import { MoreVertical } from 'lucide-react'
+import ProductImage from '../products/ProductImage.jsx'
 
 function TransactionTable({
   transactions,
@@ -67,7 +68,14 @@ function TransactionTable({
                   </td>
                   <td className="px-6 py-5">
                     <div className="flex items-center gap-3">
-                      <div className="h-9 w-9 rounded-lg bg-slate-800" />
+                      <ProductImage
+                        src={transaction.image}
+                        alt={transaction.productName}
+                        label={transaction.productName.slice(0, 2)}
+                        tone="from-slate-300 via-slate-100 to-slate-400"
+                        className="w-9"
+                        roundedClassName="rounded-lg"
+                      />
                       <div>
                         <p className="font-medium text-slate-100">
                           {transaction.productName}
@@ -125,11 +133,21 @@ function TransactionTable({
               className="rounded-xl border border-slate-800 bg-slate-950/40 p-4"
             >
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-white">#{transaction.id}</p>
-                  <p className="mt-1 text-sm text-slate-300">
-                    {transaction.productName}
-                  </p>
+                <div className="flex items-start gap-3">
+                  <ProductImage
+                    src={transaction.image}
+                    alt={transaction.productName}
+                    label={transaction.productName.slice(0, 2)}
+                    tone="from-slate-300 via-slate-100 to-slate-400"
+                    className="w-11"
+                    roundedClassName="rounded-lg"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold text-white">#{transaction.id}</p>
+                    <p className="mt-1 text-sm text-slate-300">
+                      {transaction.productName}
+                    </p>
+                  </div>
                 </div>
 
                 <button

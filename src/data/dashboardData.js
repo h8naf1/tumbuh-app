@@ -1,3 +1,5 @@
+import { latestTransactionRecords } from './transactionData.js'
+
 // Data navigasi utama sidebar dashboard.
 export const dashboardSidebarItems = [
   { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
@@ -70,9 +72,9 @@ export const dashboardInsights = [
   },
   {
     id: 'best-product',
-    title: 'Produk Kopi Susu Terlaris',
+    title: 'Kopi Susu Gula Aren paling diminati',
     description:
-      'Produk ini berkontribusi terhadap 45% total pendapatan hari ini. Pertimbangkan restock bahan baku susu.',
+      'Menu ini berkontribusi besar terhadap penjualan hari ini. Pastikan stok susu dan gula aren tetap aman.',
     tone: 'info',
   },
 ]
@@ -81,15 +83,15 @@ export const dashboardInsights = [
 export const dashboardNotifications = [
   {
     id: 'notif-1',
-    title: 'Stok Brownies Cokelat menipis',
-    description: 'Sisa stok tinggal 5 item. Sebaiknya segera restock hari ini.',
+    title: 'Stok croissant mulai menipis',
+    description: 'Sisa stok Roti Croissant Butter tinggal sedikit. Sebaiknya segera restock hari ini.',
     time: '5 menit lalu',
     isUnread: true,
   },
   {
     id: 'notif-2',
-    title: 'Penjualan hari ini naik',
-    description: 'Pendapatan hari ini lebih tinggi dibandingkan hari sebelumnya.',
+    title: 'Kopi Butterscotch sedang naik',
+    description: 'Penjualan menu ini meningkat dibandingkan hari sebelumnya.',
     time: '18 menit lalu',
     isUnread: true,
   },
@@ -103,29 +105,7 @@ export const dashboardNotifications = [
 ]
 
 // Data transaksi terbaru untuk dashboard dan laporan.
-export const latestTransactions = [
-  {
-    id: 'TRX-8821',
-    productName: 'Kopi Susu Gula Aren',
-    price: 'Rp 18.000',
-    paymentMethod: 'QRIS',
-    status: 'Selesai',
-  },
-  {
-    id: 'TRX-8822',
-    productName: 'Americano Ice (L)',
-    price: 'Rp 22.000',
-    paymentMethod: 'Tunai',
-    status: 'Selesai',
-  },
-  {
-    id: 'TRX-8823',
-    productName: 'Brownies Cokelat',
-    price: 'Rp 15.000',
-    paymentMethod: 'QRIS',
-    status: 'Proses',
-  },
-]
+export const latestTransactions = latestTransactionRecords
 
 // Mapping style badge status transaksi.
 export const transactionStatusStyles = {
@@ -133,16 +113,10 @@ export const transactionStatusStyles = {
     badgeClassName:
       'bg-emerald-500/10 text-emerald-500 outline-emerald-500/20',
   },
-  Proses: {
-    badgeClassName:
-      'bg-amber-500/10 text-amber-500 outline-amber-500/20',
-  },
-  Menunggu: {
-    badgeClassName:
-      'bg-sky-500/10 text-sky-400 outline-sky-500/20',
-  },
+
   Dibatalkan: {
     badgeClassName:
       'bg-rose-500/10 text-rose-400 outline-rose-500/20',
   },
 }
+

@@ -31,7 +31,6 @@ function PengaturanPage() {
     <DashboardTopbar
       title="Pengaturan"
       subtitle="Kelola konfigurasi sistem bisnis dan preferensi usaha Anda."
-      showProfileButton={false}
     />
   )
   // Data menu yang sedang aktif untuk kebutuhan preview atau navigasi.
