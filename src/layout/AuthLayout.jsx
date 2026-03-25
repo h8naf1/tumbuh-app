@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import AuthGlobe from '../components/AuthGlobe.jsx'
+import BrandLogo from '../components/BrandLogo.jsx'
 function AuthLayout({ children }) {
   // Menentukan mode halaman auth berdasarkan route aktif.
   const { pathname } = useLocation()
@@ -22,14 +23,9 @@ function AuthLayout({ children }) {
       {/* Header halaman auth. */}
       <header className={headerClassName}>
         <div className={headerContainerClassName}>
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-blue-600 text-sm font-bold text-white shadow-lg shadow-blue-200/70">
-              TU
-            </div>
-            <div>
-              <p className="text-lg font-bold tracking-tight text-white">TUMBUH</p>
-              <p className="text-sm text-slate-400">Asisten penjualan AI untuk UMKM</p>
-            </div>
+          <div className="flex min-w-0 items-center gap-4">
+            <BrandLogo className="h-14 w-auto sm:h-16" />
+            <p className="hidden text-sm text-slate-400 md:block">Asisten penjualan AI untuk UMKM</p>
           </div>
           <div className="hidden items-center gap-3 text-sm text-slate-400 sm:flex">
             <span>{authPromptText}</span>
@@ -61,3 +57,4 @@ function AuthLayout({ children }) {
   )
 }
 export default AuthLayout
+

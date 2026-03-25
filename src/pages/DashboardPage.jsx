@@ -25,10 +25,6 @@ import {
   dashboardUserProfile,
   transactionStatusStyles,
 } from '../data/dashboardData.js'
-import {
-  downloadFinanceReportPdf,
-  downloadSalesReportPdf,
-} from '../lib/dashboardPdf.js'
 
 // Preset waktu cepat untuk grafik penjualan.
 const chartPresets = [
@@ -183,7 +179,9 @@ function DashboardPage() {
   }
 
   // Handler download laporan dashboard.
-  const handleDownloadSalesReport = () => {
+  const handleDownloadSalesReport = async () => {
+    const { downloadSalesReportPdf } = await import('../lib/dashboardPdf.js')
+
     downloadSalesReportPdf({
       summaryCards: dashboardSummaryCards,
       transactions: latestTransactions,
@@ -193,7 +191,9 @@ function DashboardPage() {
     setIsDownloadMenuOpen(false)
   }
 
-  const handleDownloadFinanceReport = () => {
+  const handleDownloadFinanceReport = async () => {
+    const { downloadFinanceReportPdf } = await import('../lib/dashboardPdf.js')
+
     downloadFinanceReportPdf({
       summaryCards: dashboardSummaryCards,
       transactions: latestTransactions,
@@ -331,3 +331,4 @@ function DashboardPage() {
 }
 
 export default DashboardPage
+

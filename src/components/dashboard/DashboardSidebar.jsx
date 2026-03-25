@@ -4,9 +4,9 @@ import {
   Package,
   Settings,
   ShoppingBag,
-  Sprout,
 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
+import BrandLogo from '../BrandLogo.jsx'
 
 // Mapping icon untuk setiap menu sidebar.
 const sidebarIcons = {
@@ -30,14 +30,7 @@ function getInitials(name) {
 function DashboardSidebar({ items, userProfile }) {
   return (
     <div className="flex h-full flex-col bg-slate-900">
-      <div className="flex items-center gap-3 px-6 py-7">
-        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500 text-white shadow-[0_16px_30px_-18px_rgba(59,130,246,0.95)]">
-          <Sprout className="h-5 w-5" />
-        </div>
-
-        <div className="min-w-0">
-          <p className="text-2xl font-bold tracking-tight text-white">TUMBUH</p>
-        </div>
+      <div className="px-6 py-6">  <BrandLogo className="h-16 w-full" />
       </div>
 
       {/* Daftar menu navigasi dashboard. */}
@@ -102,3 +95,4 @@ function DashboardSidebar({ items, userProfile }) {
 }
 
 export default DashboardSidebar
+
