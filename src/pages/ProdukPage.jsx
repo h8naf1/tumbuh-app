@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Bot } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { Button } from '../components/ui/Button.jsx'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
@@ -262,12 +263,14 @@ function ProdukPage() {
                 </div>
               </div>
 
-              <Link
-                to="/asisten-chat"
-                className="inline-flex items-center justify-center rounded-lg border border-slate-700 bg-slate-950/60 px-4 py-2.5 text-sm font-semibold text-slate-100 transition hover:bg-slate-800"
-              >
-                Buka Asisten Chat
-              </Link>
+              <Button
+  asChild
+  variant="outline"
+  size="lg"
+  className="h-11 rounded-xl border-slate-700 bg-slate-950/60 px-4 text-slate-100 hover:bg-slate-800 hover:text-white"
+>
+  <Link to="/asisten-chat">Buka Asisten Chat</Link>
+</Button>
             </div>
           </section>
 
@@ -313,3 +316,5 @@ function ProdukPage() {
 }
 
 export default ProdukPage
+
+
