@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { MoreVertical } from 'lucide-react'
+import ProductImage from '../products/ProductImage.jsx'
 
 function RecentTransactionsCard({
   title,
@@ -60,7 +61,14 @@ function RecentTransactionsCard({
                   </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="h-8 w-8 rounded bg-slate-700" />
+                      <ProductImage
+                        src={transaction.image}
+                        alt={transaction.productName}
+                        label={transaction.productName.slice(0, 2)}
+                        tone="from-slate-300 via-slate-100 to-slate-400"
+                        className="w-8"
+                        roundedClassName="rounded-lg"
+                      />
                       <span>{transaction.productName}</span>
                     </div>
                   </td>
@@ -103,13 +111,23 @@ function RecentTransactionsCard({
               className="rounded-lg border border-slate-800 bg-slate-950/40 p-3.5"
             >
               <div className="flex items-start justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-slate-100">
-                    #{transaction.id}
-                  </p>
-                  <p className="mt-1 text-sm text-slate-300">
-                    {transaction.productName}
-                  </p>
+                <div className="flex items-start gap-3">
+                  <ProductImage
+                    src={transaction.image}
+                    alt={transaction.productName}
+                    label={transaction.productName.slice(0, 2)}
+                    tone="from-slate-300 via-slate-100 to-slate-400"
+                    className="w-11"
+                    roundedClassName="rounded-lg"
+                  />
+                  <div>
+                    <p className="text-sm font-semibold text-slate-100">
+                      #{transaction.id}
+                    </p>
+                    <p className="mt-1 text-sm text-slate-300">
+                      {transaction.productName}
+                    </p>
+                  </div>
                 </div>
 
                 <button
