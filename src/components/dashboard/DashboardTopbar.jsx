@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Bell, CircleUserRound } from 'lucide-react'
+import { Bell, CircleUserRound, LogOut, Settings } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import { dashboardNotifications } from '../../data/dashboardData.js'
 
 function DashboardTopbar({
@@ -8,23 +9,32 @@ function DashboardTopbar({
   subtitle,
   showGreeting = !title,
   showProfileButton = true,
+  profileHref = '/pengaturan/account',
 }) {
-  // State utama untuk panel notifikasi.
+  // State utama untuk panel notifikasi dan menu profil.
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
   const [notifications, setNotifications] = useState(dashboardNotifications)
   const notificationRef = useRef(null)
+  const profileMenuRef = useRef(null)
+  const navigate = useNavigate()
 
-  // Effect untuk menutup panel notifikasi saat klik luar atau tekan Escape.
+  // Effect untuk menutup panel saat klik luar atau tekan Escape.
   useEffect(() => {
     const handlePointerDown = (event) => {
       if (!notificationRef.current?.contains(event.target)) {
         setIsNotificationOpen(false)
+      }
+
+      if (!profileMenuRef.current?.contains(event.target)) {
+        setIsProfileMenuOpen(false)
       }
     }
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         setIsNotificationOpen(false)
+        setIsProfileMenuOpen(false)
       }
     }
 
@@ -43,7 +53,7 @@ function DashboardTopbar({
     [notifications],
   )
 
-  // Handler notifikasi.
+  // Handler notifikasi dan profil.
   const handleMarkAllAsRead = () => {
     setNotifications((currentNotifications) =>
       currentNotifications.map((item) => ({
@@ -55,6 +65,17 @@ function DashboardTopbar({
 
   const handleOpenNotifications = () => {
     setIsNotificationOpen((open) => !open)
+    setIsProfileMenuOpen(false)
+  }
+
+  const handleToggleProfileMenu = () => {
+    setIsProfileMenuOpen((open) => !open)
+    setIsNotificationOpen(false)
+  }
+
+  const handleLogout = () => {
+    setIsProfileMenuOpen(false)
+    navigate('/login')
   }
 
   return (
@@ -147,13 +168,40 @@ function DashboardTopbar({
         </div>
 
         {showProfileButton ? (
-          <button
-            type="button"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
-            aria-label="Profil pengguna"
-          >
-            <CircleUserRound className="h-5 w-5" />
-          </button>
+          <div ref={profileMenuRef} className="relative">
+            <button
+              type="button"
+              onClick={handleToggleProfileMenu}
+              className="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-800 hover:text-slate-200"
+              aria-label="Profil pengguna"
+              aria-haspopup="menu"
+              aria-expanded={isProfileMenuOpen}
+            >
+              <CircleUserRound className="h-5 w-5" />
+            </button>
+
+            {isProfileMenuOpen ? (
+              <div className="absolute right-0 top-full z-20 mt-2 w-[220px] rounded-2xl border border-slate-800 bg-slate-950 p-2 shadow-[0_24px_64px_-34px_rgba(2,6,23,0.72)]">
+                <Link
+                  to={profileHref}
+                  onClick={() => setIsProfileMenuOpen(false)}
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm text-slate-200 transition hover:bg-slate-900 hover:text-white"
+                >
+                  <Settings className="h-4 w-4 text-blue-400" />
+                  <span>Profile</span>
+                </Link>
+
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm text-rose-300 transition hover:bg-slate-900 hover:text-rose-200"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Keluar</span>
+                </button>
+              </div>
+            ) : null}
+          </div>
         ) : null}
       </div>
     </div>

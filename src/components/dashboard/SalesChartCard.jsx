@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { DatePickerWithRange } from '@/components/ui/date-picker-with-range'
+import { useMemo, useState } from "react";
+import { DatePickerWithRange } from "@/components/ui/date-picker-with-range";
 
 function SalesChartCard({
   title,
@@ -12,47 +12,47 @@ function SalesChartCard({
   data,
 }) {
   // State dan ukuran dasar area chart.
-  const [hoveredPoint, setHoveredPoint] = useState(null)
-  const chartWidth = 720
-  const chartHeight = 220
-  const paddingX = 28
-  const paddingTop = 20
-  const paddingBottom = 28
-  const maxValue = Math.max(...data.map((item) => item.amount), 1)
-  const innerWidth = chartWidth - paddingX * 2
-  const innerHeight = chartHeight - paddingTop - paddingBottom
-  const stepX = data.length > 1 ? innerWidth / (data.length - 1) : innerWidth
+  const [hoveredPoint, setHoveredPoint] = useState(null);
+  const chartWidth = 720;
+  const chartHeight = 220;
+  const paddingX = 28;
+  const paddingTop = 20;
+  const paddingBottom = 28;
+  const maxValue = Math.max(...data.map((item) => item.amount), 1);
+  const innerWidth = chartWidth - paddingX * 2;
+  const innerHeight = chartHeight - paddingTop - paddingBottom;
+  const stepX = data.length > 1 ? innerWidth / (data.length - 1) : innerWidth;
 
   // Titik grafik dibentuk dari data penjualan yang diterima.
   const points = data.map((item, index) => {
-    const x = paddingX + stepX * index
-    const y = paddingTop + innerHeight - (item.amount / maxValue) * innerHeight
+    const x = paddingX + stepX * index;
+    const y = paddingTop + innerHeight - (item.amount / maxValue) * innerHeight;
 
-    return { ...item, x, y }
-  })
+    return { ...item, x, y };
+  });
 
   const linePath = points
-    .map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`)
-    .join(' ')
+    .map((point, index) => `${index === 0 ? "M" : "L"} ${point.x} ${point.y}`)
+    .join(" ");
 
-  const areaPath = `${linePath} L ${points[points.length - 1].x} ${chartHeight - paddingBottom} L ${points[0].x} ${chartHeight - paddingBottom} Z`
-  const highlightedPoint = points[Math.floor(points.length / 2)]
-  const labelStep = data.length > 12 ? Math.ceil(data.length / 6) : 1
+  const areaPath = `${linePath} L ${points[points.length - 1].x} ${chartHeight - paddingBottom} L ${points[0].x} ${chartHeight - paddingBottom} Z`;
+  const highlightedPoint = points[Math.floor(points.length / 2)];
+  const labelStep = data.length > 12 ? Math.ceil(data.length / 6) : 1;
 
   // Posisi tooltip mengikuti titik grafik yang sedang disorot.
   const tooltipPosition = useMemo(() => {
     if (!hoveredPoint) {
-      return null
+      return null;
     }
 
-    const leftPercent = (hoveredPoint.x / chartWidth) * 100
-    const topPercent = (hoveredPoint.y / chartHeight) * 100
+    const leftPercent = (hoveredPoint.x / chartWidth) * 100;
+    const topPercent = (hoveredPoint.y / chartHeight) * 100;
 
     return {
       left: `clamp(72px, ${leftPercent}%, calc(100% - 72px))`,
       top: `max(12px, calc(${topPercent}% - 48px))`,
-    }
-  }, [hoveredPoint])
+    };
+  }, [hoveredPoint]);
 
   return (
     <section className="rounded-xl border border-slate-800 bg-slate-900 p-4 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] sm:p-5 xl:p-6">
@@ -64,28 +64,30 @@ function SalesChartCard({
         </div>
 
         <div className="flex w-full flex-col gap-3 xl:w-auto xl:items-end">
-          <div className="flex flex-wrap items-center gap-2 self-start xl:self-end">
-            {presets.map((preset) => (
-              <button
-                key={preset.id}
-                type="button"
-                onClick={() => onPresetChange(preset.id)}
-                className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
-                  activePreset === preset.id
-                    ? 'bg-slate-800 text-slate-100'
-                    : 'text-slate-500 hover:text-slate-300'
-                }`}
-              >
-                {preset.label}
-              </button>
-            ))}
-          </div>
+          <div className="flex w-full flex-col items-center gap-3 xl:w-auto xl:items-end">
+            <DatePickerWithRange
+              value={dateRange}
+              onChange={onDateRangeChange}
+              className="w-full sm:w-60"
+            />  
 
-          <DatePickerWithRange
-            value={dateRange}
-            onChange={onDateRangeChange}
-            className="mx-auto w-60"
-          />
+            <div className="flex flex-wrap items-center justify-center gap-2 xl:justify-end">
+              {presets.map((preset) => (
+                <button
+                  key={preset.id}
+                  type="button"
+                  onClick={() => onPresetChange(preset.id)}
+                  className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
+                    activePreset === preset.id
+                      ? "bg-slate-800 text-slate-100"
+                      : "text-slate-500 hover:text-slate-300"
+                  }`}
+                >
+                  {preset.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -106,8 +108,12 @@ function SalesChartCard({
               className="pointer-events-none absolute z-10 -translate-x-1/2 rounded-lg border border-slate-700 bg-slate-950/95 px-3 py-2 text-xs shadow-[0_16px_32px_-20px_rgba(2,6,23,0.95)]"
               style={tooltipPosition}
             >
-              <p className="font-semibold text-white">{hoveredPoint.fullLabel}</p>
-              <p className="mt-1 text-slate-300">Indeks penjualan: {hoveredPoint.amount}</p>
+              <p className="font-semibold text-white">
+                {hoveredPoint.fullLabel}
+              </p>
+              <p className="mt-1 text-slate-300">
+                Indeks penjualan: {hoveredPoint.amount}
+              </p>
             </div>
           ) : null}
 
@@ -118,7 +124,13 @@ function SalesChartCard({
             aria-hidden="true"
           >
             <defs>
-              <linearGradient id="sales-area-gradient" x1="0" x2="0" y1="0" y2="1">
+              <linearGradient
+                id="sales-area-gradient"
+                x1="0"
+                x2="0"
+                y1="0"
+                y2="1"
+              >
                 <stop offset="0%" stopColor="rgb(59 130 246 / 0.24)" />
                 <stop offset="100%" stopColor="rgb(59 130 246 / 0)" />
               </linearGradient>
@@ -166,11 +178,16 @@ function SalesChartCard({
 
         <div
           className="mt-4 grid gap-1 px-1 text-[11px] sm:gap-2 sm:px-2"
-          style={{ gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))` }}
+          style={{
+            gridTemplateColumns: `repeat(${data.length}, minmax(0, 1fr))`,
+          }}
         >
           {data.map((item, index) => {
             const isLabelVisible =
-              data.length <= 12 || index === 0 || index === data.length - 1 || index % labelStep === 0
+              data.length <= 12 ||
+              index === 0 ||
+              index === data.length - 1 ||
+              index % labelStep === 0;
 
             return (
               <div
@@ -178,14 +195,14 @@ function SalesChartCard({
                 className="text-center text-[10px] font-medium uppercase tracking-wide text-slate-400"
                 title={item.fullLabel}
               >
-                {isLabelVisible ? item.day : ''}
+                {isLabelVisible ? item.day : ""}
               </div>
-            )
+            );
           })}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
-export default SalesChartCard
+export default SalesChartCard;
