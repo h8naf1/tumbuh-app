@@ -1,6 +1,15 @@
-import { ArrowLeft, Bot, Compass, Grid2x2, Package, Settings, ShoppingBag, X } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
-import BrandLogo from '../BrandLogo.jsx'
+import {
+  ArrowLeft,
+  Bot,
+  Compass,
+  Grid2x2,
+  Package,
+  Settings,
+  ShoppingBag,
+  X,
+} from "lucide-react";
+import { NavLink } from "react-router-dom";
+import BrandLogo from "../BrandLogo.jsx";
 
 const sidebarIcons = {
   dashboard: Grid2x2,
@@ -127,3 +136,4 @@ function DashboardSidebar({
 }
 
 export default DashboardSidebar
+

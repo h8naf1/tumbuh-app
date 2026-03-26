@@ -280,10 +280,12 @@ function MagicBento({
                     alt={card.imageAlt || ''}
                     aria-hidden={card.imageAlt ? undefined : 'true'}
                     className={[
-                      'absolute right-[-10%] top-[-14%] w-[540px] max-w-none',
-                      'opacity-75 blur-[3px] brightness-[0.8] saturate-125 contrast-110',
+                      card.imageClassName
+                        ? ''
+                        : 'absolute right-[-10%] top-[-14%] w-[540px] max-w-none',
+                      'opacity-30 brightness-[0.9] saturate-110',
                       'transition duration-500 ease-out',
-                      'group-hover:opacity-85 group-hover:blur-[2px] group-hover:scale-[1.01]',
+                      'group-hover:opacity-40 group-hover:scale-[1.01]',
                       card.imageClassName || '',
                     ].join(' ')}
                   />

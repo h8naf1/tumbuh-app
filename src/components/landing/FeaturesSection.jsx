@@ -1,4 +1,8 @@
 import MagicBento from '../MagicBento'
+import assistenChatImg from '../../assets/elements/assistenchat.png'
+import transaksiImg from '../../assets/elements/transaksi.png'
+import daftarProdukImg from '../../assets/elements/daftarproduk.png'
+import dashboardPageImg from '../../assets/elements/Dashboardpage.png'
 
 function FeaturesSection() {
   const featureCards = [
@@ -7,24 +11,36 @@ function FeaturesSection() {
       description:
         'Gunakan AI chat untuk membantu mencatat penjualan, menyiapkan draft transaksi, dan memandu pekerjaan usaha sehari-hari dengan bahasa yang natural.',
       badge: '01',
+      image: assistenChatImg,
+      imageAlt: 'Tampilan asisten chat TUMBUH',
+      imageClassName: 'right-[-5%] top-[-8%] w-[460px]',
     },
     {
       title: 'Scan barcode dan pilih produk lebih cepat',
       description:
         'Produk bisa dicatat lebih praktis lewat alur scan barcode atau input cepat, sehingga proses transaksi tidak perlu selalu dilakukan secara manual.',
       badge: '02',
+      image: transaksiImg,
+      imageAlt: 'Tampilan halaman transaksi TUMBUH',
+      imageClassName: 'absolute inset-0 w-full h-full object-cover object-top',
     },
     {
       title: 'Upload nota untuk bantu pencatatan stok',
       description:
         'Nota belanja bisa diunggah ke asisten agar sistem membantu membaca isi dokumen dan menyiapkan draft data yang tetap bisa dikonfirmasi pengguna.',
       badge: '03',
+      image: daftarProdukImg,
+      imageAlt: 'Tampilan daftar produk TUMBUH',
+      imageClassName: 'right-[-5%] top-[-8%] w-[420px]',
     },
     {
       title: 'Dashboard insight dan laporan PDF',
       description:
         'Pantau penjualan, stok, dan transaksi dari satu dashboard, lalu unduh laporan agar ringkasan usaha lebih mudah dibagikan atau dicek kembali.',
       badge: '04',
+      image: dashboardPageImg,
+      imageAlt: 'Tampilan dashboard TUMBUH',
+      imageClassName: 'right-[-8%] top-[-6%] w-[420px]',
     },
   ]
 
