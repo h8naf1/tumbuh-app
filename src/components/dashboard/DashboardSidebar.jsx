@@ -1,6 +1,7 @@
 import {
   ArrowLeft,
   Bot,
+  Compass,
   Grid2x2,
   Package,
   Settings,
