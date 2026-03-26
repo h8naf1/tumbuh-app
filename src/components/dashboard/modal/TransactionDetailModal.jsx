@@ -1,5 +1,5 @@
 import { ReceiptText, UserRound, WalletCards, X } from 'lucide-react'
-import ProductImage from '../products/ProductImage.jsx'
+import ProductImage from '../../products/ProductImage.jsx'
 
 function TransactionDetailModal({ transaction, formatRupiah, onClose, statusStyles }) {
   if (!transaction) {
@@ -112,3 +112,5 @@ function TransactionDetailModal({ transaction, formatRupiah, onClose, statusStyl
 }
 
 export default TransactionDetailModal
+
+

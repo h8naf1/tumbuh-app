@@ -13,12 +13,13 @@ function ProductFilterBar({
   onDeleteSelected,
 }) {
   return (
-    <section className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-      <div className="relative w-full max-w-sm">
-        <select
+    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+        <SelectField
+          label="Kategori"
           value={selectedCategory}
           onChange={(event) => onCategoryChange(event.target.value)}
-          className="h-11 w-full appearance-none rounded-2xl border border-slate-800 bg-slate-900 px-4 pr-12 text-sm font-medium text-slate-200 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+          wrapperClassName="w-full max-w-sm"
         >
           <option value="all">Semua Kategori</option>
           {categoryOptions.map((category) => (

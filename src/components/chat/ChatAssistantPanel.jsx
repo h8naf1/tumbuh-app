@@ -1,200 +1,168 @@
-import { useMemo, useRef, useState } from 'react'
 import {
   AssistantRuntimeProvider,
   AttachmentPrimitive,
   ComposerPrimitive,
   MessagePrimitive,
   ThreadPrimitive,
-  useLocalRuntime,
-} from '@assistant-ui/react'
+} from "@assistant-ui/react";
 import {
   CheckCheck,
+  CheckCircle2,
+  CircleDot,
   FileText,
   Paperclip,
+  Plus,
   QrCode,
+  Save,
   ScanLine,
   SendHorizontal,
   Sparkles,
   WalletCards,
   X,
-} from 'lucide-react'
-import { Button } from '../ui/Button.jsx'
-import { formatRupiah } from '../../lib/formatters.js'
+} from "lucide-react";
+import { Button } from "../ui/Button.jsx";
+import { useChatAssistantFlow } from "../../hooks/useChatAssistantFlow.js";
 
-// Dummy data produk untuk simulasi alur scan barcode.
 const scannerProducts = [
   {
-    barcode: '8991001001',
-    name: 'Kopi Susu Gula Aren',
-    price: 24000,
+    barcode: "8991001001",
+    name: "Kopi Susu Gula Aren",
+    price: 18000,
     stock: 12,
   },
   {
-    barcode: '8991001002',
-    name: 'Kopi Butterscotch',
-    price: 26000,
+    barcode: "8991001002",
+    name: "Brownies Cokelat",
+    price: 15000,
     stock: 8,
   },
   {
-    barcode: '8991001003',
-    name: 'Roti Croissant Butter',
-    price: 18000,
-    stock: 6,
+    barcode: "8991001003",
+    name: "Americano Ice",
+    price: 20000,
+    stock: 15,
   },
-]
+];
 
-// Quick action utama yang tampil di atas ruang chat.
+const starterPrompts = [
+  "Halo, bantu saya lihat kondisi bisnis hari ini.",
+  "Bagaimana cara menaikkan penjualan usaha saya?",
+  "Saya baru jual 2 kopi susu dan 1 brownies.",
+];
+
 const quickActions = [
   {
-    id: 'chat',
-    title: 'Tanya AI',
-    description: 'Tulis instruksi seperti sedang memberi arahan ke asisten usaha.',
+    id: "draft",
+    title: "Buat Draft Transaksi",
+    description:
+      "Mulai dari input transaksi natural lalu biarkan assistant menyusunnya jadi draft.",
+    icon: WalletCards,
+    accentClassName: "bg-blue-500/10 text-blue-400",
+    actionLabel: "Isi contoh transaksi",
+  },
+  {
+    id: "business",
+    title: "Analisa Bisnis",
+    description:
+      "Tanya soal penjualan, stok, promosi, atau strategi agar percakapannya lebih terarah.",
     icon: Sparkles,
-    accentClassName: 'bg-blue-500/10 text-blue-400',
+    accentClassName: "bg-violet-500/10 text-violet-400",
+    actionLabel: "Mulai dari insight",
   },
   {
-    id: 'scan',
-    title: 'Scan Barcode',
-    description: 'Scan produk yang baru terjual lalu lanjutkan konfirmasi lewat chat.',
+    id: "scan",
+    title: "Scan Produk",
+    description:
+      "Pilih hasil scan produk lalu lanjutkan koreksi draft di percakapan yang sama.",
     icon: QrCode,
-    accentClassName: 'bg-emerald-500/10 text-emerald-400',
+    accentClassName: "bg-emerald-500/10 text-emerald-400",
+    actionLabel: "Buka scanner",
   },
   {
-    id: 'upload',
-    title: 'Upload Nota',
-    description: 'Upload gambar atau PDF nota untuk dibaca dan disusun jadi draft.',
+    id: "upload",
+    title: "Upload Nota",
+    description:
+      "Masukkan nota lalu review draft awal tanpa perlu pindah ke flow yang berbeda.",
     icon: FileText,
-    accentClassName: 'bg-amber-500/10 text-amber-400',
+    accentClassName: "bg-amber-500/10 text-amber-400",
+    actionLabel: "Siapkan upload",
   },
-]
+];
 
-function getLastUserText(message) {
-  if (!message?.content) {
-    return ''
-  }
-
-  const textPart = message.content.find((part) => part.type === 'text')
-  return textPart?.text?.trim() ?? ''
+function formatRupiah(amount) {
+  return `Rp ${new Intl.NumberFormat("id-ID").format(amount)}`;
 }
 
-function getLastUserAttachmentCount(message) {
-  if (!message?.attachments) {
-    return 0
+function formatConversationTime(timestamp) {
+  if (!timestamp) {
+    return "baru saja";
   }
 
-  return message.attachments.length
+  return new Intl.DateTimeFormat("id-ID", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date(timestamp));
 }
 
-function createLocalAttachmentAdapter() {
-  const objectUrls = new Map()
+function ConversationStatusPill({ status }) {
+  const isSaved = status === "saved";
 
-  return {
-    accept: 'image/*,application/pdf,.txt,.csv,.doc,.docx',
-    async add(file) {
-      const objectUrl = URL.createObjectURL(file)
-      const attachmentId = `${file.name}-${crypto.randomUUID()}`
-
-      objectUrls.set(attachmentId, objectUrl)
-
-      const type = file.type.startsWith('image/')
-        ? 'image'
-        : file.type === 'application/pdf'
-          ? 'document'
-          : 'file'
-
-      return {
-        id: attachmentId,
-        type,
-        name: file.name,
-        content: [{ type, [type === 'image' ? 'image' : 'url']: objectUrl }],
-      }
-    },
-    async remove(attachment) {
-      const objectUrl = objectUrls.get(attachment.id)
-
-      if (objectUrl) {
-        URL.revokeObjectURL(objectUrl)
-        objectUrls.delete(attachment.id)
-      }
-    },
-  }
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+        isSaved
+          ? "bg-emerald-500/10 text-emerald-300"
+          : "bg-amber-500/10 text-amber-300"
+      }`}
+    >
+      {isSaved ? <CheckCircle2 className="h-3.5 w-3.5" /> : <CircleDot className="h-3.5 w-3.5" />}
+      {isSaved ? "Tersimpan" : "Draft"}
+    </span>
+  );
 }
 
-// Helper untuk membaca instruksi penjualan sederhana dari pesan user.
-function parseSalesInstruction(text) {
-  const normalizedText = text.toLowerCase()
+function ConversationSessionSummary({
+  conversationStatus,
+  conversationTitle,
+  conversationPreview,
+  conversationUpdatedAt,
+  saveFeedback,
+}) {
+  return (
+    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+            Status Percakapan
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <ConversationStatusPill status={conversationStatus} />
+            <h2 className="text-lg font-semibold text-white">{conversationTitle}</h2>
+            <span className="text-xs text-slate-500">
+              Update {formatConversationTime(conversationUpdatedAt)}
+            </span>
+          </div>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
+            {conversationPreview ||
+              "Percakapan baru akan otomatis disimpan sebagai draft begitu Anda mulai mengetik atau mengirim pesan."}
+          </p>
+        </div>
 
-  if (
-    !normalizedText.includes('jual') &&
-    !normalizedText.includes('terjual') &&
-    !normalizedText.includes('transaksi')
-  ) {
-    return null
-  }
-
-  const catalog = [
-    { keyword: 'kopi susu', name: 'Kopi Susu Gula Aren', price: 24000 },
-    { keyword: 'butterscotch', name: 'Kopi Butterscotch', price: 26000 },
-    { keyword: 'croissant', name: 'Roti Croissant Butter', price: 18000 },
-  ]
-
-  const items = catalog
-    .map((product) => {
-      const match = normalizedText.match(new RegExp(`(\\d+)\\s+${product.keyword}`))
-
-      if (!match) {
-        return null
-      }
-
-      const quantity = Number(match[1])
-
-      return {
-        name: product.name,
-        quantity,
-        price: product.price,
-        total: quantity * product.price,
-      }
-    })
-    .filter(Boolean)
-
-  if (items.length === 0) {
-    return null
-  }
-
-  const total = items.reduce((sum, item) => sum + item.total, 0)
-
-  return {
-    source: 'chat',
-    title: 'Draft transaksi dari chat',
-    items,
-    total,
-    note: 'AI menyusun draft dari instruksi yang Anda ketik.',
-  }
-}
-
-// Helper untuk membuat draft transaksi dari hasil scan barcode.
-function buildDraftFromScanner(product) {
-  return {
-    source: 'scan',
-    title: 'Draft transaksi dari hasil scan',
-    items: [
-      {
-        name: product.name,
-        quantity: 1,
-        price: product.price,
-        total: product.price,
-      },
-    ],
-    total: product.price,
-    note: `Barcode ${product.barcode} berhasil dibaca. Anda masih bisa ubah jumlah saat tahap konfirmasi.`,
-  }
+        {saveFeedback ? (
+          <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+            {saveFeedback}
+          </span>
+        ) : null}
+      </div>
+    </section>
+  );
 }
 
 function ComposerAttachment() {
   return (
     <AttachmentPrimitive.Root className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2">
       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-slate-300">
-        <AttachmentPrimitive.unstable_Thumb className="text-xs font-semibold uppercase tracking-[0.18em]" />
+        <AttachmentPrimitive.unstable_Thumb />
       </div>
 
       <div className="min-w-0 flex-1">
@@ -211,7 +179,7 @@ function ComposerAttachment() {
         </button>
       </AttachmentPrimitive.Remove>
     </AttachmentPrimitive.Root>
-  )
+  );
 }
 
 function UserMessage() {
@@ -222,7 +190,7 @@ function UserMessage() {
         <MessagePrimitive.Parts />
       </div>
     </MessagePrimitive.Root>
-  )
+  );
 }
 
 function AssistantMessage() {
@@ -239,7 +207,25 @@ function AssistantMessage() {
         </div>
       </div>
     </MessagePrimitive.Root>
-  )
+  );
+}
+
+function TypingIndicator() {
+  return (
+    <div className="flex justify-start">
+      <div className="max-w-[70%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 shadow-[0_18px_36px_-28px_rgba(2,6,23,0.9)]">
+        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+          <Sparkles className="h-3.5 w-3.5 animate-pulse" />
+          <span>Asisten TUMBUH sedang mengetik</span>
+        </div>
+        <div className="flex items-center gap-2 text-slate-300">
+          <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-blue-400 [animation-delay:-0.2s]" />
+          <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-blue-400 [animation-delay:-0.1s]" />
+          <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-blue-400" />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function EmptyChatState() {
@@ -250,45 +236,65 @@ function EmptyChatState() {
   ]
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center justify-center px-4 py-12 text-center">
+    <div className="mx-auto flex max-w-3xl flex-col items-center justify-center px-4 py-12 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
         <Sparkles className="h-7 w-7" />
       </div>
 
-      <h2 className="mt-5 text-2xl font-bold text-white">Asisten Chat TUMBUH</h2>
-      <p className="mt-3 max-w-xl text-sm leading-7 text-slate-400 sm:text-base">
-        Anda bebas memilih cara kerja: ngobrol langsung seperti memberi instruksi,
-        scan barcode untuk transaksi cepat, atau upload nota untuk dibaca.
+      <h2 className="mt-5 text-2xl font-bold text-white">
+        Asisten Chat TUMBUH
+      </h2>
+      <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+        Assistant akan menyesuaikan alurnya berdasarkan intent Anda. Kalau Anda
+        menyapa, dia akan membuka percakapan. Kalau Anda tanya bisnis, dia akan
+        kasih insight. Kalau Anda input transaksi, dia akan buat draft.
       </p>
 
-      <div className="mt-8 grid w-full gap-3 sm:grid-cols-3">
-        {prompts.map((prompt) => (
-          <ThreadPrimitive.Suggestion
-            key={prompt}
-            prompt={prompt}
-            className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
-          >
-            {prompt}
-          </ThreadPrimitive.Suggestion>
-        ))}
+      <div className="mt-8 grid w-full gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <ThreadPrimitive.Suggestion
+          prompt="Halo, bantu saya lihat kondisi bisnis hari ini."
+          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+        />
+        <ThreadPrimitive.Suggestion
+          prompt="Bagaimana cara menaikkan penjualan usaha saya?"
+          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+        />
+        <ThreadPrimitive.Suggestion
+          prompt="Saya baru jual 2 kopi susu dan 1 brownies."
+          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+        />
+        <ThreadPrimitive.Suggestion
+          prompt="Tolong ringkas penjualan hari ini dan kasih insight berikutnya."
+          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+        />
       </div>
     </div>
-  )
+  );
 }
 
-// Section shortcut utama agar user pemula lebih cepat menemukan fitur inti.
-function QuickActionSection({ onOpenScanner }) {
+function QuickActionSection({
+  onPrepareDraft,
+  onPrepareBusiness,
+  onOpenScanner,
+  onPrepareUpload,
+}) {
+  const actionHandlers = {
+    draft: onPrepareDraft,
+    business: onPrepareBusiness,
+    scan: onOpenScanner,
+    upload: onPrepareUpload,
+  };
+
   return (
-    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
       {quickActions.map((action) => {
-        const Icon = action.icon
-        const isScannerAction = action.id === 'scan'
+        const Icon = action.icon;
 
         return (
           <button
             key={action.id}
             type="button"
-            onClick={isScannerAction ? onOpenScanner : undefined}
+            onClick={actionHandlers[action.id]}
             className="group rounded-2xl border border-slate-800 bg-slate-900 p-5 text-left shadow-[0_18px_40px_-28px_rgba(2,6,23,0.8)] transition hover:-translate-y-0.5 hover:border-slate-700 hover:bg-slate-900/90"
           >
             <div
@@ -297,25 +303,26 @@ function QuickActionSection({ onOpenScanner }) {
               <Icon className="h-5 w-5" />
             </div>
 
-            <h2 className="mt-5 text-lg font-semibold text-white">{action.title}</h2>
+            <h2 className="mt-5 text-lg font-semibold text-white">
+              {action.title}
+            </h2>
             <p className="mt-2 text-sm leading-6 text-slate-400">
               {action.description}
             </p>
 
             <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500 transition group-hover:text-blue-400">
-              {isScannerAction ? 'Buka scanner' : 'Gunakan di chat'}
+              {action.actionLabel}
             </p>
           </button>
-        )
+        );
       })}
     </section>
-  )
+  );
 }
 
-// Ringkasan konteks aktif dari chat, scan, atau upload nota.
 function ContextBar({ context }) {
   if (!context) {
-    return null
+    return null;
   }
 
   return (
@@ -336,15 +343,16 @@ function ContextBar({ context }) {
         ) : null}
       </div>
 
-      <p className="mt-3 text-sm leading-6 text-slate-400">{context.description}</p>
+      <p className="mt-3 text-sm leading-6 text-slate-400">
+        {context.description}
+      </p>
     </section>
-  )
+  );
 }
 
-// Card draft yang harus dicek user sebelum data dianggap final.
 function DraftConfirmationCard({ draft, onSave, onDiscard }) {
   if (!draft) {
-    return null
+    return null;
   }
 
   return (
@@ -354,7 +362,9 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
             Draft Konfirmasi
           </p>
-          <h2 className="mt-2 text-lg font-semibold text-white">{draft.title}</h2>
+          <h2 className="mt-2 text-lg font-semibold text-white">
+            {draft.title}
+          </h2>
           <p className="mt-2 text-sm leading-6 text-slate-400">{draft.note}</p>
         </div>
 
@@ -404,13 +414,12 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
         </Button>
       </div>
     </section>
-  )
+  );
 }
 
-// Modal simulasi scanner untuk tahap UI awal.
 function ScannerModal({ isOpen, onClose, onSelectProduct }) {
   if (!isOpen) {
-    return null
+    return null;
   }
 
   return (
@@ -425,8 +434,8 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
               Simulasi scanner produk
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-400">
-              Untuk tahap UI ini, pilih salah satu produk hasil scan agar alur chat
-              dan draft transaksi bisa langsung terlihat.
+              Pilih salah satu hasil scan agar alurnya langsung berlanjut ke
+              draft transaksi tanpa keluar dari percakapan.
             </p>
           </div>
 
@@ -445,10 +454,13 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
               <ScanLine className="h-6 w-6" />
             </div>
-            <p className="mt-4 text-sm font-medium text-white">Scanner siap digunakan</p>
+            <p className="mt-4 text-sm font-medium text-white">
+              Scanner siap digunakan
+            </p>
             <p className="mt-2 text-sm leading-6 text-slate-400">
-              Nanti di tahap implementasi fitur penuh, area ini bisa diganti kamera
-              scanner barcode.
+              Nanti di tahap implementasi fitur penuh, area ini bisa diganti
+              kamera scanner barcode. Untuk sekarang, pilih hasil scan yang
+              ingin Anda lanjutkan.
             </p>
           </div>
 
@@ -462,7 +474,9 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-white">{product.name}</p>
+                    <p className="text-sm font-semibold text-white">
+                      {product.name}
+                    </p>
                     <p className="mt-1 text-xs text-slate-500">
                       Barcode {product.barcode}
                     </p>
@@ -483,24 +497,78 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-// Komponen ruang percakapan utama beserta composer chat.
-function ChatThread({ onOpenScanner, onOpenDraft, hasDraft }) {
+function StarterPromptBar({ onUseStarterPrompt }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {starterPrompts.map((prompt) => (
+        <button
+          key={prompt}
+          type="button"
+          onClick={() => onUseStarterPrompt(prompt)}
+          className="rounded-full border border-slate-800 bg-slate-950 px-3 py-1.5 text-xs text-slate-300 transition hover:border-blue-500/30 hover:text-blue-300"
+        >
+          {prompt}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function ChatThread({
+  onOpenScanner,
+  onOpenDraft,
+  onPrepareUpload,
+  onUseStarterPrompt,
+  onSaveConversation,
+  onComposerInputChange,
+  hasDraft,
+  conversationHasContent,
+  conversationStatus,
+  conversationTitle,
+  conversationUpdatedAt,
+  saveFeedback,
+  isResponding,
+  composerInputId,
+}) {
   return (
     <ThreadPrimitive.Root className="flex min-h-152 flex-col overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)] lg:h-[calc(100vh-20rem)] lg:min-h-168">
       <div className="border-b border-slate-800 px-5 py-4 sm:px-6">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-sm font-semibold text-white">Ruang Percakapan</p>
-            <p className="mt-1 text-xs leading-5 text-slate-400">
-              Gunakan chat seperti memberi arahan ke asisten, atau mulai dari scan
-              barcode dan upload nota.
+            <div className="mt-2 flex flex-wrap items-center gap-2">
+              <ConversationStatusPill status={conversationStatus} />
+              <span className="text-xs font-medium text-slate-300">
+                {conversationTitle}
+              </span>
+              <span className="text-xs text-slate-500">
+                Update {formatConversationTime(conversationUpdatedAt)}
+              </span>
+              {saveFeedback ? (
+                <span className="text-xs text-emerald-300">{saveFeedback}</span>
+              ) : null}
+            </div>
+            <p className="mt-2 text-xs leading-5 text-slate-400">
+              Assistant akan membaca intent pesan Anda, lalu memilih apakah
+              harus menyapa, memberi insight, atau menyusun draft transaksi.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 text-xs text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={onSaveConversation}
+              disabled={!conversationHasContent || conversationStatus === "saved" || isResponding}
+              className="rounded-xl border-slate-700 bg-slate-950/80 text-slate-200 hover:bg-slate-800"
+            >
+              <Save className="h-4 w-4" />
+              Simpan Percakapan
+            </Button>
             <button
               type="button"
               onClick={onOpenScanner}
@@ -515,14 +583,18 @@ function ChatThread({ onOpenScanner, onOpenDraft, hasDraft }) {
               disabled={!hasDraft}
               className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 transition ${
                 hasDraft
-                  ? 'border-slate-800 bg-slate-900/70 hover:border-blue-500/30 hover:text-blue-300'
-                  : 'cursor-not-allowed border-slate-800 bg-slate-900/40 text-slate-600'
+                  ? "border-slate-800 bg-slate-900/70 hover:border-blue-500/30 hover:text-blue-300"
+                  : "cursor-not-allowed border-slate-800 bg-slate-900/40 text-slate-600"
               }`}
             >
               <WalletCards className="h-3.5 w-3.5" />
               Draft konfirmasi
             </button>
           </div>
+        </div>
+
+        <div className="mt-4">
+          <StarterPromptBar onUseStarterPrompt={onUseStarterPrompt} />
         </div>
       </div>
 
@@ -548,47 +620,37 @@ function ChatThread({ onOpenScanner, onOpenDraft, hasDraft }) {
             className="grid gap-2"
           />
 
-          <div className="flex flex-col gap-3 rounded-2xl border border-slate-800 bg-slate-900/80 p-3 sm:p-4">
-            <ComposerPrimitive.Input
-              rows={3}
-              placeholder="Tulis instruksi seperti seorang bos ke asisten, misalnya: saya baru jual 2 kopi susu dan 1 croissant..."
-              className="min-h-24 w-full resize-none bg-transparent text-sm leading-7 text-slate-100 outline-none placeholder:text-slate-500"
-            />
+          <div className="rounded-[1.75rem] border border-slate-800 bg-slate-900/75 p-4 sm:p-5">
+            <div className="flex items-center gap-3 rounded-[1.5rem] border border-slate-700/80 bg-[rgba(8,12,28,0.82)] px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+              <ComposerPrimitive.AddAttachment asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={onPrepareUpload}
+                  className="rounded-full text-slate-400 hover:bg-slate-800 hover:text-white"
+                >
+                  <Plus className="h-4.5 w-4.5" />
+                </Button>
+              </ComposerPrimitive.AddAttachment>
 
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <ComposerPrimitive.AddAttachment asChild>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="rounded-xl border-slate-700 bg-slate-950/80 text-slate-200 hover:bg-slate-800"
-                    >
-                      <Paperclip className="h-4 w-4" />
-                      Upload Nota
-                    </Button>
-                  </ComposerPrimitive.AddAttachment>
+              <ComposerPrimitive.Input
+                id={composerInputId}
+                rows={1}
+                onChange={onComposerInputChange}
+                placeholder="Reply..."
+                className="min-h-0 flex-1 resize-none bg-transparent py-1 text-base leading-6 text-slate-100 outline-none placeholder:text-slate-400"
+              />
 
-                  <span className="rounded-full border border-slate-800 bg-slate-950 px-2.5 py-1 text-[11px] text-slate-400">
-                    Gambar / PDF / Dokumen
-                  </span>
-                </div>
-
-                <p className="text-xs text-slate-500">
-                  Setelah file diupload atau instruksi diproses, Anda tetap bisa
-                  mengecek hasil sebelum menyimpan.
-                </p>
-              </div>
+              <span className="hidden text-sm text-slate-400 md:inline">Asisten AI</span>
 
               <ComposerPrimitive.Send asChild>
                 <Button
                   type="button"
-                  size="lg"
-                  className="rounded-xl bg-blue-600 px-5 text-white hover:bg-blue-700"
+                  size="icon"
+                  className="rounded-full bg-white text-slate-950 hover:bg-slate-200"
                 >
                   <SendHorizontal className="h-4 w-4" />
-                  Kirim
                 </Button>
               </ComposerPrimitive.Send>
             </div>
@@ -596,141 +658,60 @@ function ChatThread({ onOpenScanner, onOpenDraft, hasDraft }) {
         </ComposerPrimitive.Root>
       </div>
     </ThreadPrimitive.Root>
-  )
+  );
 }
 
 function ChatAssistantPanel() {
-  const [isScannerOpen, setIsScannerOpen] = useState(false)
-  const [activeContext, setActiveContext] = useState(null)
-  const [pendingDraft, setPendingDraft] = useState(null)
-  const [savedDraftCount, setSavedDraftCount] = useState(0)
-  const draftSectionRef = useRef(null)
-  const attachmentAdapter = useMemo(() => createLocalAttachmentAdapter(), [])
-
-  // Runtime lokal assistant untuk demo interaksi chat tanpa backend AI penuh.
-  const runtime = useLocalRuntime({
-    async run({ messages }) {
-      const lastMessage = messages[messages.length - 1]
-      const userText = getLastUserText(lastMessage)
-      const attachmentCount = getLastUserAttachmentCount(lastMessage)
-      const chatDraft = parseSalesInstruction(userText)
-
-      if (chatDraft) {
-        setPendingDraft(chatDraft)
-        setActiveContext({
-          modeLabel: 'Chat Generatif',
-          description:
-            'AI membaca instruksi penjualan dari percakapan dan menyiapkan draft transaksi untuk Anda cek.',
-        })
-
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `Saya sudah membaca instruksi Anda dan menyiapkan draft transaksi. Silakan cek bagian draft konfirmasi di bawah, lalu simpan jika sudah sesuai.`,
-            },
-          ],
-        }
-      }
-
-      if (attachmentCount > 0) {
-        const attachmentName = lastMessage.attachments?.[0]?.name ?? 'dokumen'
-
-        setPendingDraft({
-          source: 'upload',
-          title: 'Draft hasil upload nota',
-          items: [
-            {
-              name: 'Bahan baku dari nota',
-              quantity: 1,
-              price: 125000,
-              total: 125000,
-            },
-          ],
-          total: 125000,
-          note: `File ${attachmentName} berhasil diterima. Tahap berikutnya nanti bisa dilanjutkan ke OCR dan parsing isi nota.`,
-        })
-        setActiveContext({
-          modeLabel: 'Upload Nota',
-          fileName: attachmentName,
-          description:
-            'File upload sudah masuk ke alur chat. Nanti hasil bacaan nota bisa muncul sebagai draft stok atau draft transaksi.',
-        })
-
-        return {
-          content: [
-            {
-              type: 'text',
-              text: `Saya menerima file ${attachmentName}. Untuk tahap UI ini, saya sudah siapkan draft awal agar alurnya terlihat. Tahap berikutnya kita bisa sambungkan ke OCR nota.`,
-            },
-          ],
-        }
-      }
-
-      return {
-        content: [
-          {
-            type: 'text',
-            text: 'Pesan Anda sudah saya terima. Anda bisa lanjut bertanya seperti biasa, scan barcode, atau upload nota untuk membentuk draft transaksi maupun stok.',
-          },
-        ],
-      }
-    },
-    adapters: {
-      attachments: attachmentAdapter,
-    },
-  })
-
-  // Handler interaksi utama halaman chat.
-  function handleOpenScanner() {
-    setIsScannerOpen(true)
-  }
-
-  function handleCloseScanner() {
-    setIsScannerOpen(false)
-  }
-
-  function handleSelectScannerProduct(product) {
-    setActiveContext({
-      modeLabel: 'Scan Barcode',
-      barcode: product.barcode,
-      description: `Produk ${product.name} berhasil ditemukan dari hasil scan. AI bisa lanjut membantu konfirmasi jumlah dan penyusunan transaksi.`,
-    })
-    setPendingDraft(buildDraftFromScanner(product))
-    setIsScannerOpen(false)
-  }
-
-  function handleSaveDraft() {
-    setSavedDraftCount((currentCount) => currentCount + 1)
-    setPendingDraft(null)
-  }
-
-  function handleDiscardDraft() {
-    setPendingDraft(null)
-  }
-
-  function handleOpenDraft() {
-    if (!pendingDraft) {
-      setActiveContext({
-        modeLabel: 'Draft Konfirmasi',
-        description:
-          'Belum ada draft aktif. Buat draft lebih dulu lewat chat, scan barcode, atau upload nota.',
-      })
-      return
-    }
-
-    draftSectionRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-  }
+  const {
+    runtime,
+    isScannerOpen,
+    activeContext,
+    pendingDraft,
+    savedDraftCount,
+    isResponding,
+    activeModeMeta,
+    composerInputId,
+    draftSectionRef,
+    conversationStatus,
+    conversationTitle,
+    conversationPreview,
+    conversationUpdatedAt,
+    conversationHasContent,
+    saveFeedback,
+    showSaveSuggestion,
+    prepareBusinessMode,
+    prepareDraftMode,
+    prepareUploadMode,
+    handleComposerInputChange,
+    handleUseStarterPrompt,
+    handleOpenScanner,
+    handleCloseScanner,
+    handleSelectScannerProduct,
+    handleSaveConversation,
+    handleDismissSaveSuggestion,
+    handleSaveDraft,
+    handleDiscardDraft,
+    handleOpenDraft,
+  } = useChatAssistantFlow();
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
       <div className="app-page-stack">
-        <QuickActionSection onOpenScanner={handleOpenScanner} />
+        <ConversationSessionSummary
+          conversationStatus={conversationStatus}
+          conversationTitle={conversationTitle}
+          conversationPreview={conversationPreview}
+          conversationUpdatedAt={conversationUpdatedAt}
+          saveFeedback={saveFeedback}
+        />
 
-        {/* Context aktif dari alur chat, scan, atau upload. */}
+        <QuickActionSection
+          onPrepareDraft={prepareDraftMode}
+          onPrepareBusiness={prepareBusinessMode}
+          onOpenScanner={handleOpenScanner}
+          onPrepareUpload={prepareUploadMode}
+        />
+
         <ContextBar context={activeContext} />
 
         {savedDraftCount > 0 ? (
@@ -739,7 +720,6 @@ function ChatAssistantPanel() {
           </section>
         ) : null}
 
-        {/* Area draft konfirmasi sebelum data disimpan. */}
         <div ref={draftSectionRef}>
           <DraftConfirmationCard
             draft={pendingDraft}
@@ -748,22 +728,54 @@ function ChatAssistantPanel() {
           />
         </div>
 
-        {/* Ruang percakapan utama. */}
         <ChatThread
           onOpenScanner={handleOpenScanner}
           onOpenDraft={handleOpenDraft}
+          onPrepareUpload={prepareUploadMode}
+          onUseStarterPrompt={handleUseStarterPrompt}
+          onSaveConversation={handleSaveConversation}
+          onDismissSaveSuggestion={handleDismissSaveSuggestion}
+          onComposerInputChange={handleComposerInputChange}
           hasDraft={Boolean(pendingDraft)}
+          conversationHasContent={conversationHasContent}
+          conversationStatus={conversationStatus}
+          conversationTitle={conversationTitle}
+          conversationUpdatedAt={conversationUpdatedAt}
+          saveFeedback={saveFeedback}
+          showSaveSuggestion={showSaveSuggestion}
+          isResponding={isResponding}
+          activeModeMeta={activeModeMeta}
+          composerInputId={composerInputId}
         />
       </div>
 
-      {/* Modal scanner cepat. */}
       <ScannerModal
         isOpen={isScannerOpen}
         onClose={handleCloseScanner}
         onSelectProduct={handleSelectScannerProduct}
       />
     </AssistantRuntimeProvider>
-  )
+  );
 }
 
-export default ChatAssistantPanel
+export default ChatAssistantPanel;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

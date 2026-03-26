@@ -1,4 +1,5 @@
 import { Clock3, ReceiptText, Wallet } from 'lucide-react'
+import KpiCard from '../ui/KpiCard.jsx'
 
 const statIcons = {
   'total-transactions': ReceiptText,
@@ -13,33 +14,15 @@ function TransactionStats({ metrics }) {
         const Icon = statIcons[metric.id] || ReceiptText
 
         return (
-          <article
+          <KpiCard
             key={metric.id}
-            className="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-[0_18px_40px_-28px_rgba(2,6,23,0.8)]"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <p className="text-sm font-medium text-slate-400">{metric.title}</p>
-                <p className="mt-4 text-2xl font-bold text-white">{metric.value}</p>
-              </div>
-
-              <div
-                className={`flex h-11 w-11 items-center justify-center rounded-xl ${metric.iconClassName}`}
-              >
-                <Icon className="h-5 w-5" />
-              </div>
-            </div>
-
-            {metric.badge ? (
-              <div className="mt-4">
-                <span
-                  className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${metric.badgeClassName}`}
-                >
-                  {metric.badge}
-                </span>
-              </div>
-            ) : null}
-          </article>
+            title={metric.title}
+            value={metric.value}
+            Icon={Icon}
+            iconClassName={metric.iconClassName}
+            badge={metric.badge}
+            badgeClassName={metric.badgeClassName}
+          />
         )
       })}
     </section>

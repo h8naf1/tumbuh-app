@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const menuItems = [
   { label: 'Beranda', href: '#home' },
   { label: 'Tentang', href: '#about' },
@@ -7,10 +9,11 @@ const menuItems = [
 ]
 
 const companyItems = [
-  'Tentang TUMBUH',
-  'Demo Produk',
-  'Kebijakan Privasi',
-  'Syarat Layanan',
+  { label: 'Dashboard', href: '/dashboard' },
+  { label: 'Produk', href: '/produk' },
+  { label: 'Asisten Chat', href: '/asisten-chat' },
+  { label: 'Transaksi', href: '/transaksi' },
+  { label: 'Pengaturan', href: '/pengaturan' },
 ]
 
 const contactItems = [
@@ -62,13 +65,17 @@ function FooterSection() {
 
           <div>
             <h3 className="text-sm font-bold uppercase tracking-[0.24em] text-white">
-              Company
+              Pages
             </h3>
             <div className="mt-6 space-y-3">
               {companyItems.map((item) => (
-                <p key={item} className="text-sm text-slate-400">
-                  {item}
-                </p>
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  className="block text-sm text-slate-400 transition hover:text-white"
+                >
+                  {item.label}
+                </Link>
               ))}
             </div>
           </div>
@@ -107,7 +114,3 @@ function FooterSection() {
 }
 
 export default FooterSection
-
-
-
-

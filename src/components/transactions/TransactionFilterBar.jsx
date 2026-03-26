@@ -1,4 +1,6 @@
 import { Search } from 'lucide-react'
+import Input from '../ui/Input.jsx'
+import SelectField from '../ui/SelectField.jsx'
 
 function TransactionFilterBar({
   searchQuery,
@@ -19,49 +21,39 @@ function TransactionFilterBar({
           </span>
           <div className="relative">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
-            <input
+            <Input
               type="text"
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder="Cari ID, nama produk, atau pembeli..."
-              className="w-full rounded-xl border border-slate-800 bg-slate-950 py-3 pl-10 pr-4 text-sm text-slate-100 outline-none transition placeholder:text-slate-500 focus:border-blue-500/40"
+              className="h-11 rounded-xl bg-slate-950/80 py-3 pl-10 pr-4"
             />
           </div>
         </label>
 
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium text-slate-300">
-            Status
-          </span>
-          <select
-            value={selectedStatus}
-            onChange={(event) => onStatusChange(event.target.value)}
-            className="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-blue-500/40"
-          >
-            {statusOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
+        <SelectField
+          label="Status"
+          value={selectedStatus}
+          onChange={(event) => onStatusChange(event.target.value)}
+        >
+          {statusOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </SelectField>
 
-        <label className="block">
-          <span className="mb-2 block text-sm font-medium text-slate-300">
-            Metode bayar
-          </span>
-          <select
-            value={selectedMethod}
-            onChange={(event) => onMethodChange(event.target.value)}
-            className="w-full rounded-xl border border-slate-800 bg-slate-950 px-4 py-3 text-sm text-slate-100 outline-none transition focus:border-blue-500/40"
-          >
-            {paymentOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
+        <SelectField
+          label="Metode bayar"
+          value={selectedMethod}
+          onChange={(event) => onMethodChange(event.target.value)}
+        >
+          {paymentOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </SelectField>
       </div>
     </section>
   )
