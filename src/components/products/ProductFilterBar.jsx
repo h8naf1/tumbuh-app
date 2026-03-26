@@ -1,8 +1,8 @@
 import {
-  ChevronDown,
   Plus,
   Trash2,
 } from 'lucide-react'
+import SelectField from '../ui/SelectField.jsx'
 
 function ProductFilterBar({
   selectedCategory,
@@ -27,8 +27,7 @@ function ProductFilterBar({
               {category}
             </option>
           ))}
-        </select>
-        <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+        </SelectField>
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
@@ -57,3 +56,4 @@ function ProductFilterBar({
 }
 
 export default ProductFilterBar
+
