@@ -20,12 +20,14 @@ const DEFAULT_CARDS = [
     title: 'Dashboard',
     description: 'Centralized data view',
     label: '02',
+    image: BagElement,
   },
   {
     color: '#020617',
     title: 'Collaboration',
     description: 'Work together seamlessly',
     label: '03',
+    image: BusinessManElement,
   },
 ]
 
@@ -45,28 +47,34 @@ const normalizeCards = (items) =>
             ? BusinessManElement
             : undefined),
     imageAlt: item.imageAlt,
-    imageClassName:
-      item.imageClassName ??
-      (index === 0
-        ? 'right-[-2%] top-[-10%] w-[500px]'
-        : index === 1
-          ? 'right-[-10%] top-[-6%] w-[360px]'
-          : index === 2
-            ? 'right-[-12%] top-[-10%] w-[390px]'
-            : 'right-[-10%] top-[-8%] w-[360px]'),
+    imageClassName: item.imageClassName ?? 'h-full w-full object-cover object-top',
+    mediaGlowClassName:
+      item.mediaGlowClassName ?? 'from-blue-500/28 via-cyan-400/14 to-transparent',
+    flowClassName: item.flowClassName ?? 'from-cyan-300/85 to-transparent',
   }))
 
-const getGridClassName = (count) =>
-  count === 3
-    ? 'grid gap-4 md:grid-cols-2 xl:grid-cols-3 xl:grid-rows-[minmax(165px,_1fr)_minmax(165px,_1fr)]'
-    : 'grid gap-4 md:grid-cols-2 xl:grid-cols-4'
+const getGridClassName = (count) => {
+  if (count >= 5) {
+    return 'grid gap-4 md:grid-cols-2 xl:grid-cols-3'
+  }
+
+  if (count === 4) {
+    return 'grid gap-4 md:grid-cols-2 xl:grid-cols-4'
+  }
+
+  if (count === 3) {
+    return 'grid gap-4 md:grid-cols-2 xl:grid-cols-3'
+  }
+
+  return 'grid gap-4 md:grid-cols-2'
+}
 
 const getCardSpanClassName = (index, count) => {
   if (count === 3 && index === 0) {
-    return 'xl:col-span-2 xl:row-span-2 min-h-[280px]'
+    return 'xl:col-span-2'
   }
 
-  return 'min-h-[165px]'
+  return ''
 }
 
 const getSpotlightRanges = (radius) => ({
@@ -226,10 +234,10 @@ function MagicBento({
           inset: -1px;
           padding: 1px;
           background: radial-gradient(var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-            rgba(${glowColor}, calc(var(--glow-intensity) * 0.96)) 0%,
-            rgba(${glowColor}, calc(var(--glow-intensity) * 0.34)) 16%,
-            rgba(${glowColor}, calc(var(--glow-intensity) * 0.12)) 34%,
-            transparent 62%);
+            rgba(${glowColor}, calc(var(--glow-intensity) * 0.94)) 0%,
+            rgba(${glowColor}, calc(var(--glow-intensity) * 0.28)) 18%,
+            rgba(${glowColor}, calc(var(--glow-intensity) * 0.12)) 36%,
+            transparent 66%);
           border-radius: inherit;
           -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
           -webkit-mask-composite: xor;
@@ -237,14 +245,14 @@ function MagicBento({
           mask-composite: exclude;
           opacity: ${enableBorderGlow ? 1 : 0};
           pointer-events: none;
-          z-index: 2;
+          z-index: 3;
         }
 
         .magic-bento-clamp {
           display: -webkit-box;
           -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          line-clamp: 2;
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
           overflow: hidden;
           text-overflow: ellipsis;
         }
@@ -256,66 +264,91 @@ function MagicBento({
             <article
               key={`${card.label}-${index}`}
               className={[
-                'magic-bento-card group relative overflow-hidden rounded-[1.55rem] border border-slate-800 p-5 text-left',
-                'bg-gradient-to-br from-slate-950 via-slate-950 to-slate-900',
+                'magic-bento-card group relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-slate-800/90 text-left',
+                'bg-[linear-gradient(180deg,rgba(2,6,23,0.98)_0%,rgba(15,23,42,0.98)_100%)]',
                 getCardSpanClassName(index, cards.length),
                 shouldDisableAnimations
-                  ? 'shadow-[0_22px_50px_-34px_rgba(2,6,23,0.78)]'
-                  : 'transition duration-300 ease-out hover:-translate-y-0.5 hover:border-blue-400/40 hover:shadow-[0_28px_60px_-34px_rgba(59,130,246,0.2)]',
+                  ? 'shadow-[0_22px_50px_-34px_rgba(2,6,23,0.82)]'
+                  : 'transition duration-300 ease-out hover:-translate-y-1 hover:border-blue-400/35 hover:shadow-[0_32px_70px_-40px_rgba(34,211,238,0.24)]',
               ].join(' ')}
               style={{
                 '--glow-x': '50%',
                 '--glow-y': '50%',
                 '--glow-intensity': '0',
                 '--glow-radius': '220px',
-                background: `linear-gradient(145deg, ${card.color} 0%, #0f172a 100%)`,
+                background: `linear-gradient(180deg, ${card.color} 0%, #0f172a 100%)`,
                 boxShadow:
-                  '0 22px 50px -34px rgba(2, 6, 23, 0.78), 0 0 0 1px rgba(30, 41, 59, 0.65), 0 0 32px rgba(59, 130, 246, 0.08)',
+                  '0 22px 50px -34px rgba(2, 6, 23, 0.82), 0 0 0 1px rgba(30, 41, 59, 0.62), 0 0 26px rgba(59, 130, 246, 0.08)',
               }}
             >
-              {card.image ? (
-                <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/35 to-transparent" />
+
+              <div className="relative aspect-[16/9] overflow-hidden border-b border-white/8">
+                {card.image ? (
                   <img
                     src={card.image}
                     alt={card.imageAlt || ''}
                     aria-hidden={card.imageAlt ? undefined : 'true'}
                     className={[
-                      card.imageClassName
-                        ? ''
-                        : 'absolute right-[-10%] top-[-14%] w-[540px] max-w-none',
-                      'opacity-30 brightness-[0.9] saturate-110',
                       'transition duration-500 ease-out',
-                      'group-hover:opacity-40 group-hover:scale-[1.01]',
-                      card.imageClassName || '',
+                      shouldDisableAnimations ? '' : 'group-hover:scale-[1.04]',
+                      card.imageClassName,
                     ].join(' ')}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-slate-950/5 via-slate-950/20 to-slate-950/55" />
+                ) : (
+                  <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),rgba(2,6,23,0.96)_72%)]" />
+                )}
+
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04)_0%,rgba(2,6,23,0.18)_42%,rgba(2,6,23,0.84)_100%)]" />
+                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.18] mix-blend-screen" />
+                <div className={`pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t ${card.mediaGlowClassName}`} />
+
+                <div className="pointer-events-none absolute left-5 bottom-4 flex items-end gap-2">
+                  <span
+                    className={`h-16 w-px rounded-full bg-gradient-to-t ${card.flowClassName}`}
+                    style={{ boxShadow: '0 0 18px rgba(34, 211, 238, 0.45)' }}
+                  />
+                  <span
+                    className="mb-8 h-2.5 w-2.5 rounded-full bg-cyan-300"
+                    style={{ boxShadow: '0 0 18px rgba(103, 232, 249, 0.72)' }}
+                  />
+                  <span
+                    className="mb-12 h-2 w-2 rounded-full bg-blue-400/80"
+                    style={{ boxShadow: '0 0 14px rgba(96, 165, 250, 0.5)' }}
+                  />
                 </div>
-              ) : null}
 
-              <div
-                className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-3xl"
-                style={{ background: `rgba(${glowColor}, 0.16)` }}
-              />
-
-              <div className="relative z-[1] flex h-full flex-col justify-between gap-6">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/10 text-xs font-semibold tracking-[0.12em] text-blue-400 shadow-[0_0_28px_rgba(59,130,246,0.16)]">
-                  {card.label}
-                </span>
-
-                <div className="relative flex flex-col">
-                  <h3 className="mb-2 text-lg font-bold leading-snug text-white sm:text-xl">
-                    {card.title}
-                  </h3>
-                  <p
-                    className={`text-sm leading-6 text-slate-300 ${
-                      textAutoHide ? 'magic-bento-clamp' : ''
-                    }`}
-                  >
-                    {card.description}
-                  </p>
+                <div className="pointer-events-none absolute right-4 top-4 h-16 w-16 rounded-full border border-white/10 bg-white/8 blur-2xl opacity-70" />
+                <div className="pointer-events-none absolute right-4 top-4 rounded-full border border-cyan-400/20 bg-slate-950/55 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-cyan-100/75 backdrop-blur">
+                  Tumbuh
                 </div>
               </div>
+
+              <div className="relative flex flex-1 flex-col gap-4 p-5 sm:p-6">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-2xl border border-blue-500/24 bg-blue-500/10 px-3 text-[11px] font-semibold tracking-[0.14em] text-blue-200 shadow-[0_0_24px_rgba(59,130,246,0.16)]">
+                    {card.label}
+                  </span>
+                  <span className="h-px flex-1 bg-gradient-to-r from-blue-400/40 via-cyan-300/20 to-transparent" />
+                </div>
+
+                <div className="relative flex flex-1 flex-col justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-bold leading-snug text-white sm:text-[1.1rem]">
+                      {card.title}
+                    </h3>
+                    <p
+                      className={`mt-3 text-sm leading-6 text-slate-300/95 ${
+                        textAutoHide ? 'magic-bento-clamp' : ''
+                      }`}
+                    >
+                      {card.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
             </article>
           ))}
         </div>
