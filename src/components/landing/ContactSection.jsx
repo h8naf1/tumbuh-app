@@ -73,25 +73,26 @@ function ContactSection() {
             <h2 className="mt-4 max-w-xl text-3xl font-black leading-tight text-white sm:text-[2.7rem] lg:text-[3rem]">
               Konsultasi Gratis untuk usaha anda agar lebih berkembang.
             </h2>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-slate-300 sm:text-base">
-              Ceritakan kebutuhan usaha Anda, lalu tim TUMBUH akan membantu memberi arahan yang lebih sesuai untuk operasional, pencatatan, dan pertumbuhan bisnis.
-            </p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-200/90">
-                  Untuk UMKM
-                </p>
-                <p className="mt-2 text-sm leading-6 text-slate-300">
-                  Cocok untuk usaha yang ingin alur kerja lebih rapi tanpa sistem yang terasa rumit.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-blue-200/90">
-                  Respons cepat
-                </p>
-                <p className="mt-2 text-sm leading-6 text-slate-300">
-                  Tinggalkan pesan singkat, lalu konsultasi bisa dilanjutkan sesuai kebutuhan bisnis Anda.
-                </p>
+
+            <div className="mt-6 rounded-[1.5rem] border border-blue-400/20 bg-[linear-gradient(135deg,rgba(30,64,175,0.22)_0%,rgba(14,165,233,0.12)_100%)] p-5 sm:p-6">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-200/90">
+                Siap Mulai
+              </p>
+              <h3 className="mt-3 max-w-lg text-xl font-black leading-tight text-white sm:text-[1.75rem]">
+                Tinggalkan spreadsheet dan mulai kelola usaha dengan lebih tenang.
+              </h3>
+              <p className="mt-3 max-w-lg text-sm leading-7 text-slate-300">
+                TUMBUH dirancang untuk UMKM yang ingin bergerak lebih cepat dengan
+                data yang lebih rapi, insight yang mudah dipahami, dan proses kerja
+                yang tidak terasa rumit.
+              </p>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link
+                  to="/register"
+                  className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-[0_14px_30px_-14px_rgba(37,99,235,0.85)] transition hover:-translate-y-0.5 hover:bg-blue-500"
+                >
+                  Mulai Gratis
+                </Link>
               </div>
             </div>
           </div>

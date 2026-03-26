@@ -19,8 +19,8 @@ function PengaturanSupportCard() {
       </div>
 
       <Link
-        to="/asisten-chat"
-        className="inline-flex items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-600"
+        to="/pusat-bantuan"
+        className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-600 hover:shadow-[0_8px_24px_-8px_rgba(37,99,235,0.55)]"
       >
         Pusat Bantuan
       </Link>

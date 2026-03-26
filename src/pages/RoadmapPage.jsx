@@ -1,8 +1,7 @@
-import { useMemo, useState } from 'react'
+﻿import { useMemo, useState } from 'react'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
-import RoadmapFeedbackCard from '../components/roadmap/RoadmapFeedbackCard.jsx'
 import RoadmapInsightPanel from '../components/roadmap/RoadmapInsightPanel.jsx'
 import RoadmapProgressSummary from '../components/roadmap/RoadmapProgressSummary.jsx'
 import RoadmapStageChecklistCard from '../components/roadmap/RoadmapStageChecklistCard.jsx'
@@ -14,7 +13,6 @@ import {
 import {
   defaultRoadmapStageId,
   roadmapBusinessProfile,
-  roadmapFeedbackCard,
   roadmapProgress,
   roadmapStages,
   roadmapStageDetails,
@@ -188,11 +186,10 @@ function RoadmapPage() {
           />
           <RoadmapInsightPanel summary={selectedStage.summary} />
         </div>
-
-        <RoadmapFeedbackCard card={roadmapFeedbackCard} />
       </div>
     </DashboardLayout>
   )
 }
 
 export default RoadmapPage
+
