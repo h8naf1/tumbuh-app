@@ -38,13 +38,36 @@ function ProductTable({
   onPageChange,
   onEditProduct,
   onDeleteProduct,
+  selectedProductIds = [],
+  onToggleProductSelection,
+  onToggleSelectAll,
 }) {
+  const selectedIdSet = new Set(selectedProductIds)
+  const allSelectedOnPage = products.length > 0 && products.every((product) => selectedIdSet.has(product.id))
+  const someSelectedOnPage = products.some((product) => selectedIdSet.has(product.id))
+
   return (
     <section className="overflow-hidden rounded-[1.6rem] border border-slate-800 bg-slate-900 shadow-[0_24px_45px_-28px_rgba(15,23,42,0.95)]">
       <div className="overflow-x-auto">
-        <table className="min-w-[820px] w-full text-left">
+        <table className="min-w-[860px] w-full text-left">
           <thead>
             <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+              <th className="px-5 py-4">
+                <label className="inline-flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    checked={allSelectedOnPage}
+                    ref={(input) => {
+                      if (input) {
+                        input.indeterminate = !allSelectedOnPage && someSelectedOnPage
+                      }
+                    }}
+                    onChange={() => onToggleSelectAll?.(products, !allSelectedOnPage)}
+                    className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-blue-500 focus:ring-blue-500/20"
+                    aria-label="Pilih semua produk di halaman ini"
+                  />
+                </label>
+              </th>
               <th className="px-5 py-4">Produk</th>
               <th className="px-5 py-4">Kategori</th>
               <th className="px-5 py-4">Stok</th>
@@ -60,12 +83,26 @@ function ProductTable({
               const statusMeta = getProductStockStatus(product.stock)
               const visual =
                 categoryVisuals[product.category] ?? categoryVisuals.Coffee
+              const isSelected = selectedIdSet.has(product.id)
 
               return (
                 <tr
                   key={product.id}
-                  className="border-b border-slate-800/90 text-sm text-slate-200 transition hover:bg-slate-800/30"
+                  className={`border-b border-slate-800/90 text-sm text-slate-200 transition hover:bg-slate-800/30 ${
+                    isSelected ? 'bg-blue-500/5' : ''
+                  }`}
                 >
+                  <td className="px-5 py-4">
+                    <label className="inline-flex items-center justify-center">
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => onToggleProductSelection?.(product.id)}
+                        className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-blue-500 focus:ring-blue-500/20"
+                        aria-label={`Pilih ${product.name}`}
+                      />
+                    </label>
+                  </td>
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <ProductImage
