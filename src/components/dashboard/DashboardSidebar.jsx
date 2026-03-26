@@ -1,22 +1,23 @@
-import { Bot, Grid2x2, Package, Settings, ShoppingBag, X } from "lucide-react";
-import { NavLink } from "react-router-dom";
-import BrandLogo from "../BrandLogo.jsx";
+import { Bot, Compass, Grid2x2, Package, Settings, ShoppingBag, X } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+import BrandLogo from '../BrandLogo.jsx'
 
 const sidebarIcons = {
   dashboard: Grid2x2,
   products: Package,
   transactions: ShoppingBag,
-  "chat-assistant": Bot,
+  'chat-assistant': Bot,
+  roadmap: Compass,
   settings: Settings,
-};
+}
 
 function getInitials(name) {
   return name
-    .split(" ")
+    .split(' ')
     .filter(Boolean)
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
-    .join("");
+    .join('')
 }
 
 function DashboardSidebar({
@@ -28,7 +29,6 @@ function DashboardSidebar({
 }) {
   return (
     <div className="flex min-h-full flex-col bg-slate-900">
-
       <div className="px-5 py-5 lg:px-6 lg:py-7">
         <div className="relative mx-auto flex w-full max-w-[220px] items-center justify-center">
           <BrandLogo className="h-14 w-full max-w-[170px] lg:h-16 lg:max-w-[180px]" />
@@ -47,23 +47,20 @@ function DashboardSidebar({
       </div>
 
       <div className="flex-1 overflow-y-auto px-4 pb-4 pt-1 lg:px-5 lg:pt-2">
-
         <div className="mx-auto w-full max-w-[220px] space-y-2">
           {items.map((item) => {
-            const Icon = sidebarIcons[item.id] || Grid2x2;
+            const Icon = sidebarIcons[item.id] || Grid2x2
             const itemClassName = ({ isActive } = {}) =>
               `flex min-h-[50px] w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition ${
                 isActive
-                  ? "bg-blue-500/15 text-blue-400 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.12)]"
-                  : "text-slate-400 hover:bg-slate-800/80 hover:text-slate-100"
-              }`;
+                  ? 'bg-blue-500/15 text-blue-400 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.12)]'
+                  : 'text-slate-400 hover:bg-slate-800/80 hover:text-slate-100'
+              }`
 
             return (
               <div
                 key={item.id}
-                className={
-                  item.isSeparated ? "mt-5 border-t border-slate-800 pt-5" : ""
-                }
+                className={item.isSeparated ? 'mt-5 border-t border-slate-800 pt-5' : ''}
               >
                 {item.href ? (
                   <NavLink
@@ -85,7 +82,7 @@ function DashboardSidebar({
                   </button>
                 )}
               </div>
-            );
+            )
           })}
         </div>
       </div>
@@ -115,7 +112,7 @@ function DashboardSidebar({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default DashboardSidebar;
+export default DashboardSidebar

@@ -58,7 +58,7 @@ function RegisterPage() {
 
   // Alur demo untuk simulasi tanpa isi data.
   function handleDemoAccess() {
-    navigate('/dashboard')
+    navigate('/personalisasi-bisnis')
   }
 
   // Function untuk submit form register.
@@ -73,7 +73,7 @@ function RegisterPage() {
       termsAccepted: data.termsAccepted,
     })
 
-    navigate('/dashboard')
+    navigate('/personalisasi-bisnis')
   }
 
   // Function untuk menampilkan error form.
@@ -308,4 +308,5 @@ function RegisterPage() {
 }
 
 export default RegisterPage
+
 
