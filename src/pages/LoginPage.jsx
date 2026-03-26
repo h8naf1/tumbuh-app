@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaFacebookF } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
@@ -19,6 +19,7 @@ function LoginPage() {
   // State untuk mengatur UI
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const { toastMessage, clearToast, showFirstFormError } = useFormToast()
+  const navigate = useNavigate()
 
   // State form dari React Hook Form
   const {
@@ -55,6 +56,8 @@ function LoginPage() {
       password: data.password,
       rememberMe: data.rememberMe,
     })
+
+    navigate('/dashboard')
   }
 
   // Function untuk menampilkan error form
@@ -167,7 +170,7 @@ function LoginPage() {
           </div>
 
           {/* Tombol submit */}
-          <Button type="submit" className="w-full py-3.5 text-base" disabled={isSubmitting}>
+          <Button type="submit" className="h-12 w-full text-base font-semibold" disabled={isSubmitting}>
             Masuk
           </Button>
         </form>

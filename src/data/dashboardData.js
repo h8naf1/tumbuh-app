@@ -6,6 +6,7 @@ export const dashboardSidebarItems = [
   { id: 'products', label: 'Produk', href: '/produk' },
   { id: 'transactions', label: 'Transaksi', href: '/transaksi' },
   { id: 'chat-assistant', label: 'Asisten Chat', href: '/asisten-chat' },
+  { id: 'roadmap', label: 'Roadmap Bisnis', href: '/roadmap' },
   { id: 'settings', label: 'Pengaturan', href: '/pengaturan', isSeparated: true },
 ]
 
@@ -119,4 +120,5 @@ export const transactionStatusStyles = {
       'bg-rose-500/10 text-rose-400 outline-rose-500/20',
   },
 }
+
 

@@ -2,7 +2,7 @@ import {
   Plus,
   Trash2,
 } from 'lucide-react'
-import SelectField from '../ui/SelectField.jsx'
+import SelectField from '../ui/SelectField'
 
 function ProductFilterBar({
   selectedCategory,
