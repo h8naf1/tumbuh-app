@@ -1,6 +1,14 @@
-import { Bot, Compass, Grid2x2, Package, Settings, ShoppingBag, X } from 'lucide-react'
-import { NavLink } from 'react-router-dom'
-import BrandLogo from '../BrandLogo.jsx'
+import {
+  ArrowLeft,
+  Bot,
+  Grid2x2,
+  Package,
+  Settings,
+  ShoppingBag,
+  X,
+} from "lucide-react";
+import { NavLink } from "react-router-dom";
+import BrandLogo from "../BrandLogo.jsx";
 
 const sidebarIcons = {
   dashboard: Grid2x2,
@@ -88,27 +96,38 @@ function DashboardSidebar({
       </div>
 
       <div className="border-t border-slate-800 px-4 py-5 lg:px-5">
-        <div className="mx-auto flex w-full max-w-[220px] items-center gap-3 rounded-xl px-3 py-2">
-          {userProfile.avatar ? (
-            <img
-              src={userProfile.avatar}
-              alt={userProfile.name}
-              className="h-11 w-11 rounded-full object-cover"
-            />
-          ) : (
-            <div className="flex h-11 w-11 items-center justify-center rounded-full border border-orange-200/60 bg-gradient-to-br from-orange-100 to-orange-300 text-sm font-semibold text-slate-700">
-              {getInitials(userProfile.name)}
-            </div>
-          )}
+        <div className="mx-auto w-full max-w-[220px]">
+          <div className="flex items-center gap-3 rounded-xl px-3 py-2">
+            {userProfile.avatar ? (
+              <img
+                src={userProfile.avatar}
+                alt={userProfile.name}
+                className="h-11 w-11 rounded-full object-cover"
+              />
+            ) : (
+              <div className="flex h-11 w-11 items-center justify-center rounded-full border border-orange-200/60 bg-gradient-to-br from-orange-100 to-orange-300 text-sm font-semibold text-slate-700">
+                {getInitials(userProfile.name)}
+              </div>
+            )}
 
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold text-slate-100">
-              {userProfile.name}
-            </p>
-            <p className="truncate text-xs text-slate-500">
-              {userProfile.role}
-            </p>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-semibold text-slate-100">
+                {userProfile.name}
+              </p>
+              <p className="truncate text-xs text-slate-500">
+                {userProfile.role}
+              </p>
+            </div>
           </div>
+
+          <NavLink
+            to="/"
+            onClick={onNavigate}
+            className="group mt-4 inline-flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-slate-400/85 transition duration-200 hover:bg-slate-800/60 hover:text-slate-100"
+          >
+            <ArrowLeft className="h-4 w-4 shrink-0 transition duration-200 group-hover:-translate-x-0.5" />
+            <span className="truncate">Lihat Halaman Utama</span>
+          </NavLink>
         </div>
       </div>
     </div>
