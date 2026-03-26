@@ -94,12 +94,6 @@ function ContactSection() {
                 >
                   Mulai Gratis
                 </Link>
-                <a
-                  href="#dashboard"
-                  className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-5 py-2.5 text-sm font-semibold text-slate-100 transition hover:border-blue-300/40 hover:bg-white/10"
-                >
-                  Lihat Dashboard
-                </a>
               </div>
             </div>
           </div>

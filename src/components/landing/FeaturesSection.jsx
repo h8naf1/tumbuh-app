@@ -8,26 +8,27 @@ import dashboardPageImg from '../../assets/elements/Dashboardpage.png'
 function FeaturesSection() {
   const featureCards = [
     {
+      title: 'Asisten Chat untuk operasional harian',
+      description:
+        'Gunakan AI chat untuk membantu mencatat penjualan, menyiapkan draft transaksi, dan memandu pekerjaan usaha sehari-hari dengan bahasa yang natural.',
+      badge: '01',
+      variant: 'highlight',
+      image: assistenChatImg,
+      imageAlt: 'Tampilan asisten chat TUMBUH',
+      imageClassName: 'h-full w-full object-cover object-top',
+      mediaGlowClassName: 'from-sky-500/32 via-cyan-400/20 to-transparent',
+      flowClassName: 'from-cyan-300/90 to-transparent',
+    },
+    {
       title: 'Roadmap pertumbuhan usaha yang lebih terarah',
       description:
         'Lihat langkah perkembangan bisnis secara lebih terstruktur, dari prioritas operasional harian sampai peluang ekspansi berikutnya, agar usaha TUMBUH dengan ritme yang lebih jelas.',
-      badge: '01',
+      badge: '02',
       image: roadmapImg,
       imageAlt: 'Tampilan roadmap pertumbuhan bisnis TUMBUH',
       imageClassName: 'h-full w-full object-cover object-center',
       mediaGlowClassName: 'from-indigo-500/30 via-cyan-400/18 to-transparent',
       flowClassName: 'from-cyan-300/90 to-transparent',
-    },
-    {
-      title: 'Asisten Chat untuk operasional harian',
-      description:
-        'Gunakan AI chat untuk membantu mencatat penjualan, menyiapkan draft transaksi, dan memandu pekerjaan usaha sehari-hari dengan bahasa yang natural.',
-      badge: '02',
-      image: assistenChatImg,
-      imageAlt: 'Tampilan asisten chat TUMBUH',
-      imageClassName: 'h-full w-full object-cover object-top',
-      mediaGlowClassName: 'from-sky-500/28 via-cyan-400/16 to-transparent',
-      flowClassName: 'from-sky-300/85 to-transparent',
     },
     {
       title: 'Scan barcode dan pilih produk lebih cepat',

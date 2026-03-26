@@ -3,6 +3,7 @@ import {
   Bot,
   Compass,
   Grid2x2,
+  HeadphonesIcon,
   Package,
   Settings,
   ShoppingBag,
@@ -17,6 +18,7 @@ const sidebarIcons = {
   transactions: ShoppingBag,
   'chat-assistant': Bot,
   roadmap: Compass,
+  'help-center': HeadphonesIcon,
   settings: Settings,
 }
 
