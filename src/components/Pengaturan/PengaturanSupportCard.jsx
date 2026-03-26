@@ -10,8 +10,8 @@ function PengaturanSupportCard() {
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-[var(--app-text)] sm:text-xl">Butuh bantuan lebih lanjut?</h3>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--app-text-soft)]">
+          <h3 className="text-lg font-semibold text-(--app-text) sm:text-xl">Butuh bantuan lebih lanjut?</h3>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-(--app-text-soft)">
             Buka dokumentasi atau hubungi tim support untuk bantuan konfigurasi,
             integrasi, dan troubleshooting sistem bisnis Anda.
           </p>
@@ -19,8 +19,8 @@ function PengaturanSupportCard() {
       </div>
 
       <Link
-        to="/asisten-chat"
-        className="inline-flex items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-600"
+        to="/pusat-bantuan"
+        className="inline-flex shrink-0 items-center justify-center rounded-2xl bg-blue-500 px-5 py-3 text-sm font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-blue-600 hover:shadow-[0_8px_24px_-8px_rgba(37,99,235,0.55)]"
       >
         Pusat Bantuan
       </Link>
@@ -29,3 +29,4 @@ function PengaturanSupportCard() {
 }
 
 export default PengaturanSupportCard
+

@@ -37,6 +37,7 @@ const normalizeCards = (items) =>
     title: item.title,
     description: item.description,
     label: item.label || item.badge || String(index + 1).padStart(2, '0'),
+    variant: item.variant || 'default',
     image:
       item.image ??
       (index === 0
@@ -248,6 +249,27 @@ function MagicBento({
           z-index: 3;
         }
 
+        /* Highlight card — gradient border ring */
+        .magic-bento-card-highlight::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          padding: 1.5px;
+          background: linear-gradient(135deg,
+            rgba(56, 189, 248, 0.55) 0%,
+            rgba(34, 211, 238, 0.30) 35%,
+            rgba(99, 102, 241, 0.22) 70%,
+            rgba(56, 189, 248, 0.40) 100%
+          );
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 2;
+        }
+
         .magic-bento-clamp {
           display: -webkit-box;
           -webkit-box-orient: vertical;
@@ -260,94 +282,152 @@ function MagicBento({
 
       <div ref={sectionRef} className="magic-bento relative w-full select-none">
         <div className={getGridClassName(cards.length)}>
-          {cards.map((card, index) => (
-            <article
-              key={`${card.label}-${index}`}
-              className={[
-                'magic-bento-card group relative flex h-full flex-col overflow-hidden rounded-[1.6rem] border border-slate-800/90 text-left',
-                'bg-[linear-gradient(180deg,rgba(2,6,23,0.98)_0%,rgba(15,23,42,0.98)_100%)]',
-                getCardSpanClassName(index, cards.length),
-                shouldDisableAnimations
-                  ? 'shadow-[0_22px_50px_-34px_rgba(2,6,23,0.82)]'
-                  : 'transition duration-300 ease-out hover:-translate-y-1 hover:border-blue-400/35 hover:shadow-[0_32px_70px_-40px_rgba(34,211,238,0.24)]',
-              ].join(' ')}
-              style={{
-                '--glow-x': '50%',
-                '--glow-y': '50%',
-                '--glow-intensity': '0',
-                '--glow-radius': '220px',
-                background: `linear-gradient(180deg, ${card.color} 0%, #0f172a 100%)`,
-                boxShadow:
-                  '0 22px 50px -34px rgba(2, 6, 23, 0.82), 0 0 0 1px rgba(30, 41, 59, 0.62), 0 0 26px rgba(59, 130, 246, 0.08)',
-              }}
-            >
-              <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/35 to-transparent" />
-
-              <div className="relative aspect-[16/9] overflow-hidden border-b border-white/8">
-                {card.image ? (
-                  <img
-                    src={card.image}
-                    alt={card.imageAlt || ''}
-                    aria-hidden={card.imageAlt ? undefined : 'true'}
-                    className={[
-                      'transition duration-500 ease-out',
-                      shouldDisableAnimations ? '' : 'group-hover:scale-[1.04]',
-                      card.imageClassName,
-                    ].join(' ')}
+          {cards.map((card, index) => {
+            const isHighlight = card.variant === 'highlight'
+            return (
+              <article
+                key={`${card.label}-${index}`}
+                className={[
+                  'magic-bento-card group relative flex h-full flex-col overflow-hidden rounded-[1.6rem] text-left',
+                  isHighlight
+                    ? 'magic-bento-card-highlight border border-sky-500/28'
+                    : 'border border-slate-800/90',
+                  getCardSpanClassName(index, cards.length),
+                  shouldDisableAnimations
+                    ? 'shadow-[0_22px_50px_-34px_rgba(2,6,23,0.82)]'
+                    : isHighlight
+                      ? 'transition duration-300 ease-out hover:-translate-y-[6px] hover:border-sky-400/50 hover:shadow-[0_36px_80px_-36px_rgba(34,211,238,0.38)]'
+                      : 'transition duration-300 ease-out hover:-translate-y-1 hover:border-blue-400/35 hover:shadow-[0_32px_70px_-40px_rgba(34,211,238,0.24)]',
+                ].join(' ')}
+                style={{
+                  '--glow-x': '50%',
+                  '--glow-y': '50%',
+                  '--glow-intensity': '0',
+                  '--glow-radius': '220px',
+                  background: isHighlight
+                    ? 'linear-gradient(160deg, rgba(2,10,30,0.99) 0%, rgba(7,22,48,0.99) 45%, rgba(2,14,36,0.99) 100%)'
+                    : `linear-gradient(180deg, ${card.color} 0%, #0f172a 100%)`,
+                  boxShadow: isHighlight
+                    ? '0 22px 60px -32px rgba(2, 6, 23, 0.90), 0 0 0 1px rgba(56,189,248,0.12), 0 0 40px rgba(34, 211, 238, 0.07)'
+                    : '0 22px 50px -34px rgba(2, 6, 23, 0.82), 0 0 0 1px rgba(30, 41, 59, 0.62), 0 0 26px rgba(59, 130, 246, 0.08)',
+                }}
+              >
+                {/* Radial glow background — highlight only */}
+                {isHighlight && (
+                  <div
+                    className="pointer-events-none absolute inset-0 rounded-[1.6rem]"
+                    style={{
+                      background:
+                        'radial-gradient(ellipse 80% 55% at 50% -10%, rgba(34,211,238,0.08) 0%, rgba(56,189,248,0.04) 40%, transparent 72%)',
+                    }}
                   />
-                ) : (
-                  <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),rgba(2,6,23,0.96)_72%)]" />
                 )}
 
-                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04)_0%,rgba(2,6,23,0.18)_42%,rgba(2,6,23,0.84)_100%)]" />
-                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.18] mix-blend-screen" />
-                <div className={`pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t ${card.mediaGlowClassName}`} />
+                <div
+                  className={`pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent ${
+                    isHighlight
+                      ? 'via-cyan-400/55 to-transparent'
+                      : 'via-blue-400/35 to-transparent'
+                  }`}
+                />
 
-                <div className="pointer-events-none absolute left-5 bottom-4 flex items-end gap-2">
-                  <span
-                    className={`h-16 w-px rounded-full bg-gradient-to-t ${card.flowClassName}`}
-                    style={{ boxShadow: '0 0 18px rgba(34, 211, 238, 0.45)' }}
-                  />
-                  <span
-                    className="mb-8 h-2.5 w-2.5 rounded-full bg-cyan-300"
-                    style={{ boxShadow: '0 0 18px rgba(103, 232, 249, 0.72)' }}
-                  />
-                  <span
-                    className="mb-12 h-2 w-2 rounded-full bg-blue-400/80"
-                    style={{ boxShadow: '0 0 14px rgba(96, 165, 250, 0.5)' }}
-                  />
+                <div className="relative aspect-[16/9] overflow-hidden border-b border-white/8">
+                  {card.image ? (
+                    <img
+                      src={card.image}
+                      alt={card.imageAlt || ''}
+                      aria-hidden={card.imageAlt ? undefined : 'true'}
+                      className={[
+                        'transition duration-500 ease-out',
+                        shouldDisableAnimations ? '' : 'group-hover:scale-[1.04]',
+                        card.imageClassName,
+                      ].join(' ')}
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.18),rgba(2,6,23,0.96)_72%)]" />
+                  )}
+
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04)_0%,rgba(2,6,23,0.18)_42%,rgba(2,6,23,0.84)_100%)]" />
+                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(148,163,184,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(148,163,184,0.08)_1px,transparent_1px)] bg-[size:24px_24px] opacity-[0.18] mix-blend-screen" />
+                  <div className={`pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t ${card.mediaGlowClassName}`} />
+
+                  <div className="pointer-events-none absolute left-5 bottom-4 flex items-end gap-2">
+                    <span
+                      className={`h-16 w-px rounded-full bg-gradient-to-t ${card.flowClassName}`}
+                      style={{ boxShadow: '0 0 18px rgba(34, 211, 238, 0.45)' }}
+                    />
+                    <span
+                      className="mb-8 h-2.5 w-2.5 rounded-full bg-cyan-300"
+                      style={{ boxShadow: '0 0 18px rgba(103, 232, 249, 0.72)' }}
+                    />
+                    <span
+                      className="mb-12 h-2 w-2 rounded-full bg-blue-400/80"
+                      style={{ boxShadow: '0 0 14px rgba(96, 165, 250, 0.5)' }}
+                    />
+                  </div>
+
+                  <div className="pointer-events-none absolute right-4 top-4 h-16 w-16 rounded-full border border-white/10 bg-white/8 blur-2xl opacity-70" />
                 </div>
 
-                <div className="pointer-events-none absolute right-4 top-4 h-16 w-16 rounded-full border border-white/10 bg-white/8 blur-2xl opacity-70" />
-              </div>
-
-              <div className="relative flex flex-1 flex-col gap-4 p-5 sm:p-6">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-10 min-w-10 items-center justify-center rounded-2xl border border-blue-500/24 bg-blue-500/10 px-3 text-[11px] font-semibold tracking-[0.14em] text-blue-200 shadow-[0_0_24px_rgba(59,130,246,0.16)]">
-                    {card.label}
-                  </span>
-                  <span className="h-px flex-1 bg-gradient-to-r from-blue-400/40 via-cyan-300/20 to-transparent" />
-                </div>
-
-                <div className="relative flex flex-1 flex-col justify-between gap-3">
-                  <div>
-                    <h3 className="text-lg font-bold leading-snug text-white sm:text-[1.1rem]">
-                      {card.title}
-                    </h3>
-                    <p
-                      className={`mt-3 text-sm leading-6 text-slate-300/95 ${
-                        textAutoHide ? 'magic-bento-clamp' : ''
-                      }`}
+                <div className="relative flex flex-1 flex-col gap-4 p-5 sm:p-6">
+                  <div className="flex items-center gap-3">
+                    <span
+                      className={[
+                        'inline-flex h-10 min-w-10 items-center justify-center rounded-2xl px-3 text-[11px] font-semibold tracking-[0.14em]',
+                        isHighlight
+                          ? 'border border-cyan-500/30 bg-cyan-500/10 text-cyan-200 shadow-[0_0_28px_rgba(34,211,238,0.18)]'
+                          : 'border border-blue-500/24 bg-blue-500/10 text-blue-200 shadow-[0_0_24px_rgba(59,130,246,0.16)]',
+                      ].join(' ')}
                     >
-                      {card.description}
-                    </p>
+                      {card.label}
+                    </span>
+                    <span
+                      className={`h-px flex-1 bg-gradient-to-r ${
+                        isHighlight
+                          ? 'from-cyan-400/50 via-sky-300/25 to-transparent'
+                          : 'from-blue-400/40 via-cyan-300/20 to-transparent'
+                      }`}
+                    />
+                    {/* Badge Unggulan — highlight only */}
+                    {isHighlight && (
+                      <span className="inline-flex items-center gap-1 rounded-full border border-cyan-400/25 bg-cyan-950/60 px-2.5 py-1 text-[10px] font-semibold tracking-[0.12em] text-cyan-300/90 backdrop-blur">
+                        <span aria-hidden="true">✨</span>
+                        Unggulan
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="relative flex flex-1 flex-col justify-between gap-3">
+                    <div>
+                      <h3
+                        className={[
+                          'text-lg font-bold leading-snug sm:text-[1.1rem]',
+                          isHighlight ? 'text-white' : 'text-white',
+                        ].join(' ')}
+                      >
+                        {card.title}
+                      </h3>
+                      <p
+                        className={`mt-3 text-sm leading-6 ${
+                          isHighlight ? 'text-slate-300' : 'text-slate-300/95'
+                        } ${
+                          textAutoHide ? 'magic-bento-clamp' : ''
+                        }`}
+                      >
+                        {card.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-400/20 to-transparent" />
-            </article>
-          ))}
+                <div
+                  className={`pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent ${
+                    isHighlight ? 'via-cyan-400/32 to-transparent' : 'via-cyan-400/20 to-transparent'
+                  }`}
+                />
+              </article>
+            )
+          })}
         </div>
       </div>
     </>
@@ -355,3 +435,5 @@ function MagicBento({
 }
 
 export default MagicBento
+
+

@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
 import DashboardSidebar from '../components/dashboard/DashboardSidebar.jsx'
 import DashboardTopbar from '../components/dashboard/DashboardTopbar.jsx'
-import RoadmapFeedbackCard from '../components/roadmap/RoadmapFeedbackCard.jsx'
 import RoadmapInsightPanel from '../components/roadmap/RoadmapInsightPanel.jsx'
 import RoadmapProgressSummary from '../components/roadmap/RoadmapProgressSummary.jsx'
 import RoadmapStageChecklistCard from '../components/roadmap/RoadmapStageChecklistCard.jsx'
@@ -14,8 +13,6 @@ import {
 import {
   defaultRoadmapStageId,
   roadmapBusinessProfile,
-  roadmapFeedbackCard,
-  roadmapProgress,
   roadmapStages,
   roadmapStageDetails,
 } from '../data/roadmapData.js'
@@ -79,6 +76,55 @@ function RoadmapPage() {
 
   const canGoToPreviousStage = safeStageIndex > 0
   const canGoToNextStage = safeStageIndex < roadmapStages.length - 1
+
+
+  const progressSummary = useMemo(() => {
+    const stageEntries = roadmapStages.map((stage) => ({
+      ...stage,
+      tasks: stageState[stage.id]?.tasks ?? [],
+    }))
+
+    const totalTasks = stageEntries.reduce((sum, stage) => sum + stage.tasks.length, 0)
+    const completedTasks = stageEntries.reduce(
+      (sum, stage) => sum + stage.tasks.filter((task) => task.completed).length,
+      0,
+    )
+    const percent = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0
+    const currentProgressIndex = stageEntries.findIndex(
+      (stage) => !stage.tasks.every((task) => task.completed),
+    )
+    const activeIndex = currentProgressIndex === -1 ? stageEntries.length - 1 : currentProgressIndex
+    const activeStage = stageEntries[activeIndex] ?? stageEntries[0]
+    const nextStage = stageEntries[activeIndex + 1]
+    const isAllComplete = currentProgressIndex === -1
+    const isActiveStageComplete = activeStage?.tasks?.every((task) => task.completed) ?? false
+
+    if (isAllComplete) {
+      return {
+        title: 'Progress Bisnis',
+        percent: 100,
+        statusLabel: 'Selesai',
+        description:
+          'Semua tahap roadmap bisnis sudah selesai. Bisnis Anda siap masuk ke fase pengembangan berikutnya.',
+      }
+    }
+
+    if (isActiveStageComplete && nextStage) {
+      return {
+        title: 'Progress Bisnis',
+        percent,
+        statusLabel: 'Siap Lanjut',
+        description: `Tahap ${activeStage.title} sudah selesai. Anda siap lanjut ke tahap ${nextStage.title}.`,
+      }
+    }
+
+    return {
+      title: 'Progress Bisnis',
+      percent,
+      statusLabel: 'Sedang Berjalan',
+      description: `Anda sedang berada di tahap ${activeStage.title}. Selesaikan semua checklist untuk membuka tahap berikutnya.`,
+    }
+  }, [stageState])
 
   const displayStages = useMemo(
     () =>
@@ -167,7 +213,7 @@ function RoadmapPage() {
       <div className="app-page-stack">
         <RoadmapProgressSummary
           businessProfile={roadmapBusinessProfile}
-          progress={roadmapProgress}
+          progress={progressSummary}
         />
 
         <RoadmapTimeline
@@ -188,11 +234,13 @@ function RoadmapPage() {
           />
           <RoadmapInsightPanel summary={selectedStage.summary} />
         </div>
-
-        <RoadmapFeedbackCard card={roadmapFeedbackCard} />
       </div>
     </DashboardLayout>
   )
 }
 
 export default RoadmapPage
+
+
+
+

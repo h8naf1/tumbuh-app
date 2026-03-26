@@ -44,11 +44,6 @@ const scannerProducts = [
   },
 ];
 
-const starterPrompts = [
-  "Halo, bantu saya lihat kondisi bisnis hari ini.",
-  "Bagaimana cara menaikkan penjualan usaha saya?",
-  "Saya baru jual 2 kopi susu dan 1 latte.",
-];
 
 const quickActions = [
   {
@@ -137,7 +132,7 @@ function ConversationSessionSummary({
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ConversationStatusPill status={conversationStatus} />
-            <h2 className="text-lg font-semibold text-white">{conversationTitle}</h2>
+            <h2 className="text-lg font-semibold text-[var(--app-text)]">{conversationTitle}</h2>
             <span className="text-xs text-[var(--app-text-muted)]">
               Update {formatConversationTime(conversationUpdatedAt)}
             </span>
@@ -187,7 +182,7 @@ function UserMessage() {
     <MessagePrimitive.Root className="flex justify-end">
       <div className="max-w-[85%] space-y-2 rounded-2xl rounded-br-md bg-blue-600 px-4 py-3 text-sm text-white shadow-[0_18px_36px_-24px_rgba(37,99,235,0.95)]">
         <MessagePrimitive.Attachments />
-        <MessagePrimitive.Parts />
+        <div className="user-message-body"><MessagePrimitive.Parts /></div>
       </div>
     </MessagePrimitive.Root>
   );
@@ -201,7 +196,7 @@ function AssistantMessage() {
           <Sparkles className="h-3.5 w-3.5" />
           <span>Asisten TUMBUH</span>
         </div>
-        <div className="space-y-2 leading-7 text-[var(--app-text-soft)]">
+        <div className="assistant-message-body space-y-2 leading-7 text-[var(--app-text-soft)]">
           <MessagePrimitive.Attachments />
           <MessagePrimitive.Parts />
         </div>
@@ -228,11 +223,12 @@ function TypingIndicator() {
   );
 }
 
-function EmptyChatState() {
+function EmptyChatState({ onUseStarterPrompt }) {
   const prompts = [
     'Saya baru jual 2 kopi susu dan 1 cappuccino.',
     'Produk mana yang stoknya perlu saya cek hari ini?',
     'Saya ingin upload nota belanja bahan baku.',
+    'Tolong ringkas penjualan hari ini dan kasih insight berikutnya.',
   ]
 
   return (
@@ -241,7 +237,7 @@ function EmptyChatState() {
         <Sparkles className="h-7 w-7" />
       </div>
 
-      <h2 className="mt-5 text-2xl font-bold text-white">
+      <h2 className="mt-5 text-2xl font-bold text-[var(--app-text)]">
         Asisten Chat TUMBUH
       </h2>
       <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--app-text-muted)] sm:text-base">
@@ -251,22 +247,16 @@ function EmptyChatState() {
       </p>
 
       <div className="mt-8 grid w-full gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <ThreadPrimitive.Suggestion
-          prompt="Halo, bantu saya lihat kondisi bisnis hari ini."
-          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
-        />
-        <ThreadPrimitive.Suggestion
-          prompt="Bagaimana cara menaikkan penjualan usaha saya?"
-          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
-        />
-        <ThreadPrimitive.Suggestion
-          prompt="Saya baru jual 2 kopi susu dan 1 latte."
-          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
-        />
-        <ThreadPrimitive.Suggestion
-          prompt="Tolong ringkas penjualan hari ini dan kasih insight berikutnya."
-          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
-        />
+        {prompts.map((prompt) => (
+          <button
+            key={prompt}
+            type="button"
+            onClick={() => onUseStarterPrompt?.(prompt)}
+            className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80 hover:text-blue-500"
+          >
+            {prompt}
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -303,7 +293,7 @@ function QuickActionSection({
               <Icon className="h-5 w-5" />
             </div>
 
-            <h2 className="mt-5 text-lg font-semibold text-white">
+            <h2 className="mt-5 text-lg font-semibold text-[var(--app-text)]">
               {action.title}
             </h2>
             <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
@@ -362,7 +352,7 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
             Draft Konfirmasi
           </p>
-          <h2 className="mt-2 text-lg font-semibold text-white">
+          <h2 className="mt-2 text-lg font-semibold text-[var(--app-text)]">
             {draft.title}
           </h2>
           <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">{draft.note}</p>
@@ -380,7 +370,7 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
             className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)]/50 px-4 py-3"
           >
             <div>
-              <p className="text-sm font-medium text-white">{item.name}</p>
+              <p className="text-sm font-medium text-[var(--app-text)]">{item.name}</p>
               <p className="mt-1 text-xs text-[var(--app-text-muted)]">
                 {item.quantity} item x {formatRupiah(item.price)}
               </p>
@@ -430,7 +420,7 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
               Scan Barcode
             </p>
-            <h2 className="mt-2 text-xl font-semibold text-white">
+            <h2 className="mt-2 text-xl font-semibold text-[var(--app-text)]">
               Simulasi scanner produk
             </h2>
             <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
@@ -454,7 +444,7 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
             <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500">
               <ScanLine className="h-6 w-6" />
             </div>
-            <p className="mt-4 text-sm font-medium text-white">
+            <p className="mt-4 text-sm font-medium text-[var(--app-text)]">
               Scanner siap digunakan
             </p>
             <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
@@ -474,7 +464,7 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold text-white">
+                    <p className="text-sm font-semibold text-[var(--app-text)]">
                       {product.name}
                     </p>
                     <p className="mt-1 text-xs text-[var(--app-text-muted)]">
@@ -500,23 +490,6 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
   );
 }
 
-function StarterPromptBar({ onUseStarterPrompt }) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {starterPrompts.map((prompt) => (
-        <button
-          key={prompt}
-          type="button"
-          onClick={() => onUseStarterPrompt(prompt)}
-          className="rounded-full border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:text-blue-300"
-        >
-          {prompt}
-        </button>
-      ))}
-    </div>
-  );
-}
-
 function ChatThread({
   onOpenScanner,
   onOpenDraft,
@@ -538,7 +511,7 @@ function ChatThread({
       <div className="border-b border-[var(--app-border)] px-5 py-4 sm:px-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold text-white">Ruang Percakapan</p>
+            <p className="text-sm font-semibold text-[var(--app-text)]">Ruang Percakapan</p>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <ConversationStatusPill status={conversationStatus} />
               <span className="text-xs font-medium text-[var(--app-text-soft)]">
@@ -572,7 +545,7 @@ function ChatThread({
             <button
               type="button"
               onClick={onOpenScanner}
-              className="inline-flex items-center gap-1 rounded-full border border-[var(--app-border)] bg-[var(--app-surface-strong)]/70 px-3 py-1.5 transition hover:border-blue-500/30 hover:text-blue-300"
+              className="inline-flex items-center gap-1 rounded-full border border-[var(--app-border)] bg-[var(--app-surface-strong)]/70 px-3 py-1.5 transition hover:border-blue-500/30 hover:text-blue-500"
             >
               <QrCode className="h-3.5 w-3.5" />
               Scan cepat
@@ -583,7 +556,7 @@ function ChatThread({
               disabled={!hasDraft}
               className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 transition ${
                 hasDraft
-                  ? "border-[var(--app-border)] bg-[var(--app-surface-strong)]/70 hover:border-blue-500/30 hover:text-blue-300"
+                  ? "border-[var(--app-border)] bg-[var(--app-surface-strong)]/70 hover:border-blue-500/30 hover:text-blue-500"
                   : "cursor-not-allowed border-[var(--app-border)] bg-[var(--app-surface-strong)]/40 text-[var(--app-text-muted)]"
               }`}
             >
@@ -592,15 +565,11 @@ function ChatThread({
             </button>
           </div>
         </div>
-
-        <div className="mt-4">
-          <StarterPromptBar onUseStarterPrompt={onUseStarterPrompt} />
-        </div>
       </div>
 
       <ThreadPrimitive.Viewport className="flex-1 space-y-5 overflow-y-auto bg-[var(--app-surface)]/35 px-4 py-5 sm:px-6">
         <ThreadPrimitive.Empty>
-          <EmptyChatState />
+          <EmptyChatState onUseStarterPrompt={onUseStarterPrompt} />
         </ThreadPrimitive.Empty>
 
         <ThreadPrimitive.Messages
@@ -648,7 +617,7 @@ function ChatThread({
                 <Button
                   type="button"
                   size="icon"
-                  className="rounded-full bg-white text-slate-950 hover:bg-slate-200"
+                  className="rounded-full bg-blue-600 text-white hover:bg-blue-500"
                 >
                   <SendHorizontal className="h-4 w-4" />
                 </Button>
@@ -696,6 +665,45 @@ function ChatAssistantPanel() {
 
   return (
     <AssistantRuntimeProvider runtime={runtime}>
+      <style>{` 
+        .assistant-message-body,
+        .assistant-message-body * {
+          color: var(--app-text) !important;
+        }
+        .assistant-message-body p,
+        .assistant-message-body li,
+        .assistant-message-body span {
+          color: var(--app-text-soft) !important;
+        }
+        .assistant-message-body strong,
+        .assistant-message-body b {
+          color: var(--app-text) !important;
+        }
+        .assistant-message-body a {
+          color: #2563eb !important;
+          text-decoration: underline;
+        }
+        .assistant-message-body mark {
+          background: rgba(37, 99, 235, 0.14) !important;
+          color: #1d4ed8 !important;
+          padding: 0.05rem 0.25rem;
+          border-radius: 0.35rem;
+        }
+        .assistant-message-body ul,
+        .assistant-message-body ol {
+          padding-left: 1.25rem;
+        }
+        .user-message-body,
+        .user-message-body * {
+          color: white !important;
+        }
+        .user-message-body mark {
+          background: rgba(255, 255, 255, 0.18) !important;
+          color: white !important;
+          padding: 0.05rem 0.25rem;
+          border-radius: 0.35rem;
+        }
+      `}</style>
       <div className="app-page-stack">
         <ConversationSessionSummary
           conversationStatus={conversationStatus}
@@ -759,6 +767,14 @@ function ChatAssistantPanel() {
 }
 
 export default ChatAssistantPanel;
+
+
+
+
+
+
+
+
 
 
 

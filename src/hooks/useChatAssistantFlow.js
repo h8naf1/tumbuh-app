@@ -7,11 +7,6 @@ import {
   getAssistantResponseDelayMs,
 } from '../lib/chat/assistantFlow.js'
 import { createLocalAttachmentAdapter } from '../lib/chat/localAttachmentAdapter.js'
-import {
-  generateChatSessionId,
-  loadChatSessions,
-  upsertChatSessionRecord,
-} from '../lib/chat/chatSessionStorage.js'
 
 const COMPOSER_INPUT_ID = 'assistant-composer-input'
 const SAVE_FEEDBACK_DURATION_MS = 2200
@@ -178,10 +173,7 @@ function normalizeConversationSession(session) {
 }
 
 function getInitialConversationSession() {
-  const latestSession = loadChatSessions()[0]
-  return latestSession
-    ? normalizeConversationSession(latestSession)
-    : createEmptyConversationSession()
+  return createEmptyConversationSession()
 }
 
 function convertConversationEntriesToInitialMessages(entries = []) {
@@ -300,7 +292,6 @@ export function useChatAssistantFlow() {
 
     conversationSessionRef.current = nextSession
     setConversationSession(nextSession)
-    upsertChatSessionRecord(nextSession)
 
     if (options.feedback) {
       showSaveFeedback(options.feedback)
@@ -316,7 +307,7 @@ export function useChatAssistantFlow() {
 
     const nextSession = normalizeConversationSession({
       ...createEmptyConversationSession(),
-      id: generateChatSessionId(),
+      id: `chat_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
       status: 'draft',
       composerText: seedText,
       createdAt: Date.now(),
@@ -326,7 +317,6 @@ export function useChatAssistantFlow() {
 
     conversationSessionRef.current = nextSession
     setConversationSession(nextSession)
-    upsertChatSessionRecord(nextSession)
     showSaveFeedback('Tersimpan sebagai draft')
     return nextSession.id
   }
@@ -611,5 +601,3 @@ export function useChatAssistantFlow() {
     handleOpenDraft,
   }
 }
-
-

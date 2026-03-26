@@ -261,7 +261,7 @@ function DashboardPage() {
         <section className="rounded-2xl border border-blue-500/20 bg-[linear-gradient(135deg,rgba(37,99,235,0.16),color-mix(in_srgb,var(--app-surface-strong)_92%,transparent))] p-5 transition-colors duration-300 sm:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-300">
+              <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-blue-500/30 bg-blue-500/18 text-blue-500 shadow-[0_10px_24px_-14px_rgba(37,99,235,0.55)]">
                 <Bot className="h-5 w-5" />
               </div>
               <h2 className="mt-4 text-xl font-semibold text-[var(--app-text)]">Butuh bantuan untuk mulai?</h2>
@@ -329,6 +329,7 @@ function DashboardPage() {
 }
 
 export default DashboardPage
+
 
 
 
