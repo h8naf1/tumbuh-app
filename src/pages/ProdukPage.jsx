@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Bot } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import DashboardLayout from '../components/dashboard/DashboardLayout.jsx'
@@ -10,6 +10,7 @@ import ProductFilterBar from '../components/products/ProductFilterBar.jsx'
 import ProductStats from '../components/products/ProductStats.jsx'
 import ProductTable from '../components/products/ProductTable.jsx'
 import AddProductModal from '../components/products/modals/AddProductModal.jsx'
+import DeleteProductModal from '../components/products/modals/DeleteProductModal.jsx'
 import { cloneProductCatalog, productCategoryOptions } from '../data/productCatalog.js'
 import {
   dashboardSidebarItems,
@@ -31,10 +32,12 @@ function formatPriceInput(value) {
 function ProdukPage() {
   const initialProducts = cloneProductCatalog()
 
-  // State utama untuk data produk, filter, modal, dan pagination.
+  // State utama untuk data produk, filter, modal, selection, dan pagination.
   const [products, setProducts] = useState(initialProducts)
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [productsPendingDeletion, setProductsPendingDeletion] = useState([])
+  const [selectedProductIds, setSelectedProductIds] = useState([])
   const [formData, setFormData] = useState(initialFormState)
   const [selectedImageName, setSelectedImageName] = useState('')
   const [editingProductId, setEditingProductId] = useState(null)
@@ -70,6 +73,11 @@ function ProdukPage() {
   const categoryCount = Math.max(
     5,
     new Set(products.map((product) => product.category)).size,
+  )
+
+  const selectedProducts = useMemo(
+    () => products.filter((product) => selectedProductIds.includes(product.id)),
+    [products, selectedProductIds],
   )
 
   const metrics = [
@@ -110,6 +118,14 @@ function ProdukPage() {
     }
   }, [currentPage, totalPages])
 
+  // Bersihkan selection jika ada produk yang sudah tidak tersedia.
+  useEffect(() => {
+    const existingIds = new Set(products.map((product) => product.id))
+    setSelectedProductIds((currentIds) =>
+      currentIds.filter((id) => existingIds.has(id)),
+    )
+  }, [products])
+
   // Handler modal tambah atau edit produk.
   function handleOpenModal() {
     setEditingProductId(null)
@@ -123,6 +139,10 @@ function ProdukPage() {
     setEditingProductId(null)
     setFormData(initialFormState)
     setSelectedImageName('')
+  }
+
+  function handleCloseDeleteModal() {
+    setProductsPendingDeletion([])
   }
 
   function handleFormInputChange(event) {
@@ -189,19 +209,49 @@ function ProdukPage() {
     setIsModalOpen(true)
   }
 
-  // Handler hapus produk dengan konfirmasi sederhana.
+  // Membuka modal konfirmasi hapus dengan gaya UI aplikasi.
   function handleDeleteProduct(product) {
-    const shouldDelete = window.confirm(
-      `Hapus produk "${product.name}" dari daftar produk?`,
-    )
+    setProductsPendingDeletion([product])
+  }
 
-    if (!shouldDelete) {
+  function handleDeleteSelectedProducts() {
+    if (!selectedProducts.length) {
       return
     }
 
+    setProductsPendingDeletion(selectedProducts)
+  }
+
+  function handleConfirmDeleteProduct(productsToDelete) {
+    const idsToDelete = new Set(productsToDelete.map((product) => product.id))
+
     setProducts((currentProducts) =>
-      currentProducts.filter((item) => item.id !== product.id),
+      currentProducts.filter((item) => !idsToDelete.has(item.id)),
     )
+    setSelectedProductIds((currentIds) =>
+      currentIds.filter((id) => !idsToDelete.has(id)),
+    )
+    setProductsPendingDeletion([])
+  }
+
+  function handleToggleProductSelection(productId) {
+    setSelectedProductIds((currentIds) =>
+      currentIds.includes(productId)
+        ? currentIds.filter((id) => id !== productId)
+        : [...currentIds, productId],
+    )
+  }
+
+  function handleToggleSelectAll(pageProducts, shouldSelect) {
+    const pageIds = pageProducts.map((product) => product.id)
+
+    setSelectedProductIds((currentIds) => {
+      if (shouldSelect) {
+        return Array.from(new Set([...currentIds, ...pageIds]))
+      }
+
+      return currentIds.filter((id) => !pageIds.includes(id))
+    })
   }
 
   function handlePageChange(nextPage) {
@@ -239,15 +289,17 @@ function ProdukPage() {
             </div>
           </section>
 
-          {/* Toolbar filter dan aksi tambah produk. */}
+          {/* Toolbar filter, bulk action, dan aksi tambah produk. */}
           <ProductFilterBar
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
             categoryOptions={productCategoryOptions}
             onOpenModal={handleOpenModal}
+            selectedCount={selectedProductIds.length}
+            onDeleteSelected={handleDeleteSelectedProducts}
           />
 
-          {/* Tabel daftar produk. */}
+          {/* Tabel daftar produk dengan selection. */}
           <ProductTable
             products={paginatedProducts}
             totalProducts={totalProducts}
@@ -257,6 +309,9 @@ function ProdukPage() {
             onPageChange={handlePageChange}
             onEditProduct={handleEditProduct}
             onDeleteProduct={handleDeleteProduct}
+            selectedProductIds={selectedProductIds}
+            onToggleProductSelection={handleToggleProductSelection}
+            onToggleSelectAll={handleToggleSelectAll}
           />
         </div>
       </DashboardLayout>
@@ -276,10 +331,15 @@ function ProdukPage() {
         categoryOptions={productCategoryOptions}
         formatPriceInput={formatPriceInput}
       />
+
+      {/* Modal konfirmasi hapus satu atau banyak produk. */}
+      <DeleteProductModal
+        products={productsPendingDeletion}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleConfirmDeleteProduct}
+      />
     </>
   )
 }
 
 export default ProdukPage
-
-

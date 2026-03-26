@@ -50,7 +50,7 @@ function DashboardLayout({ sidebar, topbar, children }) {
             onClick={() => setIsMobileSidebarOpen(false)}
           />
 
-          <div className="relative h-dvh w-[280px] max-w-[85vw] overflow-y-auto">
+          <div className="relative h-dvh w-70 max-w-[85vw] overflow-y-auto">
   {mobileSidebarElement}
 </div>
 
@@ -64,11 +64,11 @@ function DashboardLayout({ sidebar, topbar, children }) {
 
         <div className="flex min-w-0 flex-1 flex-col lg:h-screen lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain">
           <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-900/85 backdrop-blur-md">
-            <div className="mx-auto w-full max-w-[1360px]">{topbarElement}</div>
+            <div className="mx-auto w-full max-w-340">{topbarElement}</div>
           </header>
 
           <main className="flex-1 px-4 py-4 sm:px-5 sm:py-5 xl:px-6 xl:py-6">
-            <div className="mx-auto w-full max-w-[1360px]">{children}</div>
+            <div className="mx-auto w-full max-w-340">{children}</div>
           </main>
         </div>
       </div>
@@ -77,3 +77,4 @@ function DashboardLayout({ sidebar, topbar, children }) {
 }
 
 export default DashboardLayout
+
