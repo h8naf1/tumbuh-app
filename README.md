@@ -100,11 +100,4 @@ npm run preview
 - Data yang digunakan bersifat dummy/static untuk kebutuhan simulasi.
 - Alur aplikasi dirancang agar tetap terasa realistis untuk kebutuhan demo dan evaluasi.
 
-## Status Project
 
-Status saat ini:
-
-- Fitur utama telah selesai diimplementasikan.
-- UI/UX telah dipoles untuk kebutuhan presentasi.
-- Project berhasil dijalankan dan dibuild.
-- Siap untuk deployment dan submission kompetisi.
