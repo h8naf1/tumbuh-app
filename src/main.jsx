@@ -1,6 +1,7 @@
 import { Component, StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import AppErrorState from './components/AppErrorState.jsx'
 import './index.css'
 
 class RootErrorBoundary extends Component {
@@ -20,19 +21,15 @@ class RootErrorBoundary extends Component {
   render() {
     if (this.state.error) {
       return (
-        <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-slate-50">
-          <div className="w-full max-w-2xl rounded-2xl border border-red-500/20 bg-slate-900 p-6 shadow-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-300">
-              Runtime Error
-            </p>
-            <h1 className="mt-3 text-2xl font-bold text-white">
-              Aplikasi gagal dirender
-            </h1>
-            <pre className="mt-4 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-200">
-              {String(this.state.error?.message ?? this.state.error)}
-            </pre>
-          </div>
-        </div>
+        <BrowserRouter>
+          <AppErrorState
+            label="Error 500"
+            title="Aplikasi mengalami kesalahan"
+            description="Terjadi kendala saat merender halaman. Anda bisa memuat ulang aplikasi atau kembali ke landing page."
+            details={String(this.state.error?.message ?? this.state.error)}
+            onRetry={() => window.location.reload()}
+          />
+        </BrowserRouter>
       )
     }
 
@@ -67,19 +64,13 @@ function AppLoader() {
 
   if (loadError) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-950 px-6 text-slate-50">
-        <div className="w-full max-w-2xl rounded-2xl border border-red-500/20 bg-slate-900 p-6 shadow-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-red-300">
-            Module Load Error
-          </p>
-          <h1 className="mt-3 text-2xl font-bold text-white">
-            App gagal dimuat
-          </h1>
-          <pre className="mt-4 overflow-x-auto rounded-xl bg-slate-950 p-4 text-sm text-slate-200">
-            {String(loadError?.message ?? loadError)}
-          </pre>
-        </div>
-      </div>
+      <AppErrorState
+        label="Module Load Error"
+        title="Aplikasi gagal dimuat"
+        description="Ada modul aplikasi yang tidak berhasil dimuat. Coba muat ulang aplikasi untuk melanjutkan."
+        details={String(loadError?.message ?? loadError)}
+        onRetry={() => window.location.reload()}
+      />
     )
   }
 

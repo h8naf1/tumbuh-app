@@ -11,6 +11,7 @@ import PengaturanDetailPage from './pages/PengaturanDetailPage.jsx'
 import TransaksiPage from './pages/TransaksiPage.jsx'
 import AsistenChatPage from './pages/AsistenChatPage.jsx'
 import RoadmapPage from './pages/RoadmapPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/personalisasi-bisnis" element={<PersonalisasiBisnisPage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       {/* Analytics global aplikasi. */}
       <Analytics />

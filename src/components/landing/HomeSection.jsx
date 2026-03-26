@@ -3,8 +3,10 @@ import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import DarkVeil from '../DarkVeil'
+import TextType from './TextType.jsx'
 
 function HomeSection() {
+  
   const [isMobileView, setIsMobileView] = useState(false)
 
   // Ref animasi untuk setiap blok utama hero.
@@ -143,7 +145,6 @@ function HomeSection() {
             ref={eyebrowRef}
             className="inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200"
           >
-            
             Solusi usaha untuk UMKM
           </div>
 
@@ -153,8 +154,15 @@ function HomeSection() {
           >
             Catat penjualan, pantau stok, dan pahami usaha Anda dalam satu alur bersama
             <span className="text-cyan-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">
-              {' '}
-              TUMBUH
+              <br />
+              <TextType
+                texts={["TUMBUH"]}
+                typingSpeed={120}
+                deletingSpeed={70}
+                pauseDuration={1600}
+                loop={true}
+                className="inline-block"
+              />
             </span>
           </h1>
 
