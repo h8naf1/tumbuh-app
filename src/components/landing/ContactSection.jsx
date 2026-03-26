@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
 import FormToast from '../ui/FormToast.jsx'
 import Input from '../ui/Input.jsx'
 import useFormToast from '../../hooks/useFormToast.js'
@@ -72,7 +71,7 @@ function ContactSection() {
               Konsultasi TUMBUH
             </p>
             <h2 className="mt-4 max-w-xl text-3xl font-black leading-tight text-white sm:text-[2.7rem] lg:text-[3rem]">
-              Konsultasi hangat untuk usaha yang lebih terarah.
+              Konsultasi Gratis untuk usaha anda agar lebih berkembang.
             </h2>
 
             <div className="mt-6 rounded-[1.5rem] border border-blue-400/20 bg-[linear-gradient(135deg,rgba(30,64,175,0.22)_0%,rgba(14,165,233,0.12)_100%)] p-5 sm:p-6">
@@ -104,7 +103,7 @@ function ContactSection() {
                 Hubungi Kami
               </p>
               <h3 className="mt-2 text-xl font-black text-white sm:text-[1.8rem]">
-                Book a Consultation
+                Jadwalkan Konsultasi
               </h3>
               <p className="mt-2 text-sm leading-6 text-slate-300">
                 Isi detail singkat di bawah ini. Tim kami akan menghubungi Anda
@@ -223,11 +222,3 @@ function ContactSection() {
 }
 
 export default ContactSection
-
-
-
-
-
-
-
-

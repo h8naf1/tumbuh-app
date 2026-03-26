@@ -1,7 +1,7 @@
 ﻿export const roadmapBusinessProfile = {
   name: 'Kopi Nusantara',
-  type: 'Coffee Shop',
-  mainProducts: ['Latte', 'Cappuccino'],
+  type: 'Cafe',
+  mainProducts: ['Latte', 'Cappuccino', 'Kopi Susu Gula Aren'],
 }
 
 export const roadmapProgress = {

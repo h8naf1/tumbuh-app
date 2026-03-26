@@ -27,27 +27,27 @@ const scannerProducts = [
   {
     barcode: "8991001001",
     name: "Kopi Susu Gula Aren",
-    price: 18000,
+    price: 24000,
     stock: 12,
   },
   {
     barcode: "8991001002",
-    name: "Brownies Cokelat",
-    price: 15000,
-    stock: 8,
+    name: "Latte",
+    price: 22000,
+    stock: 14,
   },
   {
     barcode: "8991001003",
-    name: "Americano Ice",
-    price: 20000,
-    stock: 15,
+    name: "Cappuccino",
+    price: 23000,
+    stock: 10,
   },
 ];
 
 const starterPrompts = [
   "Halo, bantu saya lihat kondisi bisnis hari ini.",
   "Bagaimana cara menaikkan penjualan usaha saya?",
-  "Saya baru jual 2 kopi susu dan 1 brownies.",
+  "Saya baru jual 2 kopi susu dan 1 latte.",
 ];
 
 const quickActions = [
@@ -230,7 +230,7 @@ function TypingIndicator() {
 
 function EmptyChatState() {
   const prompts = [
-    'Saya baru jual 2 kopi susu dan 1 croissant.',
+    'Saya baru jual 2 kopi susu dan 1 cappuccino.',
     'Produk mana yang stoknya perlu saya cek hari ini?',
     'Saya ingin upload nota belanja bahan baku.',
   ]
@@ -260,7 +260,7 @@ function EmptyChatState() {
           className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
         />
         <ThreadPrimitive.Suggestion
-          prompt="Saya baru jual 2 kopi susu dan 1 brownies."
+          prompt="Saya baru jual 2 kopi susu dan 1 latte."
           className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
         />
         <ThreadPrimitive.Suggestion
@@ -759,6 +759,8 @@ function ChatAssistantPanel() {
 }
 
 export default ChatAssistantPanel;
+
+
 
 
 

@@ -34,13 +34,13 @@ function DashboardPreviewSection() {
       <div className="mx-auto grid w-full max-w-[1120px] items-center gap-10 lg:grid-cols-[0.84fr_1fr] xl:gap-14">
         <div className="max-w-xl text-center lg:text-left">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-blue-300">
-            Preview Dashboard
+            Tampilan Dashboard
           </p>
           <h2 className="mt-4 text-3xl font-black leading-tight text-white sm:text-[2.65rem]">
             Semua kondisi usaha bisa dipantau dari satu tampilan yang terasa familiar.
           </h2>
           <p className="mt-5 text-[15px] leading-7 text-slate-300 sm:text-base">
-            Dashboard TUMBUH dirancang untuk membantu pemilik UMKM membaca penjualan, melihat kondisi produk, dan menangkap insight penting tanpa harus membuka banyak alur kerja yang membingungkan.
+            Dashboard TUMBUH dirancang untuk membantu pemilik UMKM membaca penjualan, melihat kondisi produk, dan menangkap wawasan penting tanpa harus membuka banyak alur kerja yang membingungkan.
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
@@ -108,10 +108,10 @@ function DashboardPreviewSection() {
 
                 <div className="rounded-2xl border border-sky-400/20 bg-sky-400/10 p-4 text-white/90">
                   <p className="text-xs uppercase tracking-[0.24em] text-sky-100/80">
-                    Insight AI
+                    Wawasan AI
                   </p>
                   <p className="mt-2 text-sm leading-7 text-sky-50">
-                    Penjualan minuman dingin meningkat pada jam siang. Siapkan stok lebih awal dan gunakan Asisten Chat untuk bantu memeriksa produk yang perlu di-restock.
+                    Penjualan minuman dingin meningkat pada jam siang. Siapkan stok lebih awal dan gunakan Asisten Chat untuk membantu memeriksa produk yang perlu diisi ulang.
                   </p>
                 </div>
               </div>

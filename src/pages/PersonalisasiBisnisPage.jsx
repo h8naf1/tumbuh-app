@@ -6,6 +6,7 @@ import { Button } from '../components/ui/Button.jsx'
 import Input from '../components/ui/Input.jsx'
 
 const businessTypeOptions = [
+  'Cafe',
   'Coffee Shop',
   'Toko Makanan & Minuman',
   'Toko Kelontong',
@@ -16,7 +17,7 @@ const businessTypeOptions = [
 
 const defaultFormValues = {
   businessName: 'Kopi Nusantara',
-  businessType: 'Coffee Shop',
+  businessType: 'Cafe',
   mainProducts: 'Latte, Cappuccino, Kopi Susu Gula Aren',
 }
 
@@ -96,7 +97,7 @@ function PersonalisasiBisnisPage() {
               Personalisasi Bisnis Anda
             </h2>
             <p className="text-sm leading-6 text-slate-400 sm:text-base">
-              Bantu TUMBUH memahami konteks usaha Anda agar dashboard demo terasa lebih relevan dan realistis.
+              Bantu TUMBUH memahami konteks Kopi Nusantara agar dashboard demo terasa lebih relevan dan realistis untuk bisnis cafe.
             </p>
           </div>
         </div>
@@ -110,10 +111,7 @@ function PersonalisasiBisnisPage() {
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-5">
           <div className="space-y-2">
-            <label
-              htmlFor="business-name"
-              className="block text-sm font-semibold text-slate-200"
-            >
+            <label htmlFor="business-name" className="block text-sm font-semibold text-slate-200">
               Nama Toko / Usaha
             </label>
             <Input
@@ -124,16 +122,11 @@ function PersonalisasiBisnisPage() {
               placeholder="Contoh: Kopi Nusantara"
               aria-invalid={errors.businessName ? 'true' : 'false'}
             />
-            {errors.businessName ? (
-              <p className="text-sm text-red-400">{errors.businessName}</p>
-            ) : null}
+            {errors.businessName ? <p className="text-sm text-red-400">{errors.businessName}</p> : null}
           </div>
 
           <div className="space-y-2">
-            <label
-              htmlFor="business-type"
-              className="block text-sm font-semibold text-slate-200"
-            >
+            <label htmlFor="business-type" className="block text-sm font-semibold text-slate-200">
               Jenis Usaha
             </label>
             <select
@@ -150,16 +143,11 @@ function PersonalisasiBisnisPage() {
                 </option>
               ))}
             </select>
-            {errors.businessType ? (
-              <p className="text-sm text-red-400">{errors.businessType}</p>
-            ) : null}
+            {errors.businessType ? <p className="text-sm text-red-400">{errors.businessType}</p> : null}
           </div>
 
           <div className="space-y-2">
-            <label
-              htmlFor="main-products"
-              className="block text-sm font-semibold text-slate-200"
-            >
+            <label htmlFor="main-products" className="block text-sm font-semibold text-slate-200">
               Produk utama yang dijual
             </label>
             <Input
@@ -173,9 +161,7 @@ function PersonalisasiBisnisPage() {
             <p className="text-sm text-slate-400">
               Gunakan format sederhana agar mudah dipahami user pemula dan cocok untuk demo.
             </p>
-            {errors.mainProducts ? (
-              <p className="text-sm text-red-400">{errors.mainProducts}</p>
-            ) : null}
+            {errors.mainProducts ? <p className="text-sm text-red-400">{errors.mainProducts}</p> : null}
           </div>
 
           <div className="rounded-2xl border border-slate-800 bg-slate-950/55 p-4">

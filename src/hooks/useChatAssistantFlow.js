@@ -469,7 +469,7 @@ export function useChatAssistantFlow() {
       description:
         'Ceritakan transaksi dengan bahasa natural. Saya akan mengubahnya jadi draft yang bisa Anda cek sebelum disimpan.',
     })
-    seedComposer('Saya baru jual 2 kopi susu dan 1 brownies.')
+    seedComposer('Saya baru jual 2 kopi susu dan 1 latte.')
   }
 
   function prepareUploadMode() {
@@ -611,4 +611,5 @@ export function useChatAssistantFlow() {
     handleOpenDraft,
   }
 }
+
 
