@@ -14,12 +14,11 @@ import {
 } from '../data/dashboardData.js'
 
 function PengaturanPage() {
-  // State untuk preview menu pengaturan yang sedang disorot.
   const [selectedSectionId, setSelectedSectionId] = useState(
     PengaturanSectionData[0]?.id ?? '',
   )
   const navigate = useNavigate()
-  // Slot layout dashboard.
+
   const sidebar = (
     <DashboardSidebar
       items={dashboardSidebarItems}
@@ -33,12 +32,11 @@ function PengaturanPage() {
       subtitle="Kelola konfigurasi sistem bisnis dan preferensi usaha Anda."
     />
   )
-  // Data menu yang sedang aktif untuk kebutuhan preview atau navigasi.
+
   const selectedSection =
     PengaturanSectionData.find((section) => section.id === selectedSectionId) ||
     PengaturanSectionData[0]
 
-  // Handler menuju halaman detail submenu pengaturan.
   const handleOpenSection = (sectionId) => {
     const section = PengaturanSectionData.find((item) => item.id === sectionId)
 
@@ -52,7 +50,6 @@ function PengaturanPage() {
   return (
     <DashboardLayout sidebar={sidebar} topbar={topbar}>
       <div className="app-page-stack">
-        {/* Grid utama submenu pengaturan. */}
         <PengaturanGrid
           sections={PengaturanSectionData}
           selectedSectionId={selectedSectionId}
@@ -60,34 +57,31 @@ function PengaturanPage() {
           onOpenSection={handleOpenSection}
         />
 
-        
-
-        {/* Shortcut bantuan kontekstual ke Asisten Chat. */}
-        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+        <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 shadow-[0_24px_45px_-30px_rgba(15,23,42,0.16)] sm:p-5">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-start gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/12 text-blue-400">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/12 text-blue-500">
                 <Bot className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="text-base font-semibold text-white">Masih bingung memilih pengaturan?</h2>
-                <p className="mt-1 text-sm leading-6 text-slate-400">
+                <h2 className="text-base font-semibold text-[var(--app-text)]">Masih bingung memilih pengaturan?</h2>
+                <p className="mt-1 text-sm leading-6 text-[var(--app-text-muted)]">
                   Gunakan Asisten Chat untuk memahami fungsi menu, meminta saran pengaturan, atau mencari langkah yang paling sesuai untuk usaha Anda.
                 </p>
               </div>
             </div>
 
             <Button
-  asChild
-  variant="outline"
-  size="lg"
-  className="h-11 rounded-xl border-slate-700 bg-slate-950/60 px-4 text-slate-100 hover:bg-slate-800 hover:text-white"
->
-  <Link to="/asisten-chat">Buka Asisten Chat</Link>
-</Button>
+              asChild
+              variant="outline"
+              size="lg"
+              className="h-11 border-[var(--app-border)] bg-[var(--app-surface)] px-4 text-[var(--app-text)] hover:bg-[var(--app-surface)]/80 hover:text-[var(--app-text)]"
+            >
+              <Link to="/asisten-chat">Buka Asisten Chat</Link>
+            </Button>
           </div>
         </section>
-        {/* Kartu bantuan tambahan untuk halaman pengaturan. */}
+
         <PengaturanSupportCard />
       </div>
     </DashboardLayout>
@@ -95,5 +89,3 @@ function PengaturanPage() {
 }
 
 export default PengaturanPage
-
-

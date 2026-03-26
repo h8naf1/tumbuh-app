@@ -3,15 +3,15 @@ import { LifeBuoy } from 'lucide-react'
 
 function PengaturanSupportCard() {
   return (
-    <section className="flex flex-col gap-5 rounded-[26px] border border-blue-500/20 bg-[linear-gradient(135deg,rgba(15,23,42,0.96),rgba(30,41,59,0.92))] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6 xl:p-7">
+    <section className="flex flex-col gap-5 rounded-[26px] border border-blue-500/20 bg-[linear-gradient(135deg,rgba(37,99,235,0.12),rgba(14,165,233,0.06))] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6 xl:p-7">
       <div className="flex items-start gap-4">
-        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500/12 text-orange-400">
+        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-orange-500/12 text-orange-500">
           <LifeBuoy className="h-6 w-6" />
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-white sm:text-xl">Butuh bantuan lebih lanjut?</h3>
-          <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-400">
+          <h3 className="text-lg font-semibold text-[var(--app-text)] sm:text-xl">Butuh bantuan lebih lanjut?</h3>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--app-text-soft)]">
             Buka dokumentasi atau hubungi tim support untuk bantuan konfigurasi,
             integrasi, dan troubleshooting sistem bisnis Anda.
           </p>

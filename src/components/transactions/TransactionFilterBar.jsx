@@ -13,20 +13,20 @@ function TransactionFilterBar({
   paymentOptions,
 }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+    <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 transition-colors duration-300 sm:p-5">
       <div className="grid gap-4 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
         <label className="block">
-          <span className="mb-2 block text-sm font-medium text-slate-300">
+          <span className="mb-2 block text-sm font-medium text-[var(--app-text-soft)]">
             Cari transaksi
           </span>
           <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" />
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--app-text-muted)]" />
             <Input
               type="text"
               value={searchQuery}
               onChange={(event) => onSearchChange(event.target.value)}
               placeholder="Cari ID, nama produk, atau pembeli..."
-              className="h-11 rounded-xl bg-slate-950/80 py-3 pl-10 pr-4"
+              className="h-11 py-3 pl-10 pr-4"
             />
           </div>
         </label>

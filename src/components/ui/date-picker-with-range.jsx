@@ -39,9 +39,9 @@ function DatePickerWithRange({
           <Button
             variant="outline"
             id={id}
-            className="w-full justify-start px-2.5 font-normal text-slate-100"
+            className="w-full justify-start border-[var(--app-border)] bg-[var(--app-surface)] px-2.5 font-normal text-[var(--app-text)] hover:bg-[var(--app-surface-strong)] hover:text-[var(--app-text)]"
           >
-            <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
+            <CalendarIcon className="mr-2 h-4 w-4 text-[var(--app-text-muted)]" />
             {date?.from ? (
               date.to ? (
                 <>
@@ -57,7 +57,7 @@ function DatePickerWithRange({
           </Button>
         </PopoverTrigger>
 
-        <PopoverContent className="w-auto border-slate-800 bg-slate-950 p-0" align="start">
+        <PopoverContent className="w-auto border-[var(--app-border)] bg-[var(--app-surface-strong)] p-0 text-[var(--app-text)]" align="start">
           <Calendar
             mode="range"
             locale={localeId}

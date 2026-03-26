@@ -40,30 +40,29 @@ function DashboardLayout({ sidebar, topbar, children }) {
     : topbar
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 lg:h-screen lg:overflow-hidden">
+    <div className="min-h-screen bg-[var(--app-shell-bg)] text-[var(--app-text)] lg:h-screen lg:overflow-hidden transition-colors duration-300">
       {isMobileSidebarOpen ? (
         <div className="fixed inset-0 z-40 lg:hidden">
           <button
             type="button"
             aria-label="Tutup sidebar"
-            className="absolute inset-0 bg-slate-950/75 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/35 backdrop-blur-sm"
             onClick={() => setIsMobileSidebarOpen(false)}
           />
 
           <div className="relative h-dvh w-70 max-w-[85vw] overflow-y-auto">
-  {mobileSidebarElement}
-</div>
-
+            {mobileSidebarElement}
+          </div>
         </div>
       ) : null}
 
       <div className="flex min-h-screen flex-col lg:h-screen lg:flex-row">
-        <aside className="hidden shrink-0 border-r border-slate-800 bg-slate-900 lg:flex lg:h-screen lg:w-60 lg:overflow-y-auto xl:w-64">
+        <aside className="hidden shrink-0 border-r border-[var(--app-border)] bg-[var(--app-surface-strong)] lg:flex lg:h-screen lg:w-60 lg:overflow-y-auto xl:w-64 transition-colors duration-300">
           {desktopSidebarElement}
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col lg:h-screen lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain">
-          <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-900/85 backdrop-blur-md">
+          <header className="sticky top-0 z-30 border-b border-[var(--app-border)] bg-[color:var(--app-surface-header)] backdrop-blur-md transition-colors duration-300">
             <div className="mx-auto w-full max-w-340">{topbarElement}</div>
           </header>
 
@@ -77,4 +76,3 @@ function DashboardLayout({ sidebar, topbar, children }) {
 }
 
 export default DashboardLayout
-

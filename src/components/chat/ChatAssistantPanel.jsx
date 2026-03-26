@@ -57,7 +57,7 @@ const quickActions = [
     description:
       "Mulai dari input transaksi natural lalu biarkan assistant menyusunnya jadi draft.",
     icon: WalletCards,
-    accentClassName: "bg-blue-500/10 text-blue-400",
+    accentClassName: "bg-blue-500/10 text-blue-500",
     actionLabel: "Isi contoh transaksi",
   },
   {
@@ -111,8 +111,8 @@ function ConversationStatusPill({ status }) {
     <span
       className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
         isSaved
-          ? "bg-emerald-500/10 text-emerald-300"
-          : "bg-amber-500/10 text-amber-300"
+          ? "bg-emerald-500/10 text-emerald-600"
+          : "bg-amber-500/10 text-amber-600"
       }`}
     >
       {isSaved ? <CheckCircle2 className="h-3.5 w-3.5" /> : <CircleDot className="h-3.5 w-3.5" />}
@@ -129,27 +129,27 @@ function ConversationSessionSummary({
   saveFeedback,
 }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+    <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 sm:p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
             Status Percakapan
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ConversationStatusPill status={conversationStatus} />
             <h2 className="text-lg font-semibold text-white">{conversationTitle}</h2>
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-[var(--app-text-muted)]">
               Update {formatConversationTime(conversationUpdatedAt)}
             </span>
           </div>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-400">
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-[var(--app-text-muted)]">
             {conversationPreview ||
               "Percakapan baru akan otomatis disimpan sebagai draft begitu Anda mulai mengetik atau mengirim pesan."}
           </p>
         </div>
 
         {saveFeedback ? (
-          <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+          <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600">
             {saveFeedback}
           </span>
         ) : null}
@@ -160,19 +160,19 @@ function ConversationSessionSummary({
 
 function ComposerAttachment() {
   return (
-    <AttachmentPrimitive.Root className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2">
-      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-slate-300">
+    <AttachmentPrimitive.Root className="flex items-center gap-3 rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)]/80 px-3 py-2">
+      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--app-surface)] text-[var(--app-text-soft)]">
         <AttachmentPrimitive.unstable_Thumb />
       </div>
 
       <div className="min-w-0 flex-1">
-        <AttachmentPrimitive.Name className="truncate text-sm font-medium text-slate-100" />
+        <AttachmentPrimitive.Name className="truncate text-sm font-medium text-[var(--app-text)]" />
       </div>
 
       <AttachmentPrimitive.Remove asChild>
         <button
           type="button"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-800 hover:text-white"
+          className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-[var(--app-text-muted)] transition hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
           aria-label="Hapus lampiran"
         >
           <X className="h-4 w-4" />
@@ -196,12 +196,12 @@ function UserMessage() {
 function AssistantMessage() {
   return (
     <MessagePrimitive.Root className="flex justify-start">
-      <div className="max-w-[88%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 text-sm text-slate-100 shadow-[0_18px_36px_-28px_rgba(2,6,23,0.9)]">
-        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+      <div className="max-w-[88%] rounded-2xl rounded-bl-md border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-3 text-sm text-[var(--app-text)] shadow-[0_18px_36px_-28px_rgba(2,6,23,0.9)]">
+        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
           <Sparkles className="h-3.5 w-3.5" />
           <span>Asisten TUMBUH</span>
         </div>
-        <div className="space-y-2 leading-7 text-slate-200">
+        <div className="space-y-2 leading-7 text-[var(--app-text-soft)]">
           <MessagePrimitive.Attachments />
           <MessagePrimitive.Parts />
         </div>
@@ -213,12 +213,12 @@ function AssistantMessage() {
 function TypingIndicator() {
   return (
     <div className="flex justify-start">
-      <div className="max-w-[70%] rounded-2xl rounded-bl-md border border-slate-800 bg-slate-900 px-4 py-3 shadow-[0_18px_36px_-28px_rgba(2,6,23,0.9)]">
-        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+      <div className="max-w-[70%] rounded-2xl rounded-bl-md border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-3 shadow-[0_18px_36px_-28px_rgba(2,6,23,0.9)]">
+        <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
           <Sparkles className="h-3.5 w-3.5 animate-pulse" />
           <span>Asisten TUMBUH sedang mengetik</span>
         </div>
-        <div className="flex items-center gap-2 text-slate-300">
+        <div className="flex items-center gap-2 text-[var(--app-text-soft)]">
           <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-blue-400 [animation-delay:-0.2s]" />
           <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-blue-400 [animation-delay:-0.1s]" />
           <span className="h-2.5 w-2.5 animate-bounce rounded-full bg-blue-400" />
@@ -237,14 +237,14 @@ function EmptyChatState() {
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col items-center justify-center px-4 py-12 text-center">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500">
         <Sparkles className="h-7 w-7" />
       </div>
 
       <h2 className="mt-5 text-2xl font-bold text-white">
         Asisten Chat TUMBUH
       </h2>
-      <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-400 sm:text-base">
+      <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--app-text-muted)] sm:text-base">
         Assistant akan menyesuaikan alurnya berdasarkan intent Anda. Kalau Anda
         menyapa, dia akan membuka percakapan. Kalau Anda tanya bisnis, dia akan
         kasih insight. Kalau Anda input transaksi, dia akan buat draft.
@@ -253,19 +253,19 @@ function EmptyChatState() {
       <div className="mt-8 grid w-full gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <ThreadPrimitive.Suggestion
           prompt="Halo, bantu saya lihat kondisi bisnis hari ini."
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
         />
         <ThreadPrimitive.Suggestion
           prompt="Bagaimana cara menaikkan penjualan usaha saya?"
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
         />
         <ThreadPrimitive.Suggestion
           prompt="Saya baru jual 2 kopi susu dan 1 latte."
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
         />
         <ThreadPrimitive.Suggestion
           prompt="Tolong ringkas penjualan hari ini dan kasih insight berikutnya."
-          className="rounded-2xl border border-slate-800 bg-slate-900 px-4 py-4 text-left text-sm text-slate-200 transition hover:border-blue-500/30 hover:bg-slate-900/80"
+          className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-4 py-4 text-left text-sm text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:bg-[var(--app-surface-strong)]/80"
         />
       </div>
     </div>
@@ -295,7 +295,7 @@ function QuickActionSection({
             key={action.id}
             type="button"
             onClick={actionHandlers[action.id]}
-            className="group rounded-2xl border border-slate-800 bg-slate-900 p-5 text-left shadow-[0_18px_40px_-28px_rgba(2,6,23,0.8)] transition hover:-translate-y-0.5 hover:border-slate-700 hover:bg-slate-900/90"
+            className="group rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-5 text-left shadow-[0_18px_40px_-28px_rgba(2,6,23,0.8)] transition hover:-translate-y-0.5 hover:border-[var(--app-border)] hover:bg-[var(--app-surface-strong)]/90"
           >
             <div
               className={`flex h-11 w-11 items-center justify-center rounded-xl ${action.accentClassName}`}
@@ -306,11 +306,11 @@ function QuickActionSection({
             <h2 className="mt-5 text-lg font-semibold text-white">
               {action.title}
             </h2>
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
               {action.description}
             </p>
 
-            <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-slate-500 transition group-hover:text-blue-400">
+            <p className="mt-4 text-xs font-medium uppercase tracking-[0.18em] text-[var(--app-text-muted)] transition group-hover:text-blue-500">
               {action.actionLabel}
             </p>
           </button>
@@ -326,24 +326,24 @@ function ContextBar({ context }) {
   }
 
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+    <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 sm:p-5">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-400">
+        <span className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-500">
           Mode aktif: {context.modeLabel}
         </span>
         {context.barcode ? (
-          <span className="rounded-full border border-slate-800 bg-slate-950 px-3 py-1 text-xs text-slate-300">
+          <span className="rounded-full border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1 text-xs text-[var(--app-text-soft)]">
             Barcode: {context.barcode}
           </span>
         ) : null}
         {context.fileName ? (
-          <span className="rounded-full border border-slate-800 bg-slate-950 px-3 py-1 text-xs text-slate-300">
+          <span className="rounded-full border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1 text-xs text-[var(--app-text-soft)]">
             File: {context.fileName}
           </span>
         ) : null}
       </div>
 
-      <p className="mt-3 text-sm leading-6 text-slate-400">
+      <p className="mt-3 text-sm leading-6 text-[var(--app-text-muted)]">
         {context.description}
       </p>
     </section>
@@ -356,16 +356,16 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
   }
 
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-5 shadow-[0_18px_40px_-28px_rgba(2,6,23,0.82)]">
+    <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-5 shadow-[0_18px_40px_-28px_rgba(2,6,23,0.82)]">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
             Draft Konfirmasi
           </p>
           <h2 className="mt-2 text-lg font-semibold text-white">
             {draft.title}
           </h2>
-          <p className="mt-2 text-sm leading-6 text-slate-400">{draft.note}</p>
+          <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">{draft.note}</p>
         </div>
 
         <div className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-semibold text-emerald-400">
@@ -377,16 +377,16 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
         {draft.items.map((item) => (
           <div
             key={`${draft.source}-${item.name}`}
-            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-800 bg-slate-950/50 px-4 py-3"
+            className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)]/50 px-4 py-3"
           >
             <div>
               <p className="text-sm font-medium text-white">{item.name}</p>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs text-[var(--app-text-muted)]">
                 {item.quantity} item x {formatRupiah(item.price)}
               </p>
             </div>
 
-            <p className="text-sm font-semibold text-slate-200">
+            <p className="text-sm font-semibold text-[var(--app-text-soft)]">
               {formatRupiah(item.total)}
             </p>
           </div>
@@ -407,7 +407,7 @@ function DraftConfirmationCard({ draft, onSave, onDiscard }) {
           type="button"
           variant="outline"
           onClick={onDiscard}
-          className="rounded-xl border-slate-700 bg-slate-950/80 text-slate-200 hover:bg-slate-800"
+          className="rounded-xl border-[var(--app-border)] bg-[var(--app-surface)]/80 text-[var(--app-text-soft)] hover:bg-[var(--app-surface)]"
         >
           <X className="h-4 w-4" />
           Batalkan
@@ -423,17 +423,17 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 px-4 backdrop-blur-sm">
-      <div className="w-full max-w-2xl rounded-[1.75rem] border border-slate-800 bg-slate-900 shadow-[0_30px_80px_-34px_rgba(2,6,23,0.9)]">
-        <div className="flex items-start justify-between gap-4 border-b border-slate-800 px-5 py-4 sm:px-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[var(--app-surface)]/80 px-4 backdrop-blur-sm">
+      <div className="w-full max-w-2xl rounded-[1.75rem] border border-[var(--app-border)] bg-[var(--app-surface-strong)] shadow-[0_30px_80px_-34px_rgba(2,6,23,0.9)]">
+        <div className="flex items-start justify-between gap-4 border-b border-[var(--app-border)] px-5 py-4 sm:px-6">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-400">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-500">
               Scan Barcode
             </p>
             <h2 className="mt-2 text-xl font-semibold text-white">
               Simulasi scanner produk
             </h2>
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
               Pilih salah satu hasil scan agar alurnya langsung berlanjut ke
               draft transaksi tanpa keluar dari percakapan.
             </p>
@@ -442,7 +442,7 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 bg-slate-950 text-slate-400 transition hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--app-border)] bg-[var(--app-surface)] text-[var(--app-text-muted)] transition hover:text-[var(--app-text)]"
             aria-label="Tutup scanner"
           >
             <X className="h-4 w-4" />
@@ -450,14 +450,14 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
         </div>
 
         <div className="px-5 py-5 sm:px-6">
-          <div className="rounded-2xl border border-dashed border-blue-500/25 bg-slate-950/60 p-5 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-400">
+          <div className="rounded-2xl border border-dashed border-blue-500/25 bg-[var(--app-surface)]/60 p-5 text-center">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-500">
               <ScanLine className="h-6 w-6" />
             </div>
             <p className="mt-4 text-sm font-medium text-white">
               Scanner siap digunakan
             </p>
-            <p className="mt-2 text-sm leading-6 text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
               Nanti di tahap implementasi fitur penuh, area ini bisa diganti
               kamera scanner barcode. Untuk sekarang, pilih hasil scan yang
               ingin Anda lanjutkan.
@@ -470,23 +470,23 @@ function ScannerModal({ isOpen, onClose, onSelectProduct }) {
                 key={product.barcode}
                 type="button"
                 onClick={() => onSelectProduct(product)}
-                className="rounded-2xl border border-slate-800 bg-slate-950/50 p-4 text-left transition hover:border-blue-500/30 hover:bg-slate-950"
+                className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface)]/50 p-4 text-left transition hover:border-blue-500/30 hover:bg-[var(--app-surface)]"
               >
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <div>
                     <p className="text-sm font-semibold text-white">
                       {product.name}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-[var(--app-text-muted)]">
                       Barcode {product.barcode}
                     </p>
                   </div>
 
                   <div className="text-right">
-                    <p className="text-sm font-medium text-slate-200">
+                    <p className="text-sm font-medium text-[var(--app-text-soft)]">
                       {formatRupiah(product.price)}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-[var(--app-text-muted)]">
                       Stok {product.stock}
                     </p>
                   </div>
@@ -508,7 +508,7 @@ function StarterPromptBar({ onUseStarterPrompt }) {
           key={prompt}
           type="button"
           onClick={() => onUseStarterPrompt(prompt)}
-          className="rounded-full border border-slate-800 bg-slate-950 px-3 py-1.5 text-xs text-slate-300 transition hover:border-blue-500/30 hover:text-blue-300"
+          className="rounded-full border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs text-[var(--app-text-soft)] transition hover:border-blue-500/30 hover:text-blue-300"
         >
           {prompt}
         </button>
@@ -534,37 +534,37 @@ function ChatThread({
   composerInputId,
 }) {
   return (
-    <ThreadPrimitive.Root className="flex min-h-152 flex-col overflow-hidden rounded-[1.75rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.98)_0%,rgba(2,6,23,0.98)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)] lg:h-[calc(100vh-20rem)] lg:min-h-168">
-      <div className="border-b border-slate-800 px-5 py-4 sm:px-6">
+    <ThreadPrimitive.Root className="flex min-h-152 flex-col overflow-hidden rounded-[1.75rem] border border-[var(--app-border)] bg-[linear-gradient(180deg,var(--app-surface-strong)_0%,var(--app-surface)_100%)] shadow-[0_32px_70px_-38px_rgba(2,6,23,0.95)] lg:h-[calc(100vh-20rem)] lg:min-h-168">
+      <div className="border-b border-[var(--app-border)] px-5 py-4 sm:px-6">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
             <p className="text-sm font-semibold text-white">Ruang Percakapan</p>
             <div className="mt-2 flex flex-wrap items-center gap-2">
               <ConversationStatusPill status={conversationStatus} />
-              <span className="text-xs font-medium text-slate-300">
+              <span className="text-xs font-medium text-[var(--app-text-soft)]">
                 {conversationTitle}
               </span>
-              <span className="text-xs text-slate-500">
+              <span className="text-xs text-[var(--app-text-muted)]">
                 Update {formatConversationTime(conversationUpdatedAt)}
               </span>
               {saveFeedback ? (
-                <span className="text-xs text-emerald-300">{saveFeedback}</span>
+                <span className="text-xs text-emerald-600">{saveFeedback}</span>
               ) : null}
             </div>
-            <p className="mt-2 text-xs leading-5 text-slate-400">
+            <p className="mt-2 text-xs leading-5 text-[var(--app-text-muted)]">
               Assistant akan membaca intent pesan Anda, lalu memilih apakah
               harus menyapa, memberi insight, atau menyusun draft transaksi.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
+          <div className="flex flex-wrap items-center gap-2 text-xs text-[var(--app-text-muted)]">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={onSaveConversation}
               disabled={!conversationHasContent || conversationStatus === "saved" || isResponding}
-              className="rounded-xl border-slate-700 bg-slate-950/80 text-slate-200 hover:bg-slate-800"
+              className="rounded-xl border-[var(--app-border)] bg-[var(--app-surface)]/80 text-[var(--app-text-soft)] hover:bg-[var(--app-surface)]"
             >
               <Save className="h-4 w-4" />
               Simpan Percakapan
@@ -572,7 +572,7 @@ function ChatThread({
             <button
               type="button"
               onClick={onOpenScanner}
-              className="inline-flex items-center gap-1 rounded-full border border-slate-800 bg-slate-900/70 px-3 py-1.5 transition hover:border-blue-500/30 hover:text-blue-300"
+              className="inline-flex items-center gap-1 rounded-full border border-[var(--app-border)] bg-[var(--app-surface-strong)]/70 px-3 py-1.5 transition hover:border-blue-500/30 hover:text-blue-300"
             >
               <QrCode className="h-3.5 w-3.5" />
               Scan cepat
@@ -583,8 +583,8 @@ function ChatThread({
               disabled={!hasDraft}
               className={`inline-flex items-center gap-1 rounded-full border px-3 py-1.5 transition ${
                 hasDraft
-                  ? "border-slate-800 bg-slate-900/70 hover:border-blue-500/30 hover:text-blue-300"
-                  : "cursor-not-allowed border-slate-800 bg-slate-900/40 text-slate-600"
+                  ? "border-[var(--app-border)] bg-[var(--app-surface-strong)]/70 hover:border-blue-500/30 hover:text-blue-300"
+                  : "cursor-not-allowed border-[var(--app-border)] bg-[var(--app-surface-strong)]/40 text-[var(--app-text-muted)]"
               }`}
             >
               <WalletCards className="h-3.5 w-3.5" />
@@ -598,7 +598,7 @@ function ChatThread({
         </div>
       </div>
 
-      <ThreadPrimitive.Viewport className="flex-1 space-y-5 overflow-y-auto bg-slate-950/35 px-4 py-5 sm:px-6">
+      <ThreadPrimitive.Viewport className="flex-1 space-y-5 overflow-y-auto bg-[var(--app-surface)]/35 px-4 py-5 sm:px-6">
         <ThreadPrimitive.Empty>
           <EmptyChatState />
         </ThreadPrimitive.Empty>
@@ -611,7 +611,7 @@ function ChatThread({
         />
       </ThreadPrimitive.Viewport>
 
-      <div className="border-t border-slate-800 bg-slate-950/80 p-4 sm:p-5">
+      <div className="border-t border-[var(--app-border)] bg-[var(--app-surface)]/80 p-4 sm:p-5">
         <ComposerPrimitive.Root className="space-y-3">
           <ComposerPrimitive.Attachments
             components={{
@@ -620,15 +620,15 @@ function ChatThread({
             className="grid gap-2"
           />
 
-          <div className="rounded-[1.75rem] border border-slate-800 bg-slate-900/75 p-4 sm:p-5">
-            <div className="flex items-center gap-3 rounded-[1.5rem] border border-slate-700/80 bg-[rgba(8,12,28,0.82)] px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+          <div className="rounded-[1.75rem] border border-[var(--app-border)] bg-[var(--app-surface-strong)]/75 p-4 sm:p-5">
+            <div className="flex items-center gap-3 rounded-[1.5rem] border border-[var(--app-border)]/80 bg-[var(--app-surface)]/80 px-4 py-3.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
               <ComposerPrimitive.AddAttachment asChild>
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
                   onClick={onPrepareUpload}
-                  className="rounded-full text-slate-400 hover:bg-slate-800 hover:text-white"
+                  className="rounded-full text-[var(--app-text-muted)] hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
                 >
                   <Plus className="h-4.5 w-4.5" />
                 </Button>
@@ -639,10 +639,10 @@ function ChatThread({
                 rows={1}
                 onChange={onComposerInputChange}
                 placeholder="Reply..."
-                className="min-h-0 flex-1 resize-none bg-transparent py-1 text-base leading-6 text-slate-100 outline-none placeholder:text-slate-400"
+                className="min-h-0 flex-1 resize-none bg-transparent py-1 text-base leading-6 text-[var(--app-text)] outline-none placeholder:text-[var(--app-text-muted)]"
               />
 
-              <span className="hidden text-sm text-slate-400 md:inline">Asisten AI</span>
+              <span className="hidden text-sm text-[var(--app-text-muted)] md:inline">Asisten AI</span>
 
               <ComposerPrimitive.Send asChild>
                 <Button
@@ -715,7 +715,7 @@ function ChatAssistantPanel() {
         <ContextBar context={activeContext} />
 
         {savedDraftCount > 0 ? (
-          <section className="rounded-2xl border border-emerald-500/20 bg-emerald-500/8 px-4 py-3 text-sm text-emerald-300">
+          <section className="rounded-2xl border border-emerald-500/20 bg-emerald-500/8 px-4 py-3 text-sm text-emerald-600">
             {savedDraftCount} draft berhasil disimpan dalam sesi ini.
           </section>
         ) : null}
@@ -759,6 +759,7 @@ function ChatAssistantPanel() {
 }
 
 export default ChatAssistantPanel;
+
 
 
 

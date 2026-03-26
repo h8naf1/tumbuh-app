@@ -19,7 +19,7 @@ function BusinessInsightCard({ title, items = [], chartData = [] }) {
 
   return (
     <>
-      <section className="relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-6 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
+      <section className="relative overflow-hidden rounded-xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-5 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] transition-colors duration-300 sm:p-6">
         <div className="absolute right-[-28px] top-[-28px] h-28 w-28 rounded-full bg-blue-500/5 blur-2xl" />
 
         <div className="relative">
@@ -44,8 +44,8 @@ function BusinessInsightCard({ title, items = [], chartData = [] }) {
                     />
 
                     <div>
-                      <p className="text-sm font-semibold text-slate-100">{item.title}</p>
-                      <p className="mt-2 text-xs leading-5 text-slate-400">
+                      <p className="text-sm font-semibold text-[var(--app-text)]">{item.title}</p>
+                      <p className="mt-2 text-xs leading-5 text-[var(--app-text-soft)]">
                         {item.description}
                       </p>
                     </div>
@@ -58,7 +58,7 @@ function BusinessInsightCard({ title, items = [], chartData = [] }) {
           <button
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="mt-6 w-full rounded-lg bg-blue-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 focus:ring-offset-slate-900"
+            className="mt-6 w-full rounded-lg bg-blue-500 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400/70 focus:ring-offset-2 focus:ring-offset-transparent"
           >
             Lihat Detail Insight
           </button>

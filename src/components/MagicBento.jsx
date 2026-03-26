@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import DashboardElement from '../assets/elements/DashboardElement.png'
-import BagElement from '../assets/elements/BagElement.png'
-import BusinessManElement from '../assets/elements/BusinessManElement.png'
+import DashboardElement from '../assets/elements/roadmap.png'
+import BagElement from '../assets/elements/transaksi.png'
+import BusinessManElement from '../assets/elements/daftarproduk.png'
 
 const DEFAULT_SPOTLIGHT_RADIUS = 220
 const DEFAULT_GLOW_COLOR = '59, 130, 246'
@@ -319,9 +319,6 @@ function MagicBento({
                 </div>
 
                 <div className="pointer-events-none absolute right-4 top-4 h-16 w-16 rounded-full border border-white/10 bg-white/8 blur-2xl opacity-70" />
-                <div className="pointer-events-none absolute right-4 top-4 rounded-full border border-cyan-400/20 bg-slate-950/55 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-cyan-100/75 backdrop-blur">
-                  Tumbuh
-                </div>
               </div>
 
               <div className="relative flex flex-1 flex-col gap-4 p-5 sm:p-6">

@@ -9,9 +9,9 @@ function RecentTransactionsCard({
   onSelectTransaction,
 }) {
   return (
-    <section className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
-      <div className="flex items-center justify-between gap-4 border-b border-slate-800 p-4 sm:p-5 xl:p-6">
-        <h2 className="text-lg font-bold text-slate-100 sm:text-xl">{title}</h2>
+    <section className="overflow-hidden rounded-xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] transition-colors duration-300">
+      <div className="flex items-center justify-between gap-4 border-b border-[var(--app-border)] p-4 sm:p-5 xl:p-6">
+        <h2 className="text-lg font-bold text-[var(--app-text)] sm:text-xl">{title}</h2>
 
         <Link
           to="/transaksi"
@@ -23,24 +23,24 @@ function RecentTransactionsCard({
 
       <div className="hidden overflow-x-auto md:block">
         <table className="min-w-[760px] w-full text-left">
-          <thead className="bg-slate-800/50">
+          <thead className="bg-[color:color-mix(in_srgb,var(--app-surface)_82%,transparent)]">
             <tr>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-[var(--app-text-muted)]">
                 ID Transaksi
               </th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-[var(--app-text-muted)]">
                 Nama Produk
               </th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-[var(--app-text-muted)]">
                 Harga
               </th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-[var(--app-text-muted)]">
                 Metode
               </th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-[var(--app-text-muted)]">
                 Status
               </th>
-              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-slate-400">
+              <th className="px-5 py-4 text-xs font-bold uppercase tracking-wide text-[var(--app-text-muted)]">
                 Aksi
               </th>
             </tr>
@@ -54,7 +54,7 @@ function RecentTransactionsCard({
               return (
                 <tr
                   key={transaction.id}
-                  className="border-t border-slate-800 text-sm text-slate-100"
+                  className="border-t border-[var(--app-border)] text-sm text-[var(--app-text)]"
                 >
                   <td className="whitespace-nowrap px-5 py-4 font-medium">
                     #{transaction.id}
@@ -87,7 +87,7 @@ function RecentTransactionsCard({
                     <button
                       type="button"
                       onClick={() => onSelectTransaction?.(transaction)}
-                      className="text-slate-400 transition hover:text-slate-200"
+                      className="text-[var(--app-text-soft)] transition hover:text-[var(--app-text)]"
                       aria-label={`Aksi untuk ${transaction.id}`}
                     >
                       <MoreVertical className="h-4 w-4" />
@@ -108,7 +108,7 @@ function RecentTransactionsCard({
           return (
             <article
               key={transaction.id}
-              className="rounded-lg border border-slate-800 bg-slate-950/40 p-3.5"
+              className="rounded-lg border border-[var(--app-border)] bg-[var(--app-surface)] p-3.5 transition-colors duration-300"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3">
@@ -121,10 +121,10 @@ function RecentTransactionsCard({
                     roundedClassName="rounded-lg"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-slate-100">
+                    <p className="text-sm font-semibold text-[var(--app-text)]">
                       #{transaction.id}
                     </p>
-                    <p className="mt-1 text-sm text-slate-300">
+                    <p className="mt-1 text-sm text-[var(--app-text-soft)]">
                       {transaction.productName}
                     </p>
                   </div>
@@ -133,7 +133,7 @@ function RecentTransactionsCard({
                 <button
                   type="button"
                   onClick={() => onSelectTransaction?.(transaction)}
-                  className="text-slate-400 transition hover:text-slate-200"
+                  className="text-[var(--app-text-soft)] transition hover:text-[var(--app-text)]"
                   aria-label={`Aksi untuk ${transaction.id}`}
                 >
                   <MoreVertical className="h-4 w-4" />
@@ -142,12 +142,12 @@ function RecentTransactionsCard({
 
               <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">Harga</p>
-                  <p className="mt-1 text-slate-100">{transaction.price}</p>
+                  <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">Harga</p>
+                  <p className="mt-1 text-[var(--app-text)]">{transaction.price}</p>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">Metode</p>
-                  <p className="mt-1 text-slate-100">{transaction.paymentMethod}</p>
+                  <p className="text-xs uppercase tracking-wide text-[var(--app-text-muted)]">Metode</p>
+                  <p className="mt-1 text-[var(--app-text)]">{transaction.paymentMethod}</p>
                 </div>
               </div>
 

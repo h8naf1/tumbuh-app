@@ -47,11 +47,11 @@ function ProductTable({
   const someSelectedOnPage = products.some((product) => selectedIdSet.has(product.id))
 
   return (
-    <section className="overflow-hidden rounded-[1.6rem] border border-slate-800 bg-slate-900 shadow-[0_24px_45px_-28px_rgba(15,23,42,0.95)]">
+    <section className="overflow-hidden rounded-[1.6rem] border border-[var(--app-border)] bg-[var(--app-surface-strong)] shadow-[0_24px_45px_-28px_rgba(15,23,42,0.18)] transition-colors duration-300">
       <div className="overflow-x-auto">
         <table className="min-w-[860px] w-full text-left">
           <thead>
-            <tr className="border-b border-slate-800 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+            <tr className="border-b border-[var(--app-border)] text-xs font-semibold uppercase tracking-[0.18em] text-[var(--app-text-muted)]">
               <th className="px-5 py-4">
                 <label className="inline-flex items-center justify-center">
                   <input
@@ -63,7 +63,7 @@ function ProductTable({
                       }
                     }}
                     onChange={() => onToggleSelectAll?.(products, !allSelectedOnPage)}
-                    className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-blue-500 focus:ring-blue-500/20"
+                    className="h-4 w-4 rounded border-[var(--app-border)] bg-[var(--app-surface)] text-blue-500 focus:ring-blue-500/20"
                     aria-label="Pilih semua produk di halaman ini"
                   />
                 </label>
@@ -88,7 +88,7 @@ function ProductTable({
               return (
                 <tr
                   key={product.id}
-                  className={`border-b border-slate-800/90 text-sm text-slate-200 transition hover:bg-slate-800/30 ${
+                  className={`border-b border-[var(--app-border)] text-sm text-[var(--app-text)] transition hover:bg-[var(--app-surface)] ${
                     isSelected ? 'bg-blue-500/5' : ''
                   }`}
                 >
@@ -98,7 +98,7 @@ function ProductTable({
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => onToggleProductSelection?.(product.id)}
-                        className="h-4 w-4 rounded border-slate-700 bg-slate-950 text-blue-500 focus:ring-blue-500/20"
+                        className="h-4 w-4 rounded border-[var(--app-border)] bg-[var(--app-surface)] text-blue-500 focus:ring-blue-500/20"
                         aria-label={`Pilih ${product.name}`}
                       />
                     </label>
@@ -114,11 +114,11 @@ function ProductTable({
                         roundedClassName="rounded-xl"
                       />
                       <div>
-                        <p className="font-semibold text-white">{product.name}</p>
+                        <p className="font-semibold text-[var(--app-text)]">{product.name}</p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-5 py-4 text-slate-400">{product.category}</td>
+                  <td className="px-5 py-4 text-[var(--app-text-soft)]">{product.category}</td>
                   <td className="px-5 py-4">
                     <span className={`font-semibold ${stockLabel.className}`}>
                       {stockLabel.value}
@@ -127,7 +127,7 @@ function ProductTable({
                       ) : null}
                     </span>
                   </td>
-                  <td className="px-5 py-4 font-medium text-slate-100">
+                  <td className="px-5 py-4 font-medium text-[var(--app-text)]">
                     {formatRupiah(product.price)}
                   </td>
                   <td className="px-5 py-4">
@@ -139,11 +139,11 @@ function ProductTable({
                     </span>
                   </td>
                   <td className="px-5 py-4">
-                    <div className="flex items-center justify-end gap-2 text-slate-400">
+                    <div className="flex items-center justify-end gap-2 text-[var(--app-text-soft)]">
                       <button
                         type="button"
                         onClick={() => onEditProduct?.(product)}
-                        className="rounded-lg p-2 transition hover:bg-slate-800 hover:text-white"
+                        className="rounded-lg p-2 transition hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
                         aria-label={`Edit ${product.name}`}
                       >
                         <Pencil className="h-4 w-4" />
@@ -151,7 +151,7 @@ function ProductTable({
                       <button
                         type="button"
                         onClick={() => onDeleteProduct?.(product)}
-                        className="rounded-lg p-2 transition hover:bg-slate-800 hover:text-red-400"
+                        className="rounded-lg p-2 transition hover:bg-[var(--app-surface)] hover:text-red-400"
                         aria-label={`Hapus ${product.name}`}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -165,7 +165,7 @@ function ProductTable({
         </table>
       </div>
 
-      <div className="flex flex-col gap-4 border-t border-slate-800 bg-slate-800/60 px-5 py-4 text-sm text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-4 border-t border-[var(--app-border)] bg-[color:color-mix(in_srgb,var(--app-surface)_70%,transparent)] px-5 py-4 text-sm text-[var(--app-text-soft)] sm:flex-row sm:items-center sm:justify-between">
         <p>Menampilkan {products.length} dari {totalProducts} produk</p>
 
         <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ function ProductTable({
             type="button"
             onClick={() => onPageChange?.(Math.max(1, currentPage - 1))}
             disabled={currentPage <= 1}
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-800 text-slate-600"
+            className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--app-border)] text-[var(--app-text-muted)]"
             aria-label="Halaman sebelumnya"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -184,14 +184,14 @@ function ProductTable({
           >
             {currentPage}
           </button>
-          <span className="px-1 text-xs font-medium text-slate-500">
+          <span className="px-1 text-xs font-medium text-[var(--app-text-muted)]">
             dari {totalPages}
           </span>
           <button
             type="button"
             onClick={() => onPageChange?.(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage >= totalPages}
-            className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-800 text-slate-500 transition hover:bg-slate-800 hover:text-slate-200"
+            className="flex h-8 w-8 items-center justify-center rounded-xl border border-[var(--app-border)] text-[var(--app-text-muted)] transition hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
             aria-label="Halaman berikutnya"
           >
             <ChevronRight className="h-4 w-4" />

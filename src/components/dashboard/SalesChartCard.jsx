@@ -11,7 +11,6 @@ function SalesChartCard({
   onDateRangeChange,
   data,
 }) {
-  // State dan ukuran dasar area chart.
   const [hoveredPoint, setHoveredPoint] = useState(null);
   const chartWidth = 720;
   const chartHeight = 220;
@@ -23,7 +22,6 @@ function SalesChartCard({
   const innerHeight = chartHeight - paddingTop - paddingBottom;
   const stepX = data.length > 1 ? innerWidth / (data.length - 1) : innerWidth;
 
-  // Titik grafik dibentuk dari data penjualan yang diterima.
   const points = data.map((item, index) => {
     const x = paddingX + stepX * index;
     const y = paddingTop + innerHeight - (item.amount / maxValue) * innerHeight;
@@ -39,7 +37,6 @@ function SalesChartCard({
   const highlightedPoint = points[Math.floor(points.length / 2)];
   const labelStep = data.length > 12 ? Math.ceil(data.length / 6) : 1;
 
-  // Posisi tooltip mengikuti titik grafik yang sedang disorot.
   const tooltipPosition = useMemo(() => {
     if (!hoveredPoint) {
       return null;
@@ -55,12 +52,11 @@ function SalesChartCard({
   }, [hoveredPoint]);
 
   return (
-    <section className="rounded-xl border border-slate-800 bg-slate-900 p-4 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] sm:p-5 xl:p-6">
-      {/* Header chart dan kontrol rentang waktu. */}
+    <section className="rounded-xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] transition-colors duration-300 sm:p-5 xl:p-6">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
         <div>
-          <h2 className="text-lg font-bold text-white sm:text-xl">{title}</h2>
-          <p className="mt-1 text-sm text-slate-400">{description}</p>
+          <h2 className="text-lg font-bold text-[var(--app-text)] sm:text-xl">{title}</h2>
+          <p className="mt-1 text-sm text-[var(--app-text-soft)]">{description}</p>
         </div>
 
         <div className="flex w-full flex-col gap-3 xl:w-auto xl:items-end">
@@ -69,7 +65,7 @@ function SalesChartCard({
               value={dateRange}
               onChange={onDateRangeChange}
               className="w-full sm:w-60"
-            />  
+            />
 
             <div className="flex flex-wrap items-center justify-center gap-2 xl:justify-end">
               {presets.map((preset) => (
@@ -79,8 +75,8 @@ function SalesChartCard({
                   onClick={() => onPresetChange(preset.id)}
                   className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition ${
                     activePreset === preset.id
-                      ? "bg-slate-800 text-slate-100"
-                      : "text-slate-500 hover:text-slate-300"
+                      ? "bg-blue-500/12 text-blue-500"
+                      : "text-[var(--app-text-muted)] hover:text-[var(--app-text)]"
                   }`}
                 >
                   {preset.label}
@@ -91,7 +87,6 @@ function SalesChartCard({
         </div>
       </div>
 
-      {/* Area visual grafik. */}
       <div className="mt-6 sm:mt-7">
         <div
           className="relative h-52 overflow-hidden rounded-lg sm:h-56 xl:h-60"
@@ -99,19 +94,19 @@ function SalesChartCard({
         >
           <div className="absolute inset-0 flex flex-col justify-between py-2">
             {[1, 2, 3, 4].map((line) => (
-              <div key={line} className="border-t border-slate-800" />
+              <div key={line} className="border-t border-[var(--app-border)]" />
             ))}
           </div>
 
           {hoveredPoint && tooltipPosition ? (
             <div
-              className="pointer-events-none absolute z-10 -translate-x-1/2 rounded-lg border border-slate-700 bg-slate-950/95 px-3 py-2 text-xs shadow-[0_16px_32px_-20px_rgba(2,6,23,0.95)]"
+              className="pointer-events-none absolute z-10 -translate-x-1/2 rounded-lg border border-[var(--app-border)] bg-[var(--app-surface-strong)] px-3 py-2 text-xs shadow-[0_16px_32px_-20px_rgba(2,6,23,0.35)]"
               style={tooltipPosition}
             >
-              <p className="font-semibold text-white">
+              <p className="font-semibold text-[var(--app-text)]">
                 {hoveredPoint.fullLabel}
               </p>
-              <p className="mt-1 text-slate-300">
+              <p className="mt-1 text-[var(--app-text-soft)]">
                 Indeks penjualan: {hoveredPoint.amount}
               </p>
             </div>
@@ -192,7 +187,7 @@ function SalesChartCard({
             return (
               <div
                 key={item.fullLabel}
-                className="text-center text-[10px] font-medium uppercase tracking-wide text-slate-400"
+                className="text-center text-[10px] font-medium uppercase tracking-wide text-[var(--app-text-muted)]"
                 title={item.fullLabel}
               >
                 {isLabelVisible ? item.day : ""}

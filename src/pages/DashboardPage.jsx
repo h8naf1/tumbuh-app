@@ -209,8 +209,8 @@ function DashboardPage() {
         {/* Header halaman dan dropdown unduh laporan. */}
         <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
           <div>
-            <h1 className="fluid-title font-bold text-white">Dashboard</h1>
-            <p className="fluid-subtitle mt-2 text-slate-400">
+            <h1 className="fluid-title font-bold text-[var(--app-text)]">Dashboard</h1>
+            <p className="fluid-subtitle mt-2 text-[var(--app-text-soft)]">
               Preview awal dashboard TUMBUH berdasarkan struktur desain Figma.
             </p>
           </div>
@@ -232,12 +232,12 @@ function DashboardPage() {
 </Button>
 
             {isDownloadMenuOpen ? (
-              <div className="absolute right-0 top-full z-20 mt-2 min-w-[240px] rounded-xl border border-slate-800 bg-slate-950 p-2 shadow-[0_24px_64px_-34px_rgba(2,6,23,0.72)]">
+              <div className="absolute right-0 top-full z-20 mt-2 min-w-[240px] rounded-xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-2 shadow-[0_24px_64px_-34px_rgba(2,6,23,0.18)] transition-colors duration-300">
                 <Button
   type="button"
   variant="ghost"
   onClick={handleDownloadSalesReport}
-  className="h-auto w-full justify-start gap-3 rounded-lg px-3 py-3 text-left text-slate-200 hover:bg-slate-900 hover:text-white"
+  className="h-auto w-full justify-start gap-3 rounded-lg px-3 py-3 text-left text-[var(--app-text)] hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
 >
   <Download className="h-4 w-4 text-blue-400" />
   <span>Unduh Laporan Penjualan</span>
@@ -247,7 +247,7 @@ function DashboardPage() {
   type="button"
   variant="ghost"
   onClick={handleDownloadFinanceReport}
-  className="h-auto w-full justify-start gap-3 rounded-lg px-3 py-3 text-left text-slate-200 hover:bg-slate-900 hover:text-white"
+  className="h-auto w-full justify-start gap-3 rounded-lg px-3 py-3 text-left text-[var(--app-text)] hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
 >
   <Download className="h-4 w-4 text-blue-400" />
   <span>Unduh Laporan Keuangan</span>
@@ -258,14 +258,14 @@ function DashboardPage() {
         </div>
 
         {/* Shortcut utama menuju Asisten Chat. */}
-        <section className="rounded-2xl border border-blue-500/20 bg-[linear-gradient(135deg,rgba(37,99,235,0.16),rgba(15,23,42,0.96))] p-5 sm:p-6">
+        <section className="rounded-2xl border border-blue-500/20 bg-[linear-gradient(135deg,rgba(37,99,235,0.16),color-mix(in_srgb,var(--app-surface-strong)_92%,transparent))] p-5 transition-colors duration-300 sm:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <div className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-300">
                 <Bot className="h-5 w-5" />
               </div>
-              <h2 className="mt-4 text-xl font-semibold text-white">Butuh bantuan untuk mulai?</h2>
-              <p className="mt-2 text-sm leading-7 text-slate-300">
+              <h2 className="mt-4 text-xl font-semibold text-[var(--app-text)]">Butuh bantuan untuk mulai?</h2>
+              <p className="mt-2 text-sm leading-7 text-[var(--app-text-soft)]">
                 Gunakan Asisten Chat untuk mencatat penjualan, scan barcode, atau upload nota tanpa perlu mencari menu satu per satu.
               </p>
             </div>
@@ -274,7 +274,7 @@ function DashboardPage() {
   asChild
   variant="outline"
   size="lg"
-  className="h-11 rounded-xl border-slate-700 bg-slate-950/60 px-4 text-slate-100 hover:bg-slate-800 hover:text-white"
+  className="h-11 rounded-xl border-[var(--app-border)] bg-[var(--app-surface)] px-4 text-[var(--app-text)] hover:bg-[var(--app-surface-strong)] hover:text-[var(--app-text)]"
 >
   <Link to="/asisten-chat">Buka Asisten Chat</Link>
 </Button>
@@ -329,5 +329,6 @@ function DashboardPage() {
 }
 
 export default DashboardPage
+
 
 

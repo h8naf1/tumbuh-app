@@ -13,7 +13,7 @@ function ProductFilterBar({
   onDeleteSelected,
 }) {
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+    <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 transition-colors duration-300 sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <SelectField
           label="Kategori"
@@ -35,7 +35,7 @@ function ProductFilterBar({
           <button
             type="button"
             onClick={onDeleteSelected}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 text-sm font-semibold text-red-300 transition hover:bg-red-500/15"
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 text-sm font-semibold text-red-400 transition hover:bg-red-500/15"
           >
             <Trash2 className="h-4 w-4" />
             Hapus {selectedCount} Produk
@@ -45,7 +45,7 @@ function ProductFilterBar({
         <button
           type="button"
           onClick={onOpenModal}
-          className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl bg-blue-500 px-5 text-sm font-semibold text-white shadow-[0_20px_40px_-24px_rgba(59,130,246,0.95)] transition hover:bg-blue-400"
+          className="inline-flex h-11 items-center justify-center gap-2 rounded-2xl bg-blue-500 px-5 text-sm font-semibold text-white shadow-[0_20px_40px_-24px_rgba(59,130,246,0.55)] transition hover:bg-blue-400"
         >
           <Plus className="h-4 w-4" />
           Tambah Produk
@@ -56,4 +56,3 @@ function ProductFilterBar({
 }
 
 export default ProductFilterBar
-

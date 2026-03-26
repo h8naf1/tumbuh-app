@@ -6,7 +6,7 @@ function InsightVelocityChart({ data }) {
 
   if (!data.length) {
     return (
-      <div className="flex h-52 items-center justify-center rounded-[20px] bg-slate-900/40 text-sm text-slate-500">
+      <div className="flex h-52 items-center justify-center rounded-[20px] bg-[var(--app-surface)]/50 text-sm text-[var(--app-text-muted)]">
         Data penjualan belum tersedia.
       </div>
     )
@@ -38,10 +38,10 @@ function InsightVelocityChart({ data }) {
 
   return (
     <div>
-      <div className="relative h-52 overflow-hidden rounded-[20px] bg-slate-800/70 px-2 py-3">
+      <div className="relative h-52 overflow-hidden rounded-[20px] bg-[var(--app-surface)]/80 px-2 py-3">
         <div className="absolute inset-x-4 inset-y-5 flex flex-col justify-between">
           {[1, 2, 3].map((line) => (
-            <div key={line} className="border-t border-slate-700/60" />
+            <div key={line} className="border-t border-[var(--app-border)]/70" />
           ))}
         </div>
 
@@ -90,7 +90,7 @@ function InsightVelocityChart({ data }) {
         </svg>
       </div>
 
-      <div className="mt-4 grid grid-cols-7 gap-1 px-1 text-[10px] font-medium uppercase tracking-[0.14em] text-slate-500">
+      <div className="mt-4 grid grid-cols-7 gap-1 px-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--app-text-muted)]">
         {data.map((item) => (
           <div key={item.day} className="text-center">
             {item.day}
@@ -129,11 +129,11 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-slate-950/75 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/45 p-4 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="flex max-h-[calc(100svh-2rem)] w-full max-w-sm flex-col overflow-hidden rounded-[30px] border border-slate-800 bg-slate-900 shadow-[0_32px_80px_rgba(15,23,42,0.65)]"
+        className="flex max-h-[calc(100svh-2rem)] w-full max-w-sm flex-col overflow-hidden rounded-[30px] border border-[var(--app-border)] bg-[var(--app-surface-strong)] shadow-[0_32px_80px_rgba(15,23,42,0.65)]"
         onClick={(event) => event.stopPropagation()}
         role="dialog"
         aria-modal="true"
@@ -144,11 +144,11 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
             <div className="max-w-[16rem]">
               <h3
                 id="business-insight-modal-title"
-                className="text-[1.75rem] font-bold leading-tight text-white"
+                className="text-[1.75rem] font-bold leading-tight text-[var(--app-text)]"
               >
                 Detail Insight
               </h3>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
+              <p className="mt-2 text-sm leading-6 text-[var(--app-text-muted)]">
                 Analisis performa penjualan dan tren terbaru untuk periode saat ini.
               </p>
             </div>
@@ -156,7 +156,7 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
             <button
               type="button"
               onClick={onClose}
-              className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-800 hover:text-slate-200"
+              className="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full text-[var(--app-text-muted)] transition hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
               aria-label="Tutup modal insight"
             >
               <X className="h-5 w-5" />
@@ -166,15 +166,15 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
           {featuredInsight ? (
             <div className="mt-6 rounded-[24px] border border-blue-500/25 bg-blue-500/10 p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
               <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-400">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-500/15 text-blue-500">
                   <TrendingUp className="h-6 w-6" />
                 </div>
 
                 <div>
-                  <p className="text-2xl font-semibold leading-tight text-blue-400">
+                  <p className="text-2xl font-semibold leading-tight text-blue-500">
                     {featuredInsight.title}
                   </p>
-                  <p className="mt-2 text-base leading-7 text-slate-300">
+                  <p className="mt-2 text-base leading-7 text-[var(--app-text-soft)]">
                     {featuredInsight.description}
                   </p>
                 </div>
@@ -183,21 +183,21 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
           ) : null}
 
           <div className="mt-8">
-            <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-500">
+            <p className="text-xs font-medium uppercase tracking-[0.24em] text-[var(--app-text-muted)]">
               Kecepatan Penjualan 7 Hari
             </p>
 
-            <div className="mt-4 rounded-[24px] border border-slate-800 bg-slate-800/70 p-4">
+            <div className="mt-4 rounded-[24px] border border-slate-800 bg-[var(--app-surface)]/80 p-4">
               <InsightVelocityChart data={chartData} />
             </div>
           </div>
         </div>
 
-        <div className="shrink-0 border-t border-slate-800 bg-slate-900/72 px-6 py-5 backdrop-blur-xl supports-backdrop-filter:bg-slate-900/55 sm:px-7">
+        <div className="shrink-0 border-t border-[var(--app-border)] bg-[var(--app-surface-strong)]/90 px-6 py-5 backdrop-blur-xl supports-backdrop-filter:bg-[var(--app-surface-strong)]/80 sm:px-7">
           <button
             type="button"
             onClick={onClose}
-            className="w-full rounded-full border border-slate-700 bg-slate-800/40 px-4 py-3 text-sm font-medium text-slate-200 transition hover:border-slate-600 hover:bg-slate-800"
+            className="w-full rounded-full border border-[var(--app-border)] bg-[var(--app-surface)]/70 px-4 py-3 text-sm font-medium text-[var(--app-text)] transition hover:bg-[var(--app-surface)]/90"
           >
             Tutup
           </button>
@@ -208,4 +208,5 @@ function AddDashboardModal({ isOpen, onClose, featuredInsight, chartData = [] })
 }
 
 export default AddDashboardModal
+
 

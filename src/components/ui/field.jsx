@@ -8,7 +8,7 @@ function FieldLabel({ className, ...props }) {
   return (
     <label
       data-slot="field-label"
-      className={cn('text-sm font-medium text-slate-200', className)}
+      className={cn('text-sm font-medium text-[var(--app-text)]', className)}
       {...props}
     />
   )

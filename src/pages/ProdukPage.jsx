@@ -267,15 +267,15 @@ function ProdukPage() {
           <ProductStats metrics={metrics} />
 
           {/* Shortcut bantuan kontekstual ke Asisten Chat. */}
-          <section className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-5">
+          <section className="rounded-2xl border border-[var(--app-border)] bg-[var(--app-surface-strong)] p-4 transition-colors duration-300 sm:p-5">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-3">
                 <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/12 text-blue-400">
                   <Bot className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="text-base font-semibold text-white">Butuh bantuan mengelola produk?</h2>
-                  <p className="mt-1 text-sm leading-6 text-slate-400">
+                  <h2 className="text-base font-semibold text-[var(--app-text)]">Butuh bantuan mengelola produk?</h2>
+                  <p className="mt-1 text-sm leading-6 text-[var(--app-text-soft)]">
                     Gunakan Asisten Chat untuk menyiapkan draft produk baru, membaca nota, atau bantu cek stok yang perlu diperbarui.
                   </p>
                 </div>
@@ -285,7 +285,7 @@ function ProdukPage() {
   asChild
   variant="outline"
   size="lg"
-  className="h-11 rounded-xl border-slate-700 bg-slate-950/60 px-4 text-slate-100 hover:bg-slate-800 hover:text-white"
+  className="h-11 rounded-xl border-[var(--app-border)] bg-[var(--app-surface)] px-4 text-[var(--app-text)] hover:bg-[var(--app-surface-strong)] hover:text-[var(--app-text)]"
 >
   <Link to="/asisten-chat">Buka Asisten Chat</Link>
 </Button>
@@ -346,3 +346,4 @@ function ProdukPage() {
 }
 
 export default ProdukPage
+

@@ -2,6 +2,7 @@ import { Component, StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import AppErrorState from './components/AppErrorState.jsx'
+import { ThemeProvider } from './components/theme/ThemeProvider.jsx'
 import './index.css'
 
 class RootErrorBoundary extends Component {
@@ -76,7 +77,7 @@ function AppLoader() {
 
   if (!AppComponent) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-200">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--app-shell-bg)] text-[var(--app-text)]">
         Memuat aplikasi...
       </div>
     )
@@ -85,17 +86,14 @@ function AppLoader() {
   return <AppComponent />
 }
 
-// Bootstrap utama aplikasi React.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* Wrapper tema global aplikasi. */}
-    <div data-theme="tumbuh">
-      {/* Router utama untuk semua halaman. */}
+    <ThemeProvider>
       <RootErrorBoundary>
         <BrowserRouter>
           <AppLoader />
         </BrowserRouter>
       </RootErrorBoundary>
-    </div>
+    </ThemeProvider>
   </StrictMode>,
 )

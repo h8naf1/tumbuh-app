@@ -1,24 +1,33 @@
+import tentangCard01 from '../../assets/elements/tentang/01.svg'
+import tentangCard02 from '../../assets/elements/tentang/02.svg'
+import tentangCard03 from '../../assets/elements/tentang/03.svg'
+import tentangCard04 from '../../assets/elements/tentang/04.svg'
+
 function AboutSection() {
   const targetUsers = [
     {
       title: 'Pemilik Usaha Kecil',
       description:
         'Pelaku UMKM yang ingin mencatat penjualan dan melihat perkembangan usaha mereka dengan lebih mudah.',
+      image: tentangCard01,
     },
     {
       title: 'Usaha Rumahan',
       description:
         'Bisnis skala kecil yang membutuhkan cara sederhana untuk mengelola transaksi dan produk.',
+      image: tentangCard02,
     },
     {
       title: 'Penjual Makanan dan Minuman',
       description:
         'Pedagang yang melakukan banyak transaksi setiap hari dan membutuhkan pencatatan yang lebih rapi.',
+      image: tentangCard03,
     },
     {
       title: 'Pengguna Non-Teknis',
       description:
         'TUMBUH dirancang agar mudah digunakan bahkan bagi pengguna yang tidak terbiasa dengan teknologi.',
+      image: tentangCard04,
     },
   ]
 
@@ -65,6 +74,14 @@ function AboutSection() {
                 key={item.title}
                 className="rounded-[1.55rem] border border-slate-800 bg-slate-900/80 p-5 shadow-[0_18px_40px_-30px_rgba(2,6,23,0.65)] transition duration-300 hover:-translate-y-1 hover:border-blue-500/40 hover:shadow-[0_28px_60px_-34px_rgba(37,99,235,0.22)]"
               >
+                <div className="mb-5 overflow-hidden rounded-[1.25rem] border border-slate-800 bg-slate-950/70 p-3">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="h-32 w-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
                 <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-blue-500/10 text-sm font-bold text-blue-300">
                   0{index + 1}
                 </div>
@@ -86,14 +103,3 @@ function AboutSection() {
 }
 
 export default AboutSection
-
-
-
-
-
-
-
-
-
-
-

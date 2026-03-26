@@ -37,7 +37,7 @@ function DashboardSidebar({
   isMobileDrawer = false,
 }) {
   return (
-    <div className="flex min-h-full flex-col bg-slate-900">
+    <div className="flex min-h-full flex-col bg-[var(--app-surface-strong)] text-[var(--app-text)] transition-colors duration-300">
       <div className="px-5 py-5 lg:px-6 lg:py-7">
         <div className="relative mx-auto flex w-full max-w-[220px] items-center justify-center">
           <BrandLogo className="h-14 w-full max-w-[170px] lg:h-16 lg:max-w-[180px]" />
@@ -46,7 +46,7 @@ function DashboardSidebar({
             <button
               type="button"
               onClick={onCloseDrawer}
-              className="absolute right-0 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-800 text-slate-300 transition hover:bg-slate-800 hover:text-white"
+              className="absolute right-0 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--app-border)] text-[var(--app-text-soft)] transition hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
               aria-label="Tutup menu"
             >
               <X className="h-5 w-5" />
@@ -62,14 +62,14 @@ function DashboardSidebar({
             const itemClassName = ({ isActive } = {}) =>
               `flex min-h-[50px] w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-medium transition ${
                 isActive
-                  ? 'bg-blue-500/15 text-blue-400 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.12)]'
-                  : 'text-slate-400 hover:bg-slate-800/80 hover:text-slate-100'
+                  ? 'bg-blue-500/15 text-blue-500 shadow-[inset_0_0_0_1px_rgba(59,130,246,0.12)]'
+                  : 'text-[var(--app-text-soft)] hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]'
               }`
 
             return (
               <div
                 key={item.id}
-                className={item.isSeparated ? 'mt-5 border-t border-slate-800 pt-5' : ''}
+                className={item.isSeparated ? 'mt-5 border-t border-[var(--app-border)] pt-5' : ''}
               >
                 {item.href ? (
                   <NavLink
@@ -96,7 +96,7 @@ function DashboardSidebar({
         </div>
       </div>
 
-      <div className="border-t border-slate-800 px-4 py-5 lg:px-5">
+      <div className="border-t border-[var(--app-border)] px-4 py-5 lg:px-5">
         <div className="mx-auto w-full max-w-[220px]">
           <div className="flex items-center gap-3 rounded-xl px-3 py-2">
             {userProfile.avatar ? (
@@ -112,10 +112,10 @@ function DashboardSidebar({
             )}
 
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-semibold text-slate-100">
+              <p className="truncate text-sm font-semibold text-[var(--app-text)]">
                 {userProfile.name}
               </p>
-              <p className="truncate text-xs text-slate-500">
+              <p className="truncate text-xs text-[var(--app-text-muted)]">
                 {userProfile.role}
               </p>
             </div>
@@ -124,7 +124,7 @@ function DashboardSidebar({
           <NavLink
             to="/"
             onClick={onNavigate}
-            className="group mt-4 inline-flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-slate-400/85 transition duration-200 hover:bg-slate-800/60 hover:text-slate-100"
+            className="group mt-4 inline-flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-[var(--app-text-soft)] transition duration-200 hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]"
           >
             <ArrowLeft className="h-4 w-4 shrink-0 transition duration-200 group-hover:-translate-x-0.5" />
             <span className="truncate">Lihat Halaman Utama</span>
@@ -136,4 +136,3 @@ function DashboardSidebar({
 }
 
 export default DashboardSidebar
-
