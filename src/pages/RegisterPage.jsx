@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
 import { FaFacebookF } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { FiEye, FiEyeOff } from 'react-icons/fi'
@@ -17,6 +18,7 @@ function RegisterPage() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false)
   const { toastMessage, clearToast, showFirstFormError } = useFormToast()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -54,6 +56,11 @@ function RegisterPage() {
     setIsConfirmPasswordVisible(!isConfirmPasswordVisible)
   }
 
+  // Alur demo untuk simulasi tanpa isi data.
+  function handleDemoAccess() {
+    navigate('/dashboard')
+  }
+
   // Function untuk submit form register.
   function handleRegisterFormSubmit(data) {
     clearToast()
@@ -65,6 +72,8 @@ function RegisterPage() {
       confirmPassword: data.confirmPassword,
       termsAccepted: data.termsAccepted,
     })
+
+    navigate('/dashboard')
   }
 
   // Function untuk menampilkan error form.
@@ -87,6 +96,27 @@ function RegisterPage() {
             Mulai kelola penjualan, analitik bisnis, dan insight AI untuk UMKM Anda
             dalam satu dashboard.
           </p>
+        </div>
+
+        {/* Shortcut demo agar flow hero -> register -> dashboard tetap terasa natural. */}
+        <div className="mt-5 rounded-2xl border border-blue-500/20 bg-blue-500/10 p-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-semibold text-white">Ingin langsung mencoba?</p>
+              <p className="mt-1 text-sm leading-6 text-slate-300">
+                Untuk demo, Anda bisa langsung masuk ke dashboard tanpa mengisi formulir terlebih dahulu.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              onClick={handleDemoAccess}
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-blue-400/30 bg-slate-950/60 px-4 py-3 text-sm font-semibold text-blue-100 transition hover:bg-slate-800"
+            >
+              Coba Demo
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         {/* Form register utama. */}
@@ -233,7 +263,7 @@ function RegisterPage() {
             )}
           </div>
 
-          <Button type="submit" className="w-full py-3.5 text-base" disabled={isSubmitting}>
+          <Button type="submit" className="h-12 w-full text-base font-semibold" disabled={isSubmitting}>
             Daftar
           </Button>
         </form>
