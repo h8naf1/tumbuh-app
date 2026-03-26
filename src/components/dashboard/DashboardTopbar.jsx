@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Bell, CircleUserRound, LogOut, Settings } from 'lucide-react'
+import { Bell, CircleUserRound, LogOut, Menu, Settings } from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import { dashboardNotifications } from '../../data/dashboardData.js'
 
@@ -10,8 +10,8 @@ function DashboardTopbar({
   showGreeting = !title,
   showProfileButton = true,
   profileHref = '/pengaturan/account',
+  onMenuToggle,
 }) {
-  // State utama untuk panel notifikasi dan menu profil.
   const [isNotificationOpen, setIsNotificationOpen] = useState(false)
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false)
   const [notifications, setNotifications] = useState(dashboardNotifications)
@@ -19,7 +19,6 @@ function DashboardTopbar({
   const profileMenuRef = useRef(null)
   const navigate = useNavigate()
 
-  // Effect untuk menutup panel saat klik luar atau tekan Escape.
   useEffect(() => {
     const handlePointerDown = (event) => {
       if (!notificationRef.current?.contains(event.target)) {
@@ -47,13 +46,11 @@ function DashboardTopbar({
     }
   }, [])
 
-  // Jumlah notifikasi yang masih belum dibaca.
   const unreadCount = useMemo(
     () => notifications.filter((item) => item.isUnread).length,
     [notifications],
   )
 
-  // Handler notifikasi dan profil.
   const handleMarkAllAsRead = () => {
     setNotifications((currentNotifications) =>
       currentNotifications.map((item) => ({
@@ -79,25 +76,46 @@ function DashboardTopbar({
   }
 
   return (
-    <div className="flex flex-col gap-3 px-4 py-4 sm:px-5 lg:flex-row lg:items-center lg:justify-between lg:gap-5 lg:px-6">
-      {/* Judul halaman atau sapaan dashboard. */}
-      <div>
-        {showGreeting ? (
-          <p className="text-sm font-semibold text-slate-100 sm:text-base lg:text-lg">
-            Selamat datang, <span className="text-blue-500">{ownerLabel}</span>
-          </p>
-        ) : (
-          <div>
-            <h1 className="text-lg font-bold text-white sm:text-xl xl:text-2xl">{title}</h1>
-            {subtitle ? (
-              <p className="mt-1 text-sm text-slate-400">{subtitle}</p>
-            ) : null}
-          </div>
-        )}
+    <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-5 sm:py-4 lg:min-h-[84px] lg:px-6">
+      <div className="flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
+        <button
+          type="button"
+          onClick={onMenuToggle}
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-slate-800 bg-slate-900/70 text-slate-300 transition hover:bg-slate-800 hover:text-white lg:hidden"
+          aria-label="Buka menu navigasi"
+        >
+          <Menu className="h-5 w-5" />
+        </button>
+
+        <div className="min-w-0 flex-1">
+          {showGreeting ? (
+            <>
+              <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-slate-500 sm:hidden">
+                Selamat datang
+              </p>
+              <div className="mt-0.5 min-w-0 sm:mt-0">
+                <p className="truncate text-sm font-semibold text-slate-100 sm:text-base lg:text-[1.05rem] xl:text-lg">
+                  <span className="hidden sm:inline text-slate-300">Selamat datang, </span>
+                  <span className="text-blue-500">{ownerLabel}</span>
+                </p>
+              </div>
+            </>
+          ) : (
+            <div className="min-w-0">
+              <h1 className="truncate text-base font-bold text-white sm:text-xl xl:text-2xl">
+                {title}
+              </h1>
+              {subtitle ? (
+                <p className="mt-1 hidden text-sm leading-6 text-slate-400 sm:block lg:max-w-[760px]">
+                  {subtitle}
+                </p>
+              ) : null}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Tombol utilitas header. */}
-      <div className="flex items-center justify-end gap-3 sm:gap-4">
+      <div className="flex shrink-0 items-center gap-2">
         <div ref={notificationRef} className="relative">
           <button
             type="button"
@@ -109,7 +127,7 @@ function DashboardTopbar({
           >
             <Bell className="h-5 w-5" />
             {unreadCount > 0 ? (
-              <span className="absolute right-2 top-2 flex h-4 min-w-4 items-center justify-center rounded-full border-2 border-slate-900 bg-red-500 px-1 text-[10px] font-semibold text-white">
+              <span className="absolute right-1.5 top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full border-2 border-slate-900 bg-red-500 px-1 text-[10px] font-semibold text-white">
                 {unreadCount}
               </span>
             ) : null}
