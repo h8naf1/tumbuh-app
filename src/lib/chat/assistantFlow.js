@@ -36,7 +36,7 @@ export const conversationModes = {
     },
     composerLabel: 'Mode scan aktif',
     composerHint:
-      'Setelah hasil scan dipilih, Anda bisa melanjutkan dengan instruksi seperti "jadi 2 item" atau "tambah 1 brownies".',
+      'Setelah hasil scan dipilih, Anda bisa melanjutkan dengan instruksi seperti "jadi 2 item" atau "tambah 1 latte".',
   },
 }
 
@@ -236,7 +236,7 @@ function createTransactionFlowResult(chatDraft) {
         'Saya menangkap instruksi transaksi dari percakapan dan mengubahnya menjadi draft yang siap Anda cek sebelum disimpan.',
     },
     draft: chatDraft,
-    assistantText: `Siap, saya tangkap ${itemSummary}. Saya buatkan draft transaksi di bawah dulu supaya Anda bisa cek dengan cepat.\n\nKalau ada yang mau diubah, cukup bilang seperti "hapus brownies" atau "jadi 3 item".`,
+    assistantText: `Siap, saya tangkap ${itemSummary}. Saya buatkan draft transaksi di bawah dulu supaya Anda bisa cek dengan cepat.\n\nKalau ada yang mau diubah, cukup bilang seperti "hapus cappuccino" atau "jadi 3 item".`,
   }
 }
 
@@ -356,7 +356,7 @@ function createUnknownFlowResult() {
     mode: 'chat',
     context: conversationModes.chat.context,
     assistantText:
-      'Bisa, saya bantu. Supaya arahnya pas, Anda bisa mulai dari salah satu ini: "analisa bisnis saya", "cek stok hari ini", "ringkasan penjualan", atau "jual 2 kopi susu dan 1 brownies".\n\nAnda mau mulai dari insight bisnis atau draft transaksi?',
+      'Bisa, saya bantu. Supaya arahnya pas, Anda bisa mulai dari salah satu ini: "analisa bisnis saya", "cek stok hari ini", "ringkasan penjualan", atau "jual 2 kopi susu dan 1 latte".\n\nAnda mau mulai dari insight bisnis atau draft transaksi?',
   }
 }
 
@@ -423,3 +423,4 @@ export function createScannerFlowResult(product) {
     assistantText: `Barcode ${product.barcode} terbaca untuk ${product.name}. Saya sudah siapkan draft transaksinya di bawah. Silakan cek dulu, lalu lanjutkan jika sudah sesuai.`,
   }
 }
+

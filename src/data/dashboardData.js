@@ -12,8 +12,8 @@ export const dashboardSidebarItems = [
 
 // Data profil user yang tampil di sidebar.
 export const dashboardUserProfile = {
-  name: 'Admin Tumbuh',
-  role: 'admin@tumbuh.id',
+  name: 'Raihan',
+  role: 'iamheroes276@gmail.com',
   avatar: '',
 }
 
@@ -33,7 +33,7 @@ export const dashboardSummaryCards = [
   },
   {
     id: 'products-sold',
-    title: 'Produk Terjual',
+    title: 'Cangkir Terjual',
     value: '1,200',
     trend: '+12% bulan ini',
   },
@@ -41,17 +41,15 @@ export const dashboardSummaryCards = [
     id: 'business-growth',
     title: 'Pertumbuhan',
     value: '+18%',
-    trend: 'Meningkat signifikan',
+    trend: 'Cafe makin stabil',
   },
 ]
 
-// Data tab chart lama yang masih bisa dipakai jika diperlukan lagi.
 export const salesChartTabs = [
   { id: 'weekly', label: 'Minggu', isActive: true },
   { id: 'monthly', label: 'Bulan', isActive: false },
 ]
 
-// Data dasar pola penjualan untuk visual chart.
 export const salesChartData = [
   { day: 'Sen', amount: 18 },
   { day: 'Sel', amount: 28 },
@@ -66,16 +64,16 @@ export const salesChartData = [
 export const dashboardInsights = [
   {
     id: 'sales-up',
-    title: 'Penjualan meningkat 18%',
+    title: 'Penjualan cafe meningkat 18%',
     description:
-      'Peningkatan signifikan terjadi di akhir pekan ini dibandingkan minggu lalu.',
+      'Peningkatan transaksi paling terasa pada jam makan siang dan sore hari minggu ini.',
     tone: 'success',
   },
   {
     id: 'best-product',
     title: 'Kopi Susu Gula Aren paling diminati',
     description:
-      'Menu ini berkontribusi besar terhadap penjualan hari ini. Pastikan stok susu dan gula aren tetap aman.',
+      'Menu andalan Kopi Nusantara masih jadi penyumbang penjualan terbesar hari ini. Pastikan stok susu dan gula aren aman.',
     tone: 'info',
   },
 ]
@@ -84,15 +82,15 @@ export const dashboardInsights = [
 export const dashboardNotifications = [
   {
     id: 'notif-1',
-    title: 'Stok croissant mulai menipis',
-    description: 'Sisa stok Roti Croissant Butter tinggal sedikit. Sebaiknya segera restock hari ini.',
+    title: 'Stok Cappuccino mulai menipis',
+    description: 'Bahan untuk menu Cappuccino tinggal sedikit. Sebaiknya jadwalkan restock hari ini.',
     time: '5 menit lalu',
     isUnread: true,
   },
   {
     id: 'notif-2',
-    title: 'Kopi Butterscotch sedang naik',
-    description: 'Penjualan menu ini meningkat dibandingkan hari sebelumnya.',
+    title: 'Latte ramai dipesan siang ini',
+    description: 'Pesanan Latte meningkat dibandingkan hari sebelumnya pada jam makan siang.',
     time: '18 menit lalu',
     isUnread: true,
   },
@@ -105,10 +103,8 @@ export const dashboardNotifications = [
   },
 ]
 
-// Data transaksi terbaru untuk dashboard dan laporan.
 export const latestTransactions = latestTransactionRecords
 
-// Mapping style badge status transaksi.
 export const transactionStatusStyles = {
   Selesai: {
     badgeClassName:
@@ -120,5 +116,4 @@ export const transactionStatusStyles = {
       'bg-rose-500/10 text-rose-400 outline-rose-500/20',
   },
 }
-
 

@@ -4,7 +4,7 @@ import { formatRupiah } from '../lib/formatters.js'
 const transactionSeeds = [
   {
     id: 'TRX-9101',
-    productId: 'product-1',
+    productId: 'product-3',
     customerName: 'Dina',
     date: '23 Mar 2026, 09:15',
     paymentMethod: 'QRIS',
@@ -13,7 +13,7 @@ const transactionSeeds = [
   },
   {
     id: 'TRX-9102',
-    productId: 'product-2',
+    productId: 'product-1',
     customerName: 'Raka',
     date: '23 Mar 2026, 10:02',
     paymentMethod: 'Tunai',
@@ -22,16 +22,16 @@ const transactionSeeds = [
   },
   {
     id: 'TRX-9103',
-    productId: 'product-4',
+    productId: 'product-2',
     customerName: 'Nadia',
     date: '23 Mar 2026, 11:20',
     paymentMethod: 'QRIS',
-    quantity: 3,
+    quantity: 2,
     status: 'Selesai',
   },
   {
     id: 'TRX-9104',
-    productId: 'product-3',
+    productId: 'product-1',
     customerName: 'Bayu',
     date: '23 Mar 2026, 12:10',
     paymentMethod: 'Transfer',
@@ -40,7 +40,7 @@ const transactionSeeds = [
   },
   {
     id: 'TRX-9105',
-    productId: 'product-1',
+    productId: 'product-3',
     customerName: 'Salsa',
     date: '23 Mar 2026, 13:45',
     paymentMethod: 'QRIS',
@@ -49,11 +49,11 @@ const transactionSeeds = [
   },
   {
     id: 'TRX-9106',
-    productId: 'product-4',
+    productId: 'product-2',
     customerName: 'Yoga',
     date: '23 Mar 2026, 15:05',
     paymentMethod: 'Tunai',
-    quantity: 2,
+    quantity: 1,
     status: 'Dibatalkan',
   },
 ]

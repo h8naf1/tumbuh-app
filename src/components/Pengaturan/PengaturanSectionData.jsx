@@ -29,9 +29,9 @@ const pengaturanSections = [
         title: 'Profil Pengguna',
         description: 'Data utama pemilik akun TUMBUH.',
         fields: [
-          { id: 'fullName', label: 'Nama Lengkap', type: 'text', value: 'Admin Tumbuh' },
-          { id: 'email', label: 'Email', type: 'email', value: 'admin@tumbuh.id' },
-          { id: 'phone', label: 'Nomor WhatsApp', type: 'tel', value: '0812-3456-7890' },
+          { id: 'fullName', label: 'Nama Lengkap', type: 'text', value: 'Raihan' },
+          { id: 'email', label: 'Email', type: 'email', value: 'iamheroes276@gmail.com' },
+          { id: 'phone', label: 'Nomor WhatsApp', type: 'tel', value: '082133306042' },
         ],
       },
     ],
@@ -57,10 +57,10 @@ const pengaturanSections = [
         title: 'Informasi Usaha',
         description: 'Data dasar usaha Anda.',
         fields: [
-          { id: 'businessName', label: 'Nama Usaha', type: 'text', value: 'Kopi Pagi Tumbuh' },
-          { id: 'ownerName', label: 'Nama Pemilik', type: 'text', value: 'Andi Pratama' },
-          { id: 'businessPhone', label: 'Nomor Telepon Usaha', type: 'tel', value: '0274-123456' },
-          { id: 'businessAddress', label: 'Alamat', type: 'textarea', value: 'Jl. Malioboro No. 12, Yogyakarta' },
+          { id: 'businessName', label: 'Nama Usaha', type: 'text', value: 'Kopi Nusantara' },
+          { id: 'ownerName', label: 'Nama Pemilik', type: 'text', value: 'Raihan' },
+          { id: 'businessPhone', label: 'Nomor Telepon Usaha', type: 'tel', value: '082133306042' },
+          { id: 'businessAddress', label: 'Alamat', type: 'textarea', value: 'Klaten, Jawa Tengah, Indonesia' },
         ],
       },
     ],
@@ -202,3 +202,6 @@ const pengaturanSections = [
 ]
 
 export default pengaturanSections
+
+
+

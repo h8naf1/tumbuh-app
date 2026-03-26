@@ -1,7 +1,7 @@
 export const salesCatalog = [
-  { keyword: 'kopi susu', name: 'Kopi Susu Gula Aren', price: 18000 },
-  { keyword: 'brownies', name: 'Brownies Cokelat', price: 15000 },
-  { keyword: 'americano', name: 'Americano Ice', price: 20000 },
+  { keyword: 'latte', name: 'Latte', price: 22000 },
+  { keyword: 'cappuccino', name: 'Cappuccino', price: 23000 },
+  { keyword: 'kopi susu', name: 'Kopi Susu Gula Aren', price: 24000 },
 ]
 
 function calculateDraftTotal(items = []) {
@@ -95,7 +95,7 @@ export function buildDraftFromAttachment(fileName = 'dokumen') {
     title: 'Draft hasil upload nota',
     items: [
       {
-        name: 'Bahan baku dari nota',
+        name: 'Bahan baku cafe dari nota',
         quantity: 1,
         price: 125000,
         total: 125000,

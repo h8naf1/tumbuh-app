@@ -1,7 +1,7 @@
 export const roadmapBusinessProfile = {
   name: 'Kopi Nusantara',
-  type: 'Coffee Shop',
-  mainProducts: ['Latte', 'Cappuccino'],
+  type: 'Cafe',
+  mainProducts: ['Latte', 'Cappuccino', 'Kopi Susu Gula Aren'],
 }
 
 export const roadmapProgress = {
@@ -376,3 +376,4 @@ export const roadmapFeedbackCard = {
     'Roadmap TUMBUH berkembang dari kebutuhan pengguna. Beri tahu kami fitur apa yang paling membantu bisnis Anda bertumbuh.',
   buttonLabel: 'Submit Feedback',
 }
+
