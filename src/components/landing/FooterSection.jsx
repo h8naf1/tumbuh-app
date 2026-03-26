@@ -1,40 +1,31 @@
 import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react'
-import { Link } from 'react-router-dom'
 
 const menuItems = [
   { label: 'Beranda', href: '#home' },
   { label: 'Tentang', href: '#about' },
   { label: 'Fitur', href: '#features' },
-  { label: 'Preview', href: '#dashboard' },
+  { label: 'Dashboard', href: '#dashboard' },
   { label: 'Kontak', href: '#contact' },
-]
-
-const companyItems = [
-  { label: 'Dashboard', href: '/dashboard' },
-  { label: 'Produk', href: '/produk' },
-  { label: 'Asisten Chat', href: '/asisten-chat' },
-  { label: 'Transaksi', href: '/transaksi' },
-  { label: 'Pengaturan', href: '/pengaturan' },
 ]
 
 const contactItems = [
   {
     label: 'EMAIL',
-    value: 'halo@tumbuh.id',
-    href: 'mailto:halo@tumbuh.id',
+    value: 'iamheroes276@gmail.com',
+    href: 'mailto:iamheroes276@gmail.com',
     icon: Mail,
   },
   {
     label: 'TELEPON',
-    value: '+62 812-3456-7890',
-    href: 'https://wa.me/6281234567890',
+    value: '082133306042',
+    href: 'https://wa.me/6282133306042',
     icon: Phone,
     isExternal: true,
   },
   {
     label: 'LOKASI',
-    value: 'Yogyakarta, Indonesia',
-    href: 'https://www.google.com/maps/search/?api=1&query=Yogyakarta,Indonesia',
+    value: 'Klaten, Jawa Tengah, Indonesia',
+    href: 'https://www.google.com/maps/search/?api=1&query=Klaten,Jawa%20Tengah,Indonesia',
     icon: MapPin,
     isExternal: true,
   },
@@ -70,7 +61,7 @@ function FooterSection() {
   return (
     <footer className="bg-slate-900 px-5 pb-12 pt-16 sm:px-6 sm:pt-20 lg:pt-20">
       <div className="mx-auto max-w-280">
-        <div className="grid gap-8 pb-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(180px,0.78fr)_minmax(180px,0.78fr)_minmax(240px,1fr)] lg:gap-7">
+        <div className="grid gap-8 pb-10 lg:grid-cols-[minmax(0,1.2fr)_minmax(180px,0.8fr)_minmax(260px,1fr)] lg:gap-8">
           <div className="max-w-sm">
             <a href="#home" className="inline-flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1e293b_0%,#2563eb_100%)] text-sm font-black tracking-[0.16em] text-white shadow-[0_14px_30px_-16px_rgba(37,99,235,0.8)]">
@@ -107,23 +98,6 @@ function FooterSection() {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-[0.24em] text-white">
-              Pages
-            </h3>
-            <div className="mt-6 space-y-3">
-              {companyItems.map((item) => (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className="block text-sm text-slate-400 transition hover:text-white"
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-
           <section>
             <h3 className="text-sm font-bold uppercase tracking-[0.24em] text-white">
               Kontak Kami
@@ -150,4 +124,3 @@ function FooterSection() {
 }
 
 export default FooterSection
-

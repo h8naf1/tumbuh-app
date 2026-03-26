@@ -288,7 +288,7 @@ function MainNavbar() {
               type="button"
               onClick={() => setIsMobileOpen((value) => !value)}
               className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-800 text-slate-200 min-[1066px]:hidden"
-              aria-label="Toggle navigation"
+              aria-label="Buka navigasi"
             >
               <span className="relative h-4 w-5">
                 <span
@@ -350,7 +350,7 @@ function MainNavbar() {
                                 ? 'text-white'
                                 : 'text-slate-400 hover:text-white'
                             }`}
-                            aria-label="Toggle submenu Tentang"
+                            aria-label="Buka submenu Tentang"
                             aria-expanded={isAboutMobileOpen}
                           >
                             <ChevronDown
