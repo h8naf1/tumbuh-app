@@ -69,7 +69,7 @@ function ContactItem({ icon: Icon, label, value, href, isExternal = false }) {
 function FooterSection() {
   return (
     <footer className="bg-slate-900 px-5 pb-12 pt-16 sm:px-6 sm:pt-20 lg:pt-20">
-      <div className="mx-auto max-w-[1120px]">
+      <div className="mx-auto max-w-280">
         <div className="grid gap-8 pb-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(180px,0.78fr)_minmax(180px,0.78fr)_minmax(240px,1fr)] lg:gap-7">
           <div className="max-w-sm">
             <a href="#home" className="inline-flex items-center gap-3">

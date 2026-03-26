@@ -1,12 +1,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import DarkVeil from '../DarkVeil'
 import TextType from './TextType.jsx'
 
 function HomeSection() {
-  
   const [isMobileView, setIsMobileView] = useState(false)
 
   // Ref animasi untuk setiap blok utama hero.
@@ -120,7 +119,7 @@ function HomeSection() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex min-h-screen short-screen-safe scroll-mt-28 items-center overflow-hidden bg-slate-950 px-5 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 lg:min-h-svh lg:pb-20 lg:pt-36"
+      className="relative flex min-h-screen scroll-mt-28 items-center overflow-hidden bg-slate-950 px-5 pt-32 pb-16 sm:px-6 sm:pt-36 sm:pb-18 lg:h-screen lg:min-h-screen lg:pt-28 lg:pb-12"
     >
       <div className="absolute inset-0 z-0">
         {isMobileView ? (
@@ -138,9 +137,8 @@ function HomeSection() {
         )}
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-280 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.86fr)] xl:gap-14">
-        {/* Blok utama pesan hero dan CTA. */}
-        <div className="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-152.5 lg:text-left">
+      <div className="relative z-10 mx-auto grid w-full max-w-280 items-center gap-10 lg:grid-cols-[minmax(0,0.96fr)_minmax(0,1.04fr)] lg:items-center lg:gap-8 xl:gap-10">
+        <div className="mx-auto max-w-xl self-center text-center lg:mx-0 lg:max-w-152 lg:self-center lg:text-left">
           <div
             ref={eyebrowRef}
             className="inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200"
@@ -150,9 +148,9 @@ function HomeSection() {
 
           <h1
             ref={headingRef}
-            className="mt-6 text-[2.65rem] font-black leading-[1.02] text-white sm:text-[3.45rem] xl:text-[4.2rem]"
+            className="mt-6 text-[2.5rem] font-black leading-[1.02] text-white sm:text-[3.2rem] xl:text-[4rem]"
           >
-            Catat penjualan, pantau stok, dan pahami usaha Anda dalam satu alur bersama
+            Kelola usaha lebih mudah bersama
             <span className="text-cyan-300 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)]">
               <br />
               <TextType
@@ -168,7 +166,7 @@ function HomeSection() {
 
           <p
             ref={descriptionRef}
-            className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-200 sm:text-[1.02rem]"
+            className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-200 sm:text-[1rem]"
           >
             TUMBUH membantu pelaku UMKM mengelola transaksi, produk, dan insight usaha dengan cara yang sederhana, rapi, dan mudah dipahami setiap hari.
           </p>
@@ -188,7 +186,6 @@ function HomeSection() {
             </span>
           </div>
 
-          {/* CTA utama dibuat lebih fokus. */}
           <div
             ref={ctaGroupRef}
             className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start"
@@ -209,58 +206,19 @@ function HomeSection() {
           </div>
         </div>
 
-        {/* Preview produk dibuat lebih dekat dengan kemampuan TUMBUH saat ini. */}
         <div
           ref={previewRef}
-          className="relative mx-auto w-full max-w-100 lg:max-w-120"
+          className="relative mx-auto mt-6 w-full max-w-lg self-center sm:max-w-152 lg:-translate-y-3 lg:mt-0 lg:max-w-180 lg:self-center lg:justify-self-end lg:translate-x-8 xl:-translate-y-4 xl:max-w-200 xl:translate-x-14"
         >
-          <div className="absolute -left-5 top-10 h-24 w-24 rounded-full bg-blue-500/20 blur-3xl" />
-          <div className="absolute -right-5 bottom-10 h-32 w-32 rounded-full bg-cyan-400/15 blur-3xl" />
+          <div className="absolute -left-6 top-12 h-24 w-24 rounded-full bg-blue-500/20 blur-3xl sm:h-28 sm:w-28 lg:-left-8 lg:h-32 lg:w-32" />
+          <div className="absolute -right-6 bottom-6 h-28 w-28 rounded-full bg-cyan-400/15 blur-3xl sm:h-32 sm:w-32 lg:-right-8 lg:bottom-8 lg:h-36 lg:w-36" />
 
-          <div className="relative overflow-hidden rounded-[2rem] border border-slate-800 bg-[linear-gradient(160deg,rgba(15,23,42,0.92)_0%,rgba(2,6,23,0.98)_100%)] p-3 shadow-[0_30px_80px_-34px_rgba(2,6,23,0.75)] backdrop-blur-sm">
-            <div className="rounded-[1.6rem] border border-slate-800 bg-[linear-gradient(180deg,rgba(15,23,42,0.95)_0%,rgba(2,6,23,0.98)_100%)] p-5">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-[0.24em] text-blue-300">
-                    Ringkasan Hari Ini
-                  </p>
-                  <h2 className="mt-2 text-2xl font-black text-white">
-                    Kontrol usaha lebih cepat
-                  </h2>
-                </div>
-                <div className="rounded-full border border-blue-400/20 bg-blue-400/10 px-3 py-1 text-xs font-semibold text-blue-300">
-                  Aktif
-                </div>
-              </div>
-
-              <div className="mt-6 grid gap-3">
-                <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                  <p className="text-sm text-slate-400">Penjualan tercatat hari ini</p>
-                  <p className="mt-1 text-2xl font-bold text-white">128 transaksi</p>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Asisten Chat membantu</p>
-                    <p className="mt-1 text-xl font-bold text-white">Draft stok & transaksi</p>
-                  </div>
-                  <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
-                    <p className="text-sm text-slate-400">Scan dan nota</p>
-                    <p className="mt-1 text-xl font-bold text-white">Lebih cepat diproses</p>
-                  </div>
-                </div>
-
-                <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-4">
-                  <p className="text-xs font-semibold uppercase tracking-[0.2em] text-blue-300">
-                    Insight singkat
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-slate-200">
-                    Produk minuman dingin meningkat dalam 7 hari terakhir. Tambah stok sebelum jam siang agar penjualan tidak terlewat.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <img
+            src="/img/mockup hero section.svg"
+            alt="Mockup dashboard dan mobile TUMBUH"
+            className="relative z-10 block h-auto max-h-[60vh] w-full object-contain drop-shadow-[0_26px_80px_rgba(2,6,23,0.5)] lg:max-h-[66vh]"
+            loading="eager"
+          />
         </div>
       </div>
     </section>
@@ -268,4 +226,5 @@ function HomeSection() {
 }
 
 export default HomeSection
+
 

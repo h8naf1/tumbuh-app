@@ -49,8 +49,8 @@ function FeaturesSection() {
       id="features"
       className="relative scroll-mt-28 bg-slate-900 px-5 py-18 sm:px-6 sm:py-22"
     >
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
-      <div className="mx-auto w-full max-w-[1120px]">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-blue-500/30 to-transparent" />
+      <div className="mx-auto w-full max-w-280">
         <div className="mb-10 max-w-3xl text-center lg:mb-12 lg:text-left">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.24em] text-blue-300">
             Fitur Inti TUMBUH
