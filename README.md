@@ -1,6 +1,6 @@
 # TUMBUH
 
-**TUMBUH � Aplikasi Pengelolaan Usaha Berbasis AI untuk UMKM yang Mudah**
+**TUMBUH � Aplikasi Pengelolaan Usaha Berbasis AI untuk UMKM dengan Mudah**
 
 ## Deskripsi Singkat
 
