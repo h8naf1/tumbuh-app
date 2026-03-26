@@ -1,4 +1,5 @@
 import MagicBento from '../MagicBento'
+import roadmapImg from '../../assets/elements/roadmap.png'
 import assistenChatImg from '../../assets/elements/assistenchat.png'
 import transaksiImg from '../../assets/elements/transaksi.png'
 import daftarProdukImg from '../../assets/elements/daftarproduk.png'
@@ -7,40 +8,59 @@ import dashboardPageImg from '../../assets/elements/Dashboardpage.png'
 function FeaturesSection() {
   const featureCards = [
     {
+      title: 'Roadmap pertumbuhan usaha yang lebih terarah',
+      description:
+        'Lihat langkah perkembangan bisnis secara lebih terstruktur, dari prioritas operasional harian sampai peluang ekspansi berikutnya, agar usaha TUMBUH dengan ritme yang lebih jelas.',
+      badge: '01',
+      image: roadmapImg,
+      imageAlt: 'Tampilan roadmap pertumbuhan bisnis TUMBUH',
+      imageClassName: 'h-full w-full object-cover object-center',
+      mediaGlowClassName: 'from-indigo-500/30 via-cyan-400/18 to-transparent',
+      flowClassName: 'from-cyan-300/90 to-transparent',
+    },
+    {
       title: 'Asisten Chat untuk operasional harian',
       description:
         'Gunakan AI chat untuk membantu mencatat penjualan, menyiapkan draft transaksi, dan memandu pekerjaan usaha sehari-hari dengan bahasa yang natural.',
-      badge: '01',
+      badge: '02',
       image: assistenChatImg,
       imageAlt: 'Tampilan asisten chat TUMBUH',
-      imageClassName: 'right-[-5%] top-[-8%] w-[460px]',
+      imageClassName: 'h-full w-full object-cover object-top',
+      mediaGlowClassName: 'from-sky-500/28 via-cyan-400/16 to-transparent',
+      flowClassName: 'from-sky-300/85 to-transparent',
     },
     {
       title: 'Scan barcode dan pilih produk lebih cepat',
       description:
         'Produk bisa dicatat lebih praktis lewat alur scan barcode atau input cepat, sehingga proses transaksi tidak perlu selalu dilakukan secara manual.',
-      badge: '02',
+      badge: '03',
       image: transaksiImg,
       imageAlt: 'Tampilan halaman transaksi TUMBUH',
-      imageClassName: 'absolute inset-0 w-full h-full object-cover object-top',
+      imageClassName: 'h-full w-full object-cover object-top',
+      mediaGlowClassName: 'from-cyan-400/28 via-blue-400/16 to-transparent',
+      flowClassName: 'from-cyan-300/85 to-transparent',
     },
     {
       title: 'Upload nota untuk bantu pencatatan stok',
       description:
         'Nota belanja bisa diunggah ke asisten agar sistem membantu membaca isi dokumen dan menyiapkan draft data yang tetap bisa dikonfirmasi pengguna.',
-      badge: '03',
+      badge: '04',
       image: daftarProdukImg,
       imageAlt: 'Tampilan daftar produk TUMBUH',
-      imageClassName: 'right-[-5%] top-[-8%] w-[420px]',
+      imageClassName: 'h-full w-full object-cover object-top',
+      mediaGlowClassName: 'from-blue-500/26 via-cyan-400/14 to-transparent',
+      flowClassName: 'from-blue-300/80 to-transparent',
     },
     {
       title: 'Dashboard insight dan laporan PDF',
       description:
         'Pantau penjualan, stok, dan transaksi dari satu dashboard, lalu unduh laporan agar ringkasan usaha lebih mudah dibagikan atau dicek kembali.',
-      badge: '04',
+      badge: '05',
       image: dashboardPageImg,
       imageAlt: 'Tampilan dashboard TUMBUH',
-      imageClassName: 'right-[-8%] top-[-6%] w-[420px]',
+      imageClassName: 'h-full w-full object-cover object-top',
+      mediaGlowClassName: 'from-indigo-500/28 via-blue-400/18 to-transparent',
+      flowClassName: 'from-indigo-300/82 to-transparent',
     },
   ]
 
@@ -59,7 +79,7 @@ function FeaturesSection() {
             Semua fitur penting usaha Anda dirancang agar terasa praktis sejak hari pertama.
           </h2>
           <p className="mt-5 max-w-2xl text-[15px] leading-7 text-slate-300 sm:text-base">
-            TUMBUH tidak hanya membantu mencatat data, tetapi juga mempermudah alur kerja harian pelaku UMKM melalui chat, scan, upload nota, dan dashboard yang mudah dibaca.
+            TUMBUH tidak hanya membantu mencatat data, tetapi juga mempermudah alur kerja harian pelaku UMKM melalui chat, scan, upload nota, roadmap pertumbuhan, dan dashboard yang mudah dibaca.
           </p>
         </div>
 
