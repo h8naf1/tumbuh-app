@@ -118,7 +118,7 @@ function HomeSection() {
     <section
       ref={sectionRef}
       id="home"
-      className="relative flex min-h-screen short-screen-safe scroll-mt-28 items-center overflow-hidden bg-slate-950 px-5 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 lg:min-h-[100svh] lg:pb-20 lg:pt-36"
+      className="relative flex min-h-screen short-screen-safe scroll-mt-28 items-center overflow-hidden bg-slate-950 px-5 pb-16 pt-32 sm:px-6 sm:pb-20 sm:pt-36 lg:min-h-svh lg:pb-20 lg:pt-36"
     >
       <div className="absolute inset-0 z-0">
         {isMobileView ? (
@@ -136,14 +136,14 @@ function HomeSection() {
         )}
       </div>
 
-      <div className="relative z-10 mx-auto grid w-full max-w-[1120px] items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.86fr)] xl:gap-14">
+      <div className="relative z-10 mx-auto grid w-full max-w-280 items-center gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.86fr)] xl:gap-14">
         {/* Blok utama pesan hero dan CTA. */}
-        <div className="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-[610px] lg:text-left">
+        <div className="mx-auto max-w-xl text-center lg:mx-0 lg:max-w-152.5 lg:text-left">
           <div
             ref={eyebrowRef}
             className="inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-blue-200"
           >
-            <Sparkles className="h-3.5 w-3.5" />
+            
             Solusi usaha untuk UMKM
           </div>
 
@@ -204,7 +204,7 @@ function HomeSection() {
         {/* Preview produk dibuat lebih dekat dengan kemampuan TUMBUH saat ini. */}
         <div
           ref={previewRef}
-          className="relative mx-auto w-full max-w-[400px] lg:max-w-[480px]"
+          className="relative mx-auto w-full max-w-100 lg:max-w-120"
         >
           <div className="absolute -left-5 top-10 h-24 w-24 rounded-full bg-blue-500/20 blur-3xl" />
           <div className="absolute -right-5 bottom-10 h-32 w-32 rounded-full bg-cyan-400/15 blur-3xl" />
