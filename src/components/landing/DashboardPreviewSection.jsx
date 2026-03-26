@@ -1,3 +1,5 @@
+import { Download, Package, ReceiptText } from 'lucide-react'
+
 function DashboardPreviewSection() {
   const metrics = [
     {
@@ -5,18 +7,21 @@ function DashboardPreviewSection() {
       value: '128',
       detail: 'Tercatat lebih rapi',
       tone: 'from-sky-500 to-blue-600',
+      icon: ReceiptText,
     },
     {
       label: 'Produk aktif',
       value: '42',
       detail: 'Stok dan katalog terpantau',
       tone: 'from-cyan-400 to-sky-500',
+      icon: Package,
     },
     {
       label: 'Laporan siap unduh',
       value: 'PDF',
       detail: 'Mudah dibagikan dan dicek',
       tone: 'from-blue-500 to-indigo-600',
+      icon: Download,
     },
   ]
 
@@ -39,17 +44,23 @@ function DashboardPreviewSection() {
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-            {metrics.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-left shadow-[0_18px_40px_-30px_rgba(2,6,23,0.65)]"
-              >
-                <div className={`mb-4 h-11 w-11 rounded-2xl bg-gradient-to-br ${item.tone} shadow-lg`} />
-                <p className="text-sm text-slate-400">{item.label}</p>
-                <p className="mt-1 text-xl font-bold text-white">{item.value}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{item.detail}</p>
-              </div>
-            ))}
+            {metrics.map((item) => {
+              const Icon = item.icon
+
+              return (
+                <div
+                  key={item.label}
+                  className="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-left shadow-[0_18px_40px_-30px_rgba(2,6,23,0.65)]"
+                >
+                  <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br ${item.tone} text-white shadow-lg`}>
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <p className="text-sm text-slate-400">{item.label}</p>
+                  <p className="mt-1 text-xl font-bold text-white">{item.value}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{item.detail}</p>
+                </div>
+              )
+            })}
           </div>
         </div>
 
