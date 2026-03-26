@@ -1,16 +1,110 @@
-# React + Vite
+# TUMBUH
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**TUMBUH � Aplikasi Pengelolaan Usaha Berbasis AI untuk UMKM yang Mudah**
 
-Currently, two official plugins are available:
+## Deskripsi Singkat
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+TUMBUH adalah aplikasi web berbasis frontend yang dirancang untuk membantu pelaku UMKM mengelola usaha dengan cara yang sederhana, rapi, dan mudah dipahami. Aplikasi ini dikembangkan untuk kebutuhan **TECHSOFT 2026 Web Design Competition** dengan fokus pada pengalaman pengguna, alur demo yang realistis, dan antarmuka yang modern.
 
-## React Compiler
+Melalui fitur pencatatan penjualan, pengelolaan produk, dashboard visual, roadmap bisnis, serta simulasi asisten berbasis AI, TUMBUH membantu pengguna memahami kondisi usaha mereka tanpa perlu sistem yang kompleks.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tujuan Aplikasi
 
-## Expanding the ESLint configuration
+- Membantu UMKM mengelola aktivitas usaha dalam satu aplikasi.
+- Menyederhanakan proses pencatatan transaksi dan pengelolaan produk.
+- Membantu pengguna memahami kondisi usaha melalui data yang mudah dibaca.
+- Menghadirkan pengalaman penggunaan yang ramah bagi pengguna non-teknis.
+- Mensimulasikan pemanfaatan AI dalam operasional usaha.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Target Pengguna
+
+- Pemilik UMKM kecil.
+- Usaha rumahan.
+- Pelaku usaha makanan dan minuman.
+- Pengguna non-teknis yang membutuhkan sistem sederhana.
+
+## Studi Kasus
+
+Aplikasi ini menggunakan simulasi usaha:
+
+- **Nama Usaha:** Kopi Nusantara
+- **Jenis Usaha:** Cafe
+- **Produk Utama:** Latte, Cappuccino, Kopi Susu Gula Aren
+
+## Fitur Utama
+
+- Landing page dengan alur onboarding.
+- Dashboard penjualan dan insight usaha.
+- Manajemen produk dan stok.
+- Pencatatan transaksi.
+- Visualisasi grafik penjualan.
+- Asisten Chat berbasis simulasi AI.
+- Roadmap pengembangan bisnis.
+- Pengaturan profil usaha.
+- Pusat bantuan.
+- Dark mode dan light mode pada area aplikasi utama.
+
+## Teknologi yang Digunakan
+
+- React
+- Vite
+- Tailwind CSS
+- DaisyUI
+- React Router
+- React Hook Form
+- Zod
+- Lucide React
+- GSAP
+
+## Cara Menjalankan Project
+
+### 1. Clone repository
+
+```bash
+git clone https://github.com/h8naf1/tumbuh-app.git
+cd tumbuh-app
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Jalankan project
+
+```bash
+npm run dev
+```
+
+### 4. Build project
+
+```bash
+npm run build
+```
+
+### 5. Preview hasil build
+
+```bash
+npm run preview
+```
+
+## Deployment
+
+- **Vercel:** https://tumbuh-app-web.vercel.app
+
+## Catatan
+
+- Project ini merupakan **prototype frontend**.
+- Tidak menggunakan backend atau database nyata.
+- Data yang digunakan bersifat dummy/static untuk kebutuhan simulasi.
+- Alur aplikasi dirancang agar tetap terasa realistis untuk kebutuhan demo dan evaluasi.
+
+## Status Project
+
+Status saat ini:
+
+- Fitur utama telah selesai diimplementasikan.
+- UI/UX telah dipoles untuk kebutuhan presentasi.
+- Project berhasil dijalankan dan dibuild.
+- Siap untuk deployment dan submission kompetisi.
