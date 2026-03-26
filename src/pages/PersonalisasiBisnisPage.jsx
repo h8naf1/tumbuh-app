@@ -78,12 +78,12 @@ function PersonalisasiBisnisPage() {
     }
 
     console.log('Business personalization:', formValues)
-    navigate('/dashboard')
+    navigate('/tutorial')
   }
 
   return (
     <AuthLayout>
-      <div className="mt-4 w-full rounded-[1.75rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-5 sm:p-6 lg:max-w-2xl lg:px-7 lg:py-6">
+      <div className="mx-auto mt-4 w-full rounded-[1.75rem] border border-slate-800 bg-slate-900/88 p-5 shadow-2xl shadow-black/30 backdrop-blur sm:mt-5 sm:p-6 lg:max-w-2xl lg:px-7 lg:py-6">
         <div className="flex items-start gap-4">
           <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-blue-500/12 text-blue-400">
             <Store className="h-5 w-5" />
@@ -105,7 +105,7 @@ function PersonalisasiBisnisPage() {
         <div className="mt-5 rounded-2xl border border-slate-800 bg-slate-950/60 p-4">
           <p className="text-sm font-semibold text-white">Ringkasan cepat</p>
           <p className="mt-1 text-sm leading-6 text-slate-400">
-            Data ini masih frontend only dan bisa diisi otomatis untuk kebutuhan demo juri. Setelah submit, Anda akan langsung diarahkan ke dashboard.
+            Data ini masih frontend only dan bisa diisi otomatis untuk kebutuhan demo juri. Setelah submit, Anda akan lanjut ke tutorial singkat sebelum masuk ke dashboard.
           </p>
         </div>
 
@@ -208,7 +208,7 @@ function PersonalisasiBisnisPage() {
           </div>
 
           <Button type="submit" className="h-12 w-full text-base font-semibold">
-            Lanjut ke Dashboard
+            Lanjut ke Tutorial
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </form>
@@ -218,3 +218,6 @@ function PersonalisasiBisnisPage() {
 }
 
 export default PersonalisasiBisnisPage
+
+
+

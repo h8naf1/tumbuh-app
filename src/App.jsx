@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import PersonalisasiBisnisPage from './pages/PersonalisasiBisnisPage.jsx'
+import TutorialPage from './pages/TutorialPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import ProdukPage from './pages/ProdukPage.jsx'
 import PengaturanPage from './pages/PengaturanPage.jsx'
@@ -17,7 +18,6 @@ import NotFoundPage from './pages/NotFoundPage.jsx'
 function App() {
   return (
     <>
-      {/* Routing utama semua halaman aplikasi. */}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/dashboard" element={<DashboardPage />} />
@@ -26,15 +26,14 @@ function App() {
         <Route path="/asisten-chat" element={<AsistenChatPage />} />
         <Route path="/roadmap" element={<RoadmapPage />} />
         <Route path="/pusat-bantuan" element={<PusatBantuanPage />} />
-
         <Route path="/pengaturan" element={<PengaturanPage />} />
         <Route path="/pengaturan/:sectionId" element={<PengaturanDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/personalisasi-bisnis" element={<PersonalisasiBisnisPage />} />
+        <Route path="/tutorial" element={<TutorialPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
-      {/* Analytics global aplikasi. */}
       <Analytics />
     </>
   )
